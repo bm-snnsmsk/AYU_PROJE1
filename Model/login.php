@@ -4,11 +4,14 @@ if($process == 'login'){
     if(!$data['tckimlikno']){
        return ['success' => false, 'type' => 'warning', 'message' => 'Lütfen TC kimlik no giriniz !'] ;
     }
+    if(!Helper::isNumber($data['tckimlikno']) || strlen($data['tckimlikno'])!=11){
+      return ['success' => false, 'type' => 'warning', 'message' => 'Lütfen geçerli bir TC kimlik no giriniz !'] ;
+   }
     if(!$data['password']){
        return ['success' => false, 'type' => 'warning', 'message' => 'Lütfen parolanızı giriniz !'] ;
     }
-    $query = $DBConnect->getRow('SELECT * FROM patients WHERE patientTCNumber = ?', [$data['tckimlikno']]) ;
-    if($query){
+    $query = $DBConnect->getRow('SELECT * FROM patients WHERE patientTCNumber = ? AND patientPassword = ?', [$data['tckimlikno'], md5($data['password'])]) ;
+    if($query){                                                                                                                     
      // test($query);
      $_SESSION['patientID'] = $query['patientID '] ;
      $_SESSION['patientTCNumber'] = $query['patientTCNumber'] ;

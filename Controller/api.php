@@ -160,7 +160,7 @@ switch($process){
             }
     
             $patientPhoto = ($patientGender == 'K') ? 'kadin_avatar.png' : 'erkek_avatar.png' ;
-            $password = md5(uniqid(md5($password))) ;
+            $password = md5($password) ;
             $patientAge = date('Y') - explode('-', $birthday)[0] ;
             $patientIPNumber = $_SERVER['REMOTE_ADDR'] ;
             $signupDate = date('Y-m-d') ;
