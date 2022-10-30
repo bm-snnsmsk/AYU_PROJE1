@@ -1,7 +1,7 @@
 <?php
 require_once "../Config/init.php" ;
 $process = $_GET['process'] ;
-session_start() ;
+
 
 switch($process){
 
@@ -279,11 +279,287 @@ switch($process){
                 }
             }    
        
-    break ;       
+    break ;   
+    
+    // list hospital START
+    case 'getHospitals' :             
+        $ID = $_POST['cityID'] ;  
+        $myOption = '<option value="0">Hastane</option>'  ;  
+        $hospitals = $DBConnect->getRows('SELECT * FROM hospitals WHERE hospitalCityID = ? ORDER BY hospitalName',[$ID]) ;
+        foreach($hospitals as $key => $value){
+            $myOption .= '<option value="'.$value['hospitalID'].'">'.$value['hospitalName'].'</option>'  ; 
+        }
+        echo $myOption ;
+    break ; 
+    // list hospital END
 
-}
+    // list poliklinik START
+    case 'getPoliklinik' :             
+        $ID = $_POST['hospitalID'] ;  
+        $myOption = '<option value="0">Poliklinikler</option>'  ;  
+        $poliklinik = $DBConnect->getRows('SELECT * FROM poliklinik WHERE poliklinikHospitalID = ? ORDER BY poliklinikName ASC',[$ID]) ;
+        foreach($poliklinik as $key => $value){
+            $myOption .= '<option value="'.$value['poliklinikID'].'">'.$value['poliklinikName'].'</option>'  ; 
+        }
+        echo $myOption ;
+    break ; 
+    // list poliklinik END
+
+    // list getDoctors START
+    case 'getDoctors' :             
+        $ID = $_POST['poliklinikID'] ;  
+        $myOption = '<option value="0">Doktor Seç</option>'  ;  
+        $doctors = $DBConnect->getRows('SELECT * FROM doctors WHERE doctorPoliklinikID = ? ORDER BY doctorName, doctorSurname ASC',[$ID]) ;
+        foreach($doctors as $key => $value){
+            $doctorFullName = $value['doctorName'].' '.$value['doctorSurname'] ;
+            $myOption .= '<option value="'.$value['doctorID'].'">'.$doctorFullName.'</option>'  ; 
+        }
+        echo $myOption ;
+    break ; 
+    // list getDoctors END
+
+    // list getAvailableAppointments START
+    case 'getAvailableAppointments' :             
+        $ID = $_POST['doctorID'] ;  
+        
+        $result = ''  ;  
+        $seans = $DBConnect->getRow('SELECT * FROM seans WHERE seansDoctorID = ?',[$ID]) ;
+       
+        if($seans && $seans['seans0900'] == 'D'){
+            $result.='<div class="form-check m-2 d-none"><input class="form-check-input" type="radio"  name="seans" value="seans0900" id="seans1" disabled><label class="form-check-label" for="seans1">09.00</label></div>' ;
+        }else{
+            $result.='<div class="form-check m-2"><input class="form-check-input" type="radio"  name="seans" value="seans0900" id="seans1"><label class="form-check-label" for="seans1">09.00</label></div>' ;
+        }       
+                 
+        if($seans && $seans['seans0920'] == 'D'){
+            $result.='<div class="form-check m-2 d-none"><input class="form-check-input" type="radio" name="seans" value="seans0920" id="seans2" disabled><label class="form-check-label" for="seans2">09.20</label></div>' ;
+        }else{
+            $result.='<div class="form-check m-2"><input class="form-check-input" type="radio" name="seans" value="seans0920" id="seans2"><label class="form-check-label" for="seans2">09.20</label></div>' ;
+        }    
+
+        if($seans && $seans['seans0940'] == 'D'){
+            $result.='<div class="form-check m-2 d-none"><input class="form-check-input" type="radio" name="seans" value="seans0940" id="seans3" disabled><label class="form-check-label" for="seans3">09.40</label></div>' ;
+        }else{
+            $result.='<div class="form-check m-2"><input class="form-check-input" type="radio" name="seans" value="seans0940" id="seans3"><label class="form-check-label" for="seans3">09.40</label></div>' ;
+        }      
+
+        if($seans && $seans['seans1000'] == 'D'){
+            $result.='<div class="form-check m-2 d-none"><input class="form-check-input" type="radio" name="seans" value="seans1000" id="seans4" disabled><label class="form-check-label" for="seans4">10.00</label></div>' ;
+        }else{
+            $result.='<div class="form-check m-2"><input class="form-check-input" type="radio" name="seans" value="seans1000" id="seans4"><label class="form-check-label" for="seans4">10.00</label></div>' ;
+        }          
+        if($seans && $seans['seans1020'] == 'D'){
+            $result.='<div class="form-check m-2 d-none"><input class="form-check-input" type="radio" name="seans" value="seans1020" id="seans5" disabled><label class="form-check-label" for="seans5">10.20</label></div>' ;
+        }else{
+            $result.='<div class="form-check m-2"><input class="form-check-input" type="radio" name="seans" value="seans1020" id="seans5"><label class="form-check-label" for="seans5">10.20</label></div>' ;
+        }          
+        if($seans && $seans['seans1040'] == 'D'){
+            $result.='<div class="form-check m-2 d-none"><input class="form-check-input" type="radio" name="seans" value="seans1040" id="seans6" disabled><label class="form-check-label" for="seans6">10.40</label></div>' ;
+        }else{
+            $result.='<div class="form-check m-2"><input class="form-check-input" type="radio" name="seans" value="seans1040" id="seans6"><label class="form-check-label" for="seans6">10.40</label></div>' ;
+        }          
+        if($seans && $seans['seans1100'] == 'D'){
+            $result.='<div class="form-check m-2 d-none"><input class="form-check-input" type="radio" name="seans" value="seans1100" id="seans7" disabled><label class="form-check-label" for="seans7">11.00</label></div>' ;
+        }else{
+            $result.='<div class="form-check m-2"><input class="form-check-input" type="radio" name="seans" value="seans1100" id="seans7"><label class="form-check-label" for="seans7">11.00</label></div>' ;
+        }          
+        if($seans && $seans['seans1120'] == 'D'){
+            $result.='<div class="form-check m-2 d-none"><input class="form-check-input" type="radio" name="seans" value="seans1120" id="seans8" disabled><label class="form-check-label" for="seans8">11.20</label></div>' ;
+        }else{
+            $result.='<div class="form-check m-2"><input class="form-check-input" type="radio" name="seans" value="seans1120" id="seans8"><label class="form-check-label" for="seans8">11.20</label></div>' ;
+        }          
+        if($seans && $seans['seans1140'] == 'D'){
+            $result.='<div class="form-check m-2 d-none"><input class="form-check-input" type="radio" name="seans" value="seans1140" id="seans9" disabled><label class="form-check-label" for="seans9">11.40</label></div>' ;
+        }else{
+            $result.='<div class="form-check m-2"><input class="form-check-input" type="radio" name="seans" value="seans1140" id="seans9"><label class="form-check-label" for="seans9">11.40</label></div>' ;
+        }          
+        if($seans && $seans['seans1330'] == 'D'){
+            $result.='<div class="form-check m-2 d-none"><input class="form-check-input" type="radio" name="seans" value="seans1330" id="seans10" disabled><label class="form-check-label" for="seans10">13.30</label></div>' ;
+        }else{
+            $result.='<div class="form-check m-2"><input class="form-check-input" type="radio" name="seans" value="seans1330" id="seans10"><label class="form-check-label" for="seans10">13.30</label></div>' ;
+        }          
+        if($seans && $seans['seans1350'] == 'D'){
+            $result.='<div class="form-check m-2 d-none"><input class="form-check-input" type="radio" name="seans" value="seans1350" id="seans11" disabled><label class="form-check-label" for="seans11">13.50</label></div>' ;
+        }else{
+            $result.='<div class="form-check m-2"><input class="form-check-input" type="radio" name="seans" value="seans1350" id="seans11"><label class="form-check-label" for="seans11">13.50</label></div>' ;
+        }          
+        if($seans && $seans['seans1410'] == 'D'){
+            $result.='<div class="form-check m-2 d-none"><input class="form-check-input" type="radio" name="seans" value="seans1410" id="seans12" disabled><label class="form-check-label" for="seans12">14.10</label></div>' ;
+        }else{
+            $result.='<div class="form-check m-2"><input class="form-check-input" type="radio" name="seans" value="seans1410" id="seans12"><label class="form-check-label" for="seans12">14.10</label></div>' ;
+        }          
+        if($seans && $seans['seans1430'] == 'D'){
+            $result.='<div class="form-check m-2 d-none"><input class="form-check-input" type="radio" name="seans" value="seans1430" id="seans13" disabled><label class="form-check-label" for="seans13">14.30</label></div>' ;
+        }else{
+            $result.='<div class="form-check m-2"><input class="form-check-input" type="radio" name="seans" value="seans1430" id="seans13"><label class="form-check-label" for="seans13">14.30</label></div>' ;
+        }   
+
+        if($seans && $seans['seans1450'] == 'D'){
+            $result.='<div class="form-check m-2 d-none"><input class="form-check-input" type="radio" name="seans" value="seans1450" id="seans14" disabled><label class="form-check-label" for="seans14">14.50</label></div>' ;
+        }else{
+            $result.='<div class="form-check m-2"><input class="form-check-input" type="radio" name="seans" value="seans1450" id="seans14"><label class="form-check-label" for="seans14">14.50</label></div>' ;
+        }          
+        if($seans && $seans['seans1510'] == 'D'){
+            $result.='<div class="form-check m-2 d-none"><input class="form-check-input" type="radio" name="seans" value="seans1510" id="seans15" disabled><label class="form-check-label" for="seans15">15.10</label></div>' ;
+        }else{
+            $result.='<div class="form-check m-2"><input class="form-check-input" type="radio" name="seans" value="seans1510" id="seans15"><label class="form-check-label" for="seans15">15.10</label></div>' ;
+        }          
+        if($seans && $seans['seans1530'] == 'D'){
+            $result.='<div class="form-check m-2 d-none"><input class="form-check-input" type="radio" name="seans" value="seans1530" id="seans16" disabled><label class="form-check-label" for="seans16">15.30</label></div>' ;
+        }else{
+            $result.='<div class="form-check m-2"><input class="form-check-input" type="radio" name="seans" value="seans1530" id="seans16"><label class="form-check-label" for="seans16">15.30</label></div>' ;
+        }  
+
+        if($seans && $seans['seans1550'] == 'D'){
+            $result.='<div class="form-check m-2 d-none"><input class="form-check-input" type="radio" name="seans" value="seans1550" id="seans17" disabled><label class="form-check-label" for="seans17">15.50</label></div>' ;
+        }else{
+            $result.='<div class="form-check m-2"><input class="form-check-input" type="radio" name="seans" value="seans1550" id="seans17"><label class="form-check-label" for="seans17">15.50</label></div>' ;
+        }          
+        if($seans && $seans['seans1610'] == 'D'){
+            $result.='<div class="form-check m-2 d-none"><input class="form-check-input" type="radio" name="seans" value="seans1610" id="seans18" disabled><label class="form-check-label" for="seans18">16.10</label></div>' ;
+        }else{
+            $result.='<div class="form-check m-2"><input class="form-check-input" type="radio" name="seans" value="seans1610" id="seans18"><label class="form-check-label" for="seans18">16.10</label></div>' ;
+        }          
+        if($seans && $seans['seans1630'] == 'D'){
+            $result.='<div class="form-check m-2 d-none"><input class="form-check-input" type="radio" name="seans" value="seans1630" id="seans19" disabled><label class="form-check-label" for="seans19">16.30</label></div>' ;
+        }else{
+            $result.='<div class="form-check m-2"><input class="form-check-input" type="radio" name="seans" value="seans1630" id="seans19"><label class="form-check-label" for="seans19">16.30</label></div>' ;
+        }          
+        if($seans && $seans['seans1650'] == 'D'){
+            $result.='<div class="form-check m-2 d-none"><input class="form-check-input" type="radio" name="seans" value="seans1650" id="seans20" disabled><label class="form-check-label" for="seans20">16.50</label></div>' ;
+        }else{
+            $result.='<div class="form-check m-2"><input class="form-check-input" type="radio" name="seans" value="seans1650" id="seans20"><label class="form-check-label" for="seans20">16.50</label></div>' ;
+        }          
+        
+       
+        
+       
+        
+       
+       
+        
+        
+       
+       
+        
+       
+       
+       
+       
+        
+       
+       
+        
+        
+         /*   
+          $rr = "<pre>" ;
+          $rr.= print_r(var_dump($seans)) ;
+          $rr.="</pre>" ; */
+          
+    // }      
+        echo $result ;
+    break ; 
+    // list getAvailableAppointments END
+
+     
+    // add patient START
+    case 'randevual' :         
+        
+        $cityHospital = Security::post('cityHospital') ;
+        $hospitals = Security::post('hospitals') ;
+        $poliklinik = Security::post('poliklinik') ;
+        $doctors = Security::post('doctors') ;
+        $seans = Security::post('seans') ;
+
+        // cityHospital validation START
+        if(!$cityHospital){
+            $icon = "warning" ;
+            $title = 'Oops! Dikkat' ;
+            $text = "Lütfen bir şehir seçin" ;
+            echo json_encode(['icon' => $icon, 'title' => $title, 'text' => $text]) ;
+            die() ;
+        }       
+        // tc kimlik no validation END
+
+        // hospital validation START           
+        if(!$hospitals){
+            $icon = "warning" ;
+            $title = 'Oops! Dikkat' ;
+            $text = "Hastane seçiniz" ;
+            echo json_encode(['icon' => $icon, 'title' => $title, 'text' => $text]) ;
+            die() ;
+        }        
+        // hospital validation END
+
+         // poliklinik validation START           
+         if(!$poliklinik){
+            $icon = "warning" ;
+            $title = 'Oops! Dikkat' ;
+            $text = "Poliklinik seçiniz" ;
+            echo json_encode(['icon' => $icon, 'title' => $title, 'text' => $text]) ;
+            die() ;
+        }        
+        // poliklinik validation END
+
+         // doctor validation START           
+         if(!$doctors){
+            $icon = "warning" ;
+            $title = 'Oops! Dikkat' ;
+            $text = "Doktor seçiniz" ;
+            echo json_encode(['icon' => $icon, 'title' => $title, 'text' => $text]) ;
+            die() ;
+        }        
+        // doktor validation END
+
+         // seans validation START           
+         if(!$seans){
+            $icon = "warning" ;
+            $title = 'Oops! Dikkat' ;
+            $text = "Seans seçiniz" ;
+            echo json_encode(['icon' => $icon, 'title' => $title, 'text' => $text]) ;
+            die() ;
+        }        
+        // seans validation END
+        $seansArr = ['seans0900', 'seans0920','seans0940','seans1000', 'seans1020','seans1040','seans1100', 'seans1120','seans1140','seans1330', 'seans1350','seans1410','seans1430', 'seans1450','seans1510','seans1530', 'seans1550','seans1610','seans1630', 'seans1650'] ;
+
+        $s = "" ;
+        if(array_search($seans, $seansArr)){
+            $s = $seansArr[array_search($seans, $seansArr)] ;
+        }
+
+        $seansDate = date('Y-m-d') ;
+
+      $query0 = $DBConnect->addRow('INSERT INTO randevu (randevuPatientID, randevuHospital, randevuBolum, randevuDoctor,randevuDate,randevuHour,randevuAddTime) VALUES (?,?,?,?,?,?,?)',[$_SESSION['patientID'], $hospitals, $poliklinik, $doctors, $seansDate, $s, $seansDate]) ; 
+       $query1 = $DBConnect->updateRow('UPDATE seans SET seansPoliklinikID = ?, seansDoctorID = ?, seansDate = ? , '.$s.' = ?',[$poliklinik, $doctors, $seansDate, 'D']) ; 
+        if($query0 && $query1){
+            $icon = "success" ;
+            $title = 'Oops! Dikkat' ;
+            $text = "Randevunuz başarılı bir şekilde oluşturuldu." ;
+            echo json_encode(['icon' => $icon, 'title' => $title, 'text' => $text, 'redirect' => Helper::url('patients')]) ;
+            die() ;
+        }else{
+            $icon = "error" ;
+            $title = 'Oops! Dikkat' ;
+            $text = "Randevu alma sırasında beklenmeyen bir hata meydana geldi." ;
+            echo json_encode(['icon' => $icon, 'title' => $title, 'text' => $text]) ;
+            die() ;
+        }  
+        
+
+       
+    break ;    
+// add patient END
 
 
-
+}//swtich END
 
 ?>
+            
+
+
+
+            
+
+
+
+

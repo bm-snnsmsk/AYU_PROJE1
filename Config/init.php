@@ -2,6 +2,7 @@
 
 const BASEDIR = "C:\\xampp\htdocs\AYU_PROJE1" ;
 const URL = "http://localhost/AYU_PROJE1/" ;
+session_start();
 
 // TR saat düzenlenmesi
 if(date_default_timezone_get() != 'Europe/Istanbul'){

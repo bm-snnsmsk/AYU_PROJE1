@@ -1,14 +1,11 @@
 <?php
 
-if(!isset($_SESSION['patientlogin']) && isset($_SESSION['patientlogin']) == true){
-    Helper::redirect('home') ;
-} 
 
 if(Helper::route(0) == 'login' && !Helper::route(1)){
     if(isset($_POST['oturumac'])){          
         $tckimlikno = Security::post('tcnumber') ;
         $password = Security::post('password') ;
-        $_SESSION['tckimlikno'] = Security::post('tcnumber') ;
+        $_SESSION['tckimlikno'] = $tckimlikno ;
 
         $return = Helper::model('login',['tckimlikno' => $tckimlikno,'password' => $password], 'login') ;
        ///Helper::test($return) ;
