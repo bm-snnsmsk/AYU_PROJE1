@@ -18,7 +18,7 @@ class Database{
             $this->DBConnect->exec("SET NAMES '".$this->charset."' COLLATE '".$this->collationCharset."'") ;
             $this->DBConnect->exec("SET CHARACTER SET '".$this->charset."'") ;
             $this->DBConnect->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION) ;
-            $this->DBConnect->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_BOTH) ;
+            $this->DBConnect->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC) ;
         }catch(PDOException $e){
             die("Veritabanı erişim hatası ".$e->getMessage()) ;
         }

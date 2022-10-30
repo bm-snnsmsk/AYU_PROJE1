@@ -530,7 +530,7 @@ switch($process){
         $seansDate = date('Y-m-d') ;
 
       $query0 = $DBConnect->addRow('INSERT INTO randevu (randevuPatientID, randevuHospital, randevuBolum, randevuDoctor,randevuDate,randevuHour,randevuAddTime) VALUES (?,?,?,?,?,?,?)',[$_SESSION['patientID'], $hospitals, $poliklinik, $doctors, $seansDate, $s, $seansDate]) ; 
-       $query1 = $DBConnect->updateRow('UPDATE seans SET seansPoliklinikID = ?, seansDoctorID = ?, seansDate = ? , '.$s.' = ?',[$poliklinik, $doctors, $seansDate, 'D']) ; 
+       $query1 = $DBConnect->updateRow('UPDATE seans SET '.$s.' = ? WHERE seansDoctorID = ? AND seansPoliklinikID = ?',['D', $doctors, $poliklinik]) ; 
         if($query0 && $query1){
             $icon = "success" ;
             $title = 'Oops! Dikkat' ;
@@ -551,7 +551,64 @@ switch($process){
 // add patient END
 
 
+  // gethospitals START
+    case 'listHospital' :             
+        $ID = $_POST['cityID'] ;  
+        $result = '<option value="0">Hastaneler</option>'  ;  
+        $query = $DBConnect->getRows('SELECT * FROM hospitals WHERE hospitalCityID = ? ORDER BY hospitalName',[$ID]) ;
+      
+        foreach($query as $key => $value){
+            $result .= '<option value="'.$value['hospitalID'].'">'.$value['hospitalName'].'</option>'  ; 
+        }
+        echo $result ;
+    break ; 
+// gethospitals END
+
+  // addhospital START
+    case 'addHospital' :             
+        $ID = Security::post('cityHospital') ;  
+        $hospitalname = Security::post('hospitalname') ;
+
+        if(!$ID){
+            $icon = "warning" ;
+            $title = 'Oops! Dikkat' ;
+            $text = "Lütfen şehir seçiniz" ;
+            echo json_encode(['icon' => $icon, 'title' => $title, 'text' => $text]) ;
+            die() ;
+        }
+
+        if(!$hospitalname){
+            $icon = "warning" ;
+            $title = 'Oops! Dikkat' ;
+            $text = "Lütfen hastane ismini giriniz" ;
+            echo json_encode(['icon' => $icon, 'title' => $title, 'text' => $text]) ;
+            die() ;
+        }
+        
+        $query = $DBConnect->addRow('INSERT INTO hospitals (hospitalName, hospitalCityID) VALUES (?, ?) ',[$hospitalname, $ID]) ;
+      
+                
+        if($query){          
+            $icon = "success" ;
+            $title = 'Oops! Dikkat' ;
+            $text = "Hastane ekleme işlemi başarılı bir şekilde gerçekleştirildi." ;
+            echo json_encode(['icon' => $icon, 'title' => $title, 'text' => $text, 'redirect' => Helper::url('admin')]) ;
+            die() ;
+        }else{
+            $icon = "error" ;
+            $title = 'Oops! Dikkat' ;
+            $text = "Kayıt sırasında beklenmeyen bir hata meydana geldi." ;
+            echo json_encode(['icon' => $icon, 'title' => $title, 'text' => $text]) ;
+            die() ;
+        } 
+    break ; 
+// addhospital END
+
 }//swtich END
+
+
+
+
 
 ?>
             

@@ -76,8 +76,14 @@
                         <!-- Earnings (Monthly) Card Example -->
                         <div class="col-12 mb-4">
                             <div class="card border-left-primary shadow h-100 py-2">
+
+<?php 
+foreach($data['randevu'] as $key => $value){
+?>
+
+
                                 <div class="card-header">
-                                    <h3 class="card-title">Silopi Devlet Hastanesi</h3>
+                                    <h5 class="card-title"> <?= $value['randevuHospital'] ; ?></h5>
                                 </div>                                
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
@@ -85,28 +91,29 @@
                                     <!-- randevular START -->
                                         <div class="col-sm-3">
                                             <div class="card bg-info text-white shadow p-3">
-                                                08.11.2022 15.20
+                                            <?= $value['randevuDate'] ; ?> <?= $value['randevuHour'] ; ?>
                                             </div>
                                         </div>
 
                                         <div class="col-sm-3"> 
                                             <div class="card bg-info text-white shadow p-3">
-                                                Nöroloji
+                                               <?= $value['randevuBolum'] ; ?>
                                             </div>
                                         </div>
 
                                         <div class="col-sm-3"> 
                                             <div class="card bg-info text-white shadow p-3">
-                                                Uzm. Dr. Nuri Murat YAĞMURLU
+                                            <?= $value['randevuDoctor'] ; ?>
                                             </div>
                                         </div> 
 
                                         <div class="col-sm-3 d-flex justify-content-center justify-content-sm-end"> 
                                            <a class="btn btn-danger btn-lg" href="<?= Helper::url('randevuiptal') ; ?>"> Randevu İptal</a>  
-                                        </div>
+                                        </div>                                          
                                  <!-- randevular END -->
                                     </div>
                                 </div>
+                                <?php  } ?>   
                             </div>
                         </div>
 
