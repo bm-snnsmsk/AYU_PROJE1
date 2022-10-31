@@ -32,24 +32,24 @@
     <li class="nav-item">
         <a class="nav-link" href="<?= Helper::url('hospitals') ; ?>">
             <i class="fas fa-fw fa-chart-area"></i>
-            <span>Hastane Ekle</span></a>
+            <span>Hastaneler</span></a>
     </li>
     <li class="nav-item">
         <a class="nav-link" href="<?= Helper::url('polikliniks') ; ?>">
             <i class="fas fa-fw fa-chart-area"></i>
-            <span>Poliklinik Ekle</span></a>
+            <span>Poliklinikler</span></a>
     </li>
     <li class="nav-item">
         <a class="nav-link" href="<?= Helper::url('doctors') ; ?>">
             <i class="fas fa-fw fa-chart-area"></i>
-            <span>Doktor Ekle</span></a>
+            <span>Doktorlar</span></a>
     </li>
 
     <!-- Nav Item - Tables -->
     <li class="nav-item">
         <a class="nav-link" href="<?= Helper::url('admins') ; ?>">
             <i class="fas fa-fw fa-table"></i>
-            <span>Yetkili Kişi Ekle</span></a>
+            <span>Yetkili Kişiler</span></a>
     </li>
 
     <!-- Divider -->

@@ -78,6 +78,9 @@
                             <div class="card border-left-primary shadow h-100 py-2">
 
 <?php 
+if(count($data['randevu']) == 0){
+    echo "<h1>Randevunuz bulunmamaktadır.</h1>" ;
+}
 foreach($data['randevu'] as $key => $value){
 ?>
 

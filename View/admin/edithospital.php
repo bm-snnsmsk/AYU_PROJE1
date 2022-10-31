@@ -1,7 +1,8 @@
 <?php
 
  Helper::view('static/header') ; 
-//Helper::test($data) ; 
+
+ //Helper::test($data) ; 
  //Helper::test($_SESSION) ;
 ?>
     <!-- Page Wrapper -->
@@ -69,64 +70,12 @@
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
 
-                 <!-- DataTales Example -->
-                 <div class="card shadow mb-4">
-                        <div class="card-header py-3 d-flex justify-content-between align-items-center">
-                            <h4 class="m-0 font-weight-bold text-primary">Mevcut Hastaneler</h4>
-                            <a href="#addHospitalForm" class="btn btn-primary p-2">Yeni Hastane Ekle</a>
-                        </div>
-                        <div class="card-body">
-                            <div class="table-responsive">
-                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                                    <thead>
-                                        <tr>
-                                            <th>Şehir</th>
-                                            <th>Hastane Adı</th>
-                                            <th>İşlemler</th>
-                                        </tr>
-                                    </thead>
-                                    <tfoot>
-                                        <tr>
-                                            <th>Şehir</th>
-                                            <th>Hastane Adı</th>
-                                            <th>İşlemler</th>
-                                        </tr>
-                                    </tfoot>
-                                    <tbody>                                       
-                                     
-
-                                        <?php                                         
-                                            foreach($data['cities_hospitals'] as $key => $value){
-                                        ?>
-                                             <tr>
-                                                <td><?= $value['cityName'] ; ?></td>
-                                                <td><?= $value['hospitalName'] ; ?></td>
-                                                <td>  
-                                                    <div class="btn-group btn-group-sm">
-                                                        <a href="<?= Helper::url('hospitals/delete/'.$value['hospitalID'])?>" class="btn btn-danger btn-sm ml-1" >Sil</a>
-                                                        <a href="<?= Helper::url('hospitals/edit/'.$value['hospitalID'])?>" class="btn btn-warning btn-sm ml-1" >Güncelle</a>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                <?php 
-                                            } 
-                                        ?>
-
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-
-            
-                  
-                    <hr class="my-5">
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                    <h4 class="m-0 font-weight-bold text-primary">Yeni Hastane Ekle</h4>                   
+                    <h4 class="m-0 font-weight-bold text-primary">Hastane Düzenle</h4>                   
                     </div>
                    
 
-                    <form action="" method="POST" id="addHospitalForm">
+                    <form action="" method="POST" id="editHospitalForm">
                         <div class="form-group row">
                             <label class="col-md-4" for="cityHospital">Şehir Seç</label>
                             <select class="form-select form-control col-md-8" name="cityHospital" id="cityHospital" aria-label="Default select example">
@@ -134,7 +83,7 @@
                                 <?php                                         
                                     foreach($data['cities'] as $key => $value){
                                 ?>
-                                <option value="<?= $value['cityID'] ; ?>"><?= $value['cityName'] ; ?></option>
+                                <option value="<?= $value['cityID'] ; ?>" <?= $data['cities_hospitals']['cityID'] == $value['cityID'] ? 'selected' : NULL ; ?> ><?= $value['cityName'] ; ?></option>
                                 <?php 
                                     } 
                                 ?>
@@ -143,14 +92,14 @@
                            
                         <div class="form-group row">
                             <label for="hospitalname" class="form-label col-md-4">Hastane Adı</label>
-                            <input type="text" class="form-control col-md-8" id="hospitalname" name="hospitalname" aria-describedby="emailHelp">
+                            <input type="text" class="form-control col-md-8" id="hospitalname" name="hospitalname" aria-describedby="emailHelp" value="<?= $data['cities_hospitals']['hospitalName'] ; ?>">
                         </div>                 
 
                         <div class="form-group row ">
-                              <button name="addHospital" id="addHospitalBtn" class="btn btn-primary btn-user btn-block col-md-8 offset-4">Hastane Ekle<span class="myload"></span></button>
+                              <button name="editHospital" id="editHospitalBtn" class="btn btn-primary btn-user btn-block col-md-8 offset-4">Hastane Düzenle<span class="myload"></span></button>
                         </div> 
                     </form> 
-
+ <hr class="my-5">
                 </div>
                 <!-- /.container-fluid -->
                 
@@ -168,23 +117,25 @@
 
 <script>
 const SITE_URL = '<?= URL ; ?>' ;
-$(function(){ //jQuery START    
+$(function(){ //jQuery START
 
-    // addHospital START
-    let addHospital = document.querySelector('#addHospitalForm') ;
-    addHospital.addEventListener('submit', (e) => {
+    // editHospitalForm START
+    let editHospital = document.querySelector('#editHospitalForm') ;
+    editHospital.addEventListener('submit', (e) => {
         e.preventDefault() ;
         $(".myload").html('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>') ;
-        $('#addHospitalBtn').prop('disabled', true) ;
-        let myData = $('form#addHospitalForm').serialize() ; 
+        $('#editHospitalBtn').prop('disabled', true) ;
+        let cityID = $('#cityHospital').val() ; 
+        let hospitalname = $('#hospitalname').val() ; 
+        let editID = <?= $data['cities_hospitals']['hospitalID'] ?> ;
         $.ajax({
             type:'post',
-            url: SITE_URL + '/Controller/api.php?process=addHospital',
-            data:myData,
+            url: SITE_URL + '/Controller/api.php?process=editHospital',
+            data:{cityID:cityID, hospitalname:hospitalname, editID:editID},
             dataType :'json',
             success:function(resultData){          
                 $(".myload").html('') ;
-                $('#addHospitalBtn').prop('disabled', false) ; 
+                $('#editHospitalBtn').prop('disabled', false) ; 
                 
                 if(resultData.redirect){
                     window.location.href = resultData.redirect ;
@@ -195,15 +146,10 @@ $(function(){ //jQuery START
                         text : resultData.text
                     }) ;
                 }  
-
-         
-
-
-
             }
         }) ;
     }) ;
-    // addHospital END */
+    // editHospital END */
 
 
 

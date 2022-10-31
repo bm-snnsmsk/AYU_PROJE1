@@ -592,7 +592,7 @@ switch($process){
             $icon = "success" ;
             $title = 'Oops! Dikkat' ;
             $text = "Hastane ekleme işlemi başarılı bir şekilde gerçekleştirildi." ;
-            echo json_encode(['icon' => $icon, 'title' => $title, 'text' => $text, 'redirect' => Helper::url('admin')]) ;
+            echo json_encode(['icon' => $icon, 'title' => $title, 'text' => $text, 'redirect' => Helper::url('hospitals')]) ;
             die() ;
         }else{
             $icon = "error" ;
@@ -603,6 +603,48 @@ switch($process){
         } 
     break ; 
 // addhospital END
+
+
+  // editHospital START
+    case 'editHospital' :             
+        $cityID = Security::post('cityID') ;  
+        $hospitalname = Security::post('hospitalname') ;
+        $editID = Security::post('editID') ;
+
+        if(!$cityID){
+            $icon = "warning" ;
+            $title = 'Oops! Dikkat' ;
+            $text = "Lütfen şehir seçiniz" ;
+            echo json_encode(['icon' => $icon, 'title' => $title, 'text' => $text]) ;
+            die() ;
+        }
+
+        if(!$hospitalname){
+            $icon = "warning" ;
+            $title = 'Oops! Dikkat' ;
+            $text = "Lütfen hastane ismini giriniz" ;
+            echo json_encode(['icon' => $icon, 'title' => $title, 'text' => $text]) ;
+            die() ;
+        }
+        
+        $query = $DBConnect->updateRow('UPDATE hospitals SET hospitalName = ?, hospitalCityID = ? WHERE hospitalID = ?',[$hospitalname, $cityID, $editID]) ;
+      
+                
+        if($query){          
+            $icon = "success" ;
+            $title = 'Oops! Dikkat' ;
+            $text = "Hastane ekleme işlemi başarılı bir şekilde gerçekleştirildi." ;
+            echo json_encode(['icon' => $icon, 'title' => $title, 'text' => $text, 'redirect' => Helper::url('hospitals')]) ;
+            die() ;
+        }else{
+            $icon = "error" ;
+            $title = 'Oops! Dikkat' ;
+            $text = "Kayıt sırasında beklenmeyen bir hata meydana geldi." ;
+            echo json_encode(['icon' => $icon, 'title' => $title, 'text' => $text]) ;
+            die() ;
+        } 
+    break ; 
+// editHospital END
 
 }//swtich END
 
