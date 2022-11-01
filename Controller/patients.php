@@ -1,10 +1,10 @@
 <?php
 if(!$_SESSION['patientlogin'] || $_SESSION['patientlogin'] != true){
-    Helper::redirect('login') ;  // login yoksa eğer http://localhost/AYU_PROJE1/login  'e git
+    Router::redirect('login') ;  // login yoksa eğer http://localhost/AYU_PROJE1/login  'e git
 }
-if(Helper::route(0) == 'patients' && !Helper::route(1)){
-    $return = Helper::model('patient', [], 'patientList') ;
-    Helper::view('patients/home', $return['data']) ;
+if(Router::route(0) == 'patients' && !Router::route(1)){
+    $return = Router::model('patient', [], 'patientList') ;
+    Router::view('patients/home', $return['data']) ;
 }else{
     require BASEDIR.'/View/static/404.php' ;
 }

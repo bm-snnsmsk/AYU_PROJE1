@@ -34,21 +34,21 @@
                 <div class="modal-body">Oturumunuzu kapatmak için 'Çık' butonuna basınız</div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Menüye Geri Dön</button>
-                    <a class="btn btn-primary" href="<?php echo Helper::url('logout'); ?>">Çık</a>
+                    <a class="btn btn-primary" href="<?php echo Router::url('logout'); ?>">Çık</a>
                 </div>
             </div>
         </div>
     </div>
 
    
-    <script src="<?= Helper::assets('vendor/jquery/jquery.min.js') ; ?>"></script>
-    <script src="<?= Helper::assets('vendor/bootstrap/js/bootstrap.bundle.min.js') ; ?>"></script>
-    <script src="<?= Helper::assets('vendor/jquery-easing/jquery.easing.min.js') ; ?>"></script>
-    <script src="<?= Helper::assets('js/sb-admin-2.min.js') ; ?>"></script>
-    <script src="<?= Helper::assets('vendor/chart.js/Chart.min.js') ; ?>"></script>
-    <script src="<?= Helper::assets('js/demo/chart-area-demo.js') ; ?>"></script>
-    <script src="<?= Helper::assets('js/demo/chart-pie-demo.js') ; ?>"></script>
-    <script src="<?= Helper::assets('vendor/sweetalert2/sweetalert2.all.min.js') ; ?>"></script>
+    <script src="<?= Router::assets('vendor/jquery/jquery.min.js') ; ?>"></script>
+    <script src="<?= Router::assets('vendor/bootstrap/js/bootstrap.bundle.min.js') ; ?>"></script>
+    <script src="<?= Router::assets('vendor/jquery-easing/jquery.easing.min.js') ; ?>"></script>
+    <script src="<?= Router::assets('js/sb-admin-2.min.js') ; ?>"></script>
+    <script src="<?= Router::assets('vendor/chart.js/Chart.min.js') ; ?>"></script>
+    <script src="<?= Router::assets('js/demo/chart-area-demo.js') ; ?>"></script>
+    <script src="<?= Router::assets('js/demo/chart-pie-demo.js') ; ?>"></script>
+    <script src="<?= Router::assets('vendor/sweetalert2/sweetalert2.all.min.js') ; ?>"></script>
 </body>
 
 </html>

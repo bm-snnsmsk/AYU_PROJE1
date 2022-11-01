@@ -1,13 +1,13 @@
 <?php
 require_once "../Config/init.php" ;
-$process = $_GET['process'] ;
+$process = Security::get('process') ;
 
 
 switch($process){
 
     // list towns START
     case 'getTowns' :             
-        $ID = $_POST['cityID'] ;  
+        $ID = Security::post('cityID') ;  
         $myOption = '<option value="0">İlçe</option>'  ;  
         $towns = $DBConnect->getRows('SELECT * FROM towns WHERE cityID = ?',[$ID]) ;
         foreach($towns as $key => $value){
@@ -222,7 +222,7 @@ switch($process){
                 $icon = "success" ;
                 $title = 'Oops! Dikkat' ;
                 $text = "Kaydınız başarılı bir şekilde gerçekleştirildi." ;
-                echo json_encode(['icon' => $icon, 'title' => $title, 'text' => $text, 'redirect' => Helper::url('patients')]) ;
+                echo json_encode(['icon' => $icon, 'title' => $title, 'text' => $text, 'redirect' => Router::url('patients')]) ;
                 die() ;
             }else{
                 $icon = "error" ;
@@ -258,7 +258,7 @@ switch($process){
           
             $query = $DBConnect->getRow('SELECT * FROM patients WHERE patientTCNumber = ?', [$tcnumber]) ;
             if($query){
-                //Helper::test($query);
+                //Router::test($query);
                 $_SESSION['patienttckimlikno'] = $query['patientTCNumber'] ;
                 $_SESSION['patientname'] = $query['patientName'] ;
                 $_SESSION['patientsurname'] = $query['patientSurname'] ;
@@ -267,7 +267,7 @@ switch($process){
                 $icon = "success" ;
                 $title = 'Oops! Dikkat' ;
                 $text = "Lütfen tc kimlik no giriniz" ;
-                echo json_encode(['icon' => $icon, 'title' => $title, 'text' => $text, 'redirect' => Helper::url('patients')]) ;
+                echo json_encode(['icon' => $icon, 'title' => $title, 'text' => $text, 'redirect' => Router::url('patients')]) ;
                 die() ;
             }else{
                 if(!$data['tckimlikno']){
@@ -283,7 +283,7 @@ switch($process){
     
     // list hospital START
     case 'getHospitals' :             
-        $ID = $_POST['cityID'] ;  
+        $ID = Security::post('cityID') ;  
         $myOption = '<option value="0">Hastane</option>'  ;  
         $hospitals = $DBConnect->getRows('SELECT * FROM hospitals WHERE hospitalCityID = ? ORDER BY hospitalName',[$ID]) ;
         foreach($hospitals as $key => $value){
@@ -295,7 +295,7 @@ switch($process){
 
     // list poliklinik START
     case 'getPoliklinik' :             
-        $ID = $_POST['hospitalID'] ;  
+        $ID = Security::post('hospitalID') ;  
         $myOption = '<option value="0">Poliklinikler</option>'  ;  
         $poliklinik = $DBConnect->getRows('SELECT * FROM poliklinik WHERE poliklinikHospitalID = ? ORDER BY poliklinikName ASC',[$ID]) ;
         foreach($poliklinik as $key => $value){
@@ -307,7 +307,7 @@ switch($process){
 
     // list getDoctors START
     case 'getDoctors' :             
-        $ID = $_POST['poliklinikID'] ;  
+        $ID = Security::post('poliklinikID') ;  
         $myOption = '<option value="0">Doktor Seç</option>'  ;  
         $doctors = $DBConnect->getRows('SELECT * FROM doctors WHERE doctorPoliklinikID = ? ORDER BY doctorName, doctorSurname ASC',[$ID]) ;
         foreach($doctors as $key => $value){
@@ -320,7 +320,7 @@ switch($process){
 
     // list getAvailableAppointments START
     case 'getAvailableAppointments' :             
-        $ID = $_POST['doctorID'] ;  
+        $ID = Security::post('doctorID') ;  
         
         $result = ''  ;  
         $seans = $DBConnect->getRow('SELECT * FROM seans WHERE seansDoctorID = ?',[$ID]) ;
@@ -431,6 +431,7 @@ switch($process){
             $result.='<div class="form-check m-2"><input class="form-check-input" type="radio" name="seans" value="seans1650" id="seans20"><label class="form-check-label" for="seans20">16.50</label></div>' ;
         }          
         
+
        
         
        
@@ -535,7 +536,7 @@ switch($process){
             $icon = "success" ;
             $title = 'Oops! Dikkat' ;
             $text = "Randevunuz başarılı bir şekilde oluşturuldu." ;
-            echo json_encode(['icon' => $icon, 'title' => $title, 'text' => $text, 'redirect' => Helper::url('patients')]) ;
+            echo json_encode(['icon' => $icon, 'title' => $title, 'text' => $text, 'redirect' => Router::url('patients')]) ;
             die() ;
         }else{
             $icon = "error" ;
@@ -553,7 +554,7 @@ switch($process){
 
   // gethospitals START
     case 'listHospital' :             
-        $ID = $_POST['cityID'] ;  
+        $ID = Security::post('cityID') ;  
         $result = '<option value="0">Hastaneler</option>'  ;  
         $query = $DBConnect->getRows('SELECT * FROM hospitals WHERE hospitalCityID = ? ORDER BY hospitalName',[$ID]) ;
       
@@ -592,7 +593,7 @@ switch($process){
             $icon = "success" ;
             $title = 'Oops! Dikkat' ;
             $text = "Hastane ekleme işlemi başarılı bir şekilde gerçekleştirildi." ;
-            echo json_encode(['icon' => $icon, 'title' => $title, 'text' => $text, 'redirect' => Helper::url('hospitals')]) ;
+            echo json_encode(['icon' => $icon, 'title' => $title, 'text' => $text, 'redirect' => Router::url('hospitals')]) ;
             die() ;
         }else{
             $icon = "error" ;
@@ -634,7 +635,7 @@ switch($process){
             $icon = "success" ;
             $title = 'Oops! Dikkat' ;
             $text = "Hastane ekleme işlemi başarılı bir şekilde gerçekleştirildi." ;
-            echo json_encode(['icon' => $icon, 'title' => $title, 'text' => $text, 'redirect' => Helper::url('hospitals')]) ;
+            echo json_encode(['icon' => $icon, 'title' => $title, 'text' => $text, 'redirect' => Router::url('hospitals')]) ;
             die() ;
         }else{
             $icon = "error" ;

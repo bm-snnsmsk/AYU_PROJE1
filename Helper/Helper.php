@@ -3,9 +3,8 @@
 class Helper{
 
     public function __construct(){
-       error_reporting(0) ;
-    }
-   
+       //error_reporting(0) ;
+    }   
     public static function test($param = "TEST BAŞARILI"){
         if(!is_array($param)){
             echo('<div style="min-height:100px; padding:10px; margin:5px; background-color:#1d1d1d; color:greenyellow; font-size:22px; ">'.$param.'</div>');
@@ -18,42 +17,6 @@ class Helper{
         @$_SERVER['HTTP_REFERER'].'">Geri Dön</a></div>' ;
         die() ;
     }
-    public static function route($index){
-        global $route ;
-        if(isset($route['route'][$index])){
-            return $route['route'][$index] ;
-        }else{
-            return false ;
-        } 
-    }
-    public static function view($viewName, $pageData = []){
-        $data = $pageData ;
-        if(file_exists(BASEDIR.'/View/'.$viewName.'.php')){
-            require BASEDIR.'/View/'.$viewName.'.php' ;
-        }else{
-            return false ;
-        }
-    }
-    public static function model($modelName, $pageData = [], $data_process = null){
-        global $DBConnect ;
-        if($data_process != null){
-            $process = $data_process ;
-        }
-        $data = $pageData ;
-        if(file_exists(BASEDIR.'/Model/'.$modelName.'.php')){
-            $return = require BASEDIR.'/Model/'.$modelName.'.php' ;
-            return $return ;
-        }else{
-            return false ;
-        }
-    }
-    public static function assets($assetName){
-        if(file_exists(BASEDIR.'/Public/'.$assetName)){
-            return URL.'/Public/'.$assetName ;
-        }else{
-            return false ;
-        }
-    }
     public static function sefLink($text){ // SEO uyumlu link
         $text = trim($text) ;
         $tr = ["ç","Ç","ğ","Ğ","ı","I","i","İ","ö","Ö","ş","Ş","ü","Ü"] ;
@@ -64,27 +27,7 @@ class Helper{
         $text = preg_replace("/-+/", "-", $text) ;
         $text = trim($text, "-") ;
         return $text ;
-    }
-    public static function go($url, $time = 0){
-        if($time != 0){
-            header("Refresh:".$time.";url=".$url) ;
-        }else{
-            header("Location:".$url) ;
-        }
-    }
-    public static function comeBack($time = 0){
-        if($time != 0){
-            header("Refresh:".$time.";url=".$url) ;
-        }else{
-            header("Location:".$_SERVER["HTTP_REFERER"]) ;
-        }
-    }
-    public static function redirect($link){
-        header('Location:'.$link) ;
-    }
-    public static function url($url){
-        return URL.$url ;
-    }
+    }    
     public static function convertLetter($text, $case){        
         $lower = ['ç','ğ','ı','i','ö','ş','ü'] ;
         $upper = ['Ç','Ğ','I','İ','Ö','Ş','Ü'] ;

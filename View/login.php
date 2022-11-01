@@ -1,4 +1,4 @@
-<?php Helper::view('static/header') ; ?> 
+<?php Router::view('static/header') ; ?> 
 <body class="bg-gradient-primary">
 
     <div class="container">
@@ -28,7 +28,7 @@
                                 <button name="oturumac" class="btn btn-primary btn-user btn-block" id="oturumac">Giriş <span class="myload"></span></button>
                                 <hr>
                                 <div class="d-flex justify-content-between "><a href="signup">Kayıt Ol</a>
-                                <a href="<?= Helper::url('forgetpassword') ; ?>">Şifremi Unuttum</a></div>
+                                <a href="<?= Router::url('forgetpassword') ; ?>">Şifremi Unuttum</a></div>
                             </form>                                   
                         </div>                          
                     </div>               

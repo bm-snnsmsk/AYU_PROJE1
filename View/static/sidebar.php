@@ -30,14 +30,14 @@
 
     <!-- Nav Item - Charts -->
     <li class="nav-item">
-        <a class="nav-link" href="<?= Helper::url('randevual') ; ?>">
+        <a class="nav-link" href="<?= Router::url('randevual') ; ?>">
             <i class="fas fa-fw fa-chart-area"></i>
             <span>Randevu Al</span></a>
     </li>
 
     <!-- Nav Item - Tables -->
     <li class="nav-item">
-        <a class="nav-link" href="<?= Helper::url('enyakinhastane') ; ?>">
+        <a class="nav-link" href="<?= Router::url('enyakinhastane') ; ?>">
             <i class="fas fa-fw fa-table"></i>
             <span>En Yakın Hastane</span></a>
     </li>

@@ -1,10 +1,10 @@
 <?php 
 
-if(Helper::route(0) == 'signup' && !Helper::route(1)){
-    $return = Helper::model('signup', [], 'getCities') ;
-    Helper::view('patients/signup', $return['data']) ;
+if(Router::route(0) == 'signup' && !Router::route(1)){
+    $return = Router::model('signup', [], 'getCities') ;
+    Router::view('patients/signup', $return['data']) ;
 }else{
-    Helper::view('static/404') ;
+    Router::view('static/404') ;
 }
 
 

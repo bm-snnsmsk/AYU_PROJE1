@@ -21,7 +21,7 @@
       }else{
         return ['success' => true, 'type' => 'success'] ;
       }  
-  }else if($process == 'deletehospital'){
+  }else if($process == 'deletehospital'){ // düzenleme yapılacak  (hastane içindeki poliklinik-doktor-randevular da eşzamanlı silinmeli)
       $deleteID = $data['deleteID'] ;
       $adminID = $_SESSION['adminID'] ;
       $adminTCNumber = $_SESSION['adminTCNumber'] ; 

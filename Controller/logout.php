@@ -1,4 +1,4 @@
 <?php
 session_destroy() ;
-Helper::redirect('login') ;
+Router::redirect('login') ;
 ?>

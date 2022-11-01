@@ -24,8 +24,8 @@
                  <!-- DataTales Example -->
                  <div class="card shadow mb-4">
                         <div class="card-header py-3 d-flex justify-content-between align-items-center">
-                            <h4 class="m-0 font-weight-bold text-primary">Mevcut Hastaneler</h4>
-                            <a href="#addHospitalForm" class="btn btn-primary p-2">Yeni Hastane Ekle</a>
+                            <h4 class="m-0 font-weight-bold text-primary">Mevcut Poliklinikler</h4>
+                            <a href="#addPoliklinikForm" class="btn btn-primary p-2">Yeni Poliklinik Ekle</a>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
@@ -74,11 +74,11 @@
                   
                     <hr class="my-5">
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                    <h4 class="m-0 font-weight-bold text-primary">Yeni Hastane Ekle</h4>                   
+                    <h4 class="m-0 font-weight-bold text-primary">Yeni Poliklinik Ekle</h4>                   
                     </div>
                    
 
-                    <form action="" method="POST" id="addHospitalForm">
+                    <form action="" method="POST" id="addPoliklinikForm">
                         <div class="form-group row">
                             <label class="col-md-4" for="cityHospital">Şehir Seç</label>
                             <select class="form-select form-control col-md-8" name="cityHospital" id="cityHospital" aria-label="Default select example">
@@ -99,7 +99,7 @@
                         </div>                 
 
                         <div class="form-group row ">
-                              <button name="addHospital" id="addHospitalBtn" class="btn btn-primary btn-user btn-block col-md-8 offset-4">Hastane Ekle<span class="myload"></span></button>
+                              <button name="addPoliklinik" id="addPoliklinikBtn" class="btn btn-primary btn-user btn-block col-md-8 offset-4">Poliklinik Ekle<span class="myload"></span></button>
                         </div> 
                     </form> 
 

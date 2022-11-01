@@ -1,13 +1,13 @@
 <?php
 
- Helper::view('static/header') ; 
+ Router::view('static/header') ; 
 
  //Helper::test($data) ; 
  //Helper::test($_SESSION) ;
 ?>
     <!-- Page Wrapper -->
     <div id="wrapper">
-    <?php Helper::view('static/admin_sidebar') ;  ?>
+    <?php Router::view('static/admin_sidebar') ;  ?>
  
         <!-- Content Wrapper -->
         <div id="content-wrapper" class="d-flex flex-column">
@@ -16,55 +16,7 @@
             <div id="content">
 
                 <!-- Topbar -->
-                <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
-
-                    <!-- Sidebar Toggle (Topbar) -->
-                    <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
-                        <i class="fa fa-bars"></i>
-                    </button>
-
-                   
-
-                    <?php 
-                      $profil = $_SESSION['adminPhoto'] ?? NULL ; 
-                      $name = $_SESSION['adminName'] ?? '' ;
-                      $surname = $_SESSION['adminSurname'] ?? '' ;
-                    ?>
-                    <!-- Topbar Navbar -->
-                    <ul class="navbar-nav ml-auto">
-                        <div class="topbar-divider d-none d-sm-block"></div>
-
-                        <!-- Nav Item - User Information -->
-                        <li class="nav-item dropdown no-arrow">
-                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small"><?= Helper::convertLetter(($name.' '.$surname),'upper') ; ?></span>
-                                <img class="img-profile rounded-circle"
-                                    src="<?= Helper::assets('img/profile/'.$profil)  ?>">
-                            </a>
-                            <!-- Dropdown - User Information -->
-                            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
-                                aria-labelledby="userDropdown">
-                                <a class="dropdown-item" href="<?= Helper::url('profile') ; ?>">
-                                    <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Profil
-                                </a>
-                                <a class="dropdown-item" href="<?= Helper::url('settings') ; ?>">
-                                    <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Ayarlar
-                                </a>
-                              
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
-                                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Güvenli Çıkış
-                                </a>
-                            </div>
-                        </li>
-
-                    </ul>
-
-                </nav>
+                <?php Router::view('static/navbar') ; ?> 
                 <!-- End of Topbar -->
 
                 <!-- Begin Page Content -->
@@ -108,11 +60,11 @@
 
     <?php    
 
-  Helper::view('static/footer') ;   
+  Router::view('static/footer') ;   
 ?>
-<script src="<?= Helper::assets('vendor/datatables/jquery.dataTables.min.js') ; ?>"></script>
-<script src="<?= Helper::assets('vendor/datatables/dataTables.bootstrap4.min.js') ; ?>"></script>
-<script src="<?= Helper::assets('js/demo/datatables-demo.js') ; ?>"></script>
+<script src="<?= Router::assets('vendor/datatables/jquery.dataTables.min.js') ; ?>"></script>
+<script src="<?= Router::assets('vendor/datatables/dataTables.bootstrap4.min.js') ; ?>"></script>
+<script src="<?= Router::assets('js/demo/datatables-demo.js') ; ?>"></script>
 
 
 <script>

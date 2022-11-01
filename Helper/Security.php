@@ -31,7 +31,7 @@ class Security{
     }
     public static function get($name){
         if(isset($_GET[$name])){
-         return $this->filter($_GET[$name]) ;
+         return self::filter($_GET[$name]) ;
         }else{
          return false ;
         }

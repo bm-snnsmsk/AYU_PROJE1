@@ -30,24 +30,24 @@
 
     <!-- Nav Item - Charts -->
     <li class="nav-item">
-        <a class="nav-link" href="<?= Helper::url('hospitals') ; ?>">
+        <a class="nav-link" href="<?= Router::url('hospitals') ; ?>">
             <i class="fas fa-fw fa-chart-area"></i>
             <span>Hastaneler</span></a>
     </li>
     <li class="nav-item">
-        <a class="nav-link" href="<?= Helper::url('polikliniks') ; ?>">
+        <a class="nav-link" href="<?= Router::url('polikliniks') ; ?>">
             <i class="fas fa-fw fa-chart-area"></i>
             <span>Poliklinikler</span></a>
     </li>
     <li class="nav-item">
-        <a class="nav-link" href="<?= Helper::url('doctors') ; ?>">
+        <a class="nav-link" href="<?= Router::url('doctors') ; ?>">
             <i class="fas fa-fw fa-chart-area"></i>
             <span>Doktorlar</span></a>
     </li>
 
     <!-- Nav Item - Tables -->
     <li class="nav-item">
-        <a class="nav-link" href="<?= Helper::url('admins') ; ?>">
+        <a class="nav-link" href="<?= Router::url('admins') ; ?>">
             <i class="fas fa-fw fa-table"></i>
             <span>Yetkili Kişiler</span></a>
     </li>

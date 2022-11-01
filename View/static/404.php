@@ -405,7 +405,7 @@ body {
       <div class="error__title">404</div>
       <div class="error__subtitle">Hmmm...</div>
       <div class="error__description">Sanırım kayboldunuz...</div>
-      <a class="error__button error__button--active" href="<?= Helper::url('login') ; ?>">Anasayfa</a>
+      <a class="error__button error__button--active" href="<?= Router::url('login') ; ?>">Anasayfa</a>
     </div>
     
     <div class="astronaut">
