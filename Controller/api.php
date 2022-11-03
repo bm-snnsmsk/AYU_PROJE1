@@ -237,74 +237,6 @@ switch($process){
         break ;    
     // add patient END
 
-    case 'login' :
-        $tcnumber = Security::post('tcnumber') ;
-        $password = Security::post('password') ;
-
-            if(!$tcnumber){
-                $icon = "warning" ;
-                $title = 'Oops! Dikkat' ;
-                $text = "Lütfen tc kimlik no giriniz" ;
-                echo json_encode(['icon' => $icon, 'title' => $title, 'text' => $text]) ;
-                die() ;
-            }
-            if(!$password){
-                $icon = "warning" ;
-                $title = 'Oops! Dikkat' ;
-                $text = "Lütfen şifrenizi giriniz" ;
-                echo json_encode(['icon' => $icon, 'title' => $title, 'text' => $text]) ;
-                die() ;
-            }
-          
-            $query = $DBConnect->getRow('SELECT * FROM patients WHERE patientTCNumber = ?', [$tcnumber]) ;
-            if($query){
-                //Router::test($query);
-                $_SESSION['patienttckimlikno'] = $query['patientTCNumber'] ;
-                $_SESSION['patientname'] = $query['patientName'] ;
-                $_SESSION['patientsurname'] = $query['patientSurname'] ;
-                $_SESSION['patientlogin'] = true ;
-
-                $icon = "success" ;
-                $title = 'Oops! Dikkat' ;
-                $text = "Lütfen tc kimlik no giriniz" ;
-                echo json_encode(['icon' => $icon, 'title' => $title, 'text' => $text, 'redirect' => Router::url('patients')]) ;
-                die() ;
-            }else{
-                if(!$data['tckimlikno']){
-                    $icon = "error" ;
-                    $title = 'Oops! Dikkat' ;
-                    $text = "Giriş esnasında bir hata meydana geldi" ;
-                    echo json_encode(['icon' => $icon, 'title' => $title, 'text' => $text]) ;
-                    die() ;
-                }
-            }    
-       
-    break ;   
-    
-    // list hospital START
-    case 'getHospitals' :             
-        $ID = Security::post('cityID') ;  
-        $myOption = '<option value="0">Hastane</option>'  ;  
-        $hospitals = $DBConnect->getRows('SELECT * FROM hospitals WHERE hospitalCityID = ? ORDER BY hospitalName',[$ID]) ;
-        foreach($hospitals as $key => $value){
-            $myOption .= '<option value="'.$value['hospitalID'].'">'.$value['hospitalName'].'</option>'  ; 
-        }
-        echo $myOption ;
-    break ; 
-    // list hospital END
-
-    // list poliklinik START
-    case 'getPoliklinik' :             
-        $ID = Security::post('hospitalID') ;  
-        $myOption = '<option value="0">Poliklinikler</option>'  ;  
-        $poliklinik = $DBConnect->getRows('SELECT * FROM poliklinik WHERE poliklinikHospitalID = ? ORDER BY poliklinikName ASC',[$ID]) ;
-        foreach($poliklinik as $key => $value){
-            $myOption .= '<option value="'.$value['poliklinikID'].'">'.$value['poliklinikName'].'</option>'  ; 
-        }
-        echo $myOption ;
-    break ; 
-    // list poliklinik END
-
     // list getDoctors START
     case 'getDoctors' :             
         $ID = Security::post('poliklinikID') ;  
@@ -429,29 +361,7 @@ switch($process){
             $result.='<div class="form-check m-2 d-none"><input class="form-check-input" type="radio" name="seans" value="seans1650" id="seans20" disabled><label class="form-check-label" for="seans20">16.50</label></div>' ;
         }else{
             $result.='<div class="form-check m-2"><input class="form-check-input" type="radio" name="seans" value="seans1650" id="seans20"><label class="form-check-label" for="seans20">16.50</label></div>' ;
-        }          
-        
-
-       
-        
-       
-        
-       
-       
-        
-        
-       
-       
-        
-       
-       
-       
-       
-        
-       
-       
-        
-        
+        }     
          /*   
           $rr = "<pre>" ;
           $rr.= print_r(var_dump($seans)) ;
@@ -460,10 +370,10 @@ switch($process){
     // }      
         echo $result ;
     break ; 
-    // list getAvailableAppointments END
+// list getAvailableAppointments END
 
      
-    // add patient START
+// add patient START
     case 'randevual' :         
         
         $cityHospital = Security::post('cityHospital') ;
@@ -551,101 +461,146 @@ switch($process){
     break ;    
 // add patient END
 
-
-  // gethospitals START
-    case 'listHospital' :             
-        $ID = Security::post('cityID') ;  
-        $result = '<option value="0">Hastaneler</option>'  ;  
-        $query = $DBConnect->getRows('SELECT * FROM hospitals WHERE hospitalCityID = ? ORDER BY hospitalName',[$ID]) ;
-      
-        foreach($query as $key => $value){
-            $result .= '<option value="'.$value['hospitalID'].'">'.$value['hospitalName'].'</option>'  ; 
-        }
-        echo $result ;
-    break ; 
-// gethospitals END
-
-  // addhospital START
-    case 'addHospital' :             
-        $ID = Security::post('cityHospital') ;  
-        $hospitalname = Security::post('hospitalname') ;
-
-        if(!$ID){
-            $icon = "warning" ;
-            $title = 'Oops! Dikkat' ;
-            $text = "Lütfen şehir seçiniz" ;
-            echo json_encode(['icon' => $icon, 'title' => $title, 'text' => $text]) ;
-            die() ;
-        }
-
-        if(!$hospitalname){
-            $icon = "warning" ;
-            $title = 'Oops! Dikkat' ;
-            $text = "Lütfen hastane ismini giriniz" ;
-            echo json_encode(['icon' => $icon, 'title' => $title, 'text' => $text]) ;
-            die() ;
-        }
+// add polikilinik START
+    case 'addPoliklinik' :         
         
-        $query = $DBConnect->addRow('INSERT INTO hospitals (hospitalName, hospitalCityID) VALUES (?, ?) ',[$hospitalname, $ID]) ;
-      
-                
-        if($query){          
-            $icon = "success" ;
-            $title = 'Oops! Dikkat' ;
-            $text = "Hastane ekleme işlemi başarılı bir şekilde gerçekleştirildi." ;
-            echo json_encode(['icon' => $icon, 'title' => $title, 'text' => $text, 'redirect' => Router::url('hospitals')]) ;
-            die() ;
-        }else{
-            $icon = "error" ;
-            $title = 'Oops! Dikkat' ;
-            $text = "Kayıt sırasında beklenmeyen bir hata meydana geldi." ;
-            echo json_encode(['icon' => $icon, 'title' => $title, 'text' => $text]) ;
+        $poliklinikname = Security::post('poliklinikname') ;
+
+        // poliklinikname  START
+        if(!$poliklinikname){
+            echo Validation::warningMessage("Lütfen poliklinik adı giriniz.") ;
             die() ;
         } 
-    break ; 
-// addhospital END
-
-
-  // editHospital START
-    case 'editHospital' :             
-        $cityID = Security::post('cityID') ;  
-        $hospitalname = Security::post('hospitalname') ;
-        $editID = Security::post('editID') ;
-
-        if(!$cityID){
-            $icon = "warning" ;
-            $title = 'Oops! Dikkat' ;
-            $text = "Lütfen şehir seçiniz" ;
-            echo json_encode(['icon' => $icon, 'title' => $title, 'text' => $text]) ;
-            die() ;
-        }
-
-        if(!$hospitalname){
-            $icon = "warning" ;
-            $title = 'Oops! Dikkat' ;
-            $text = "Lütfen hastane ismini giriniz" ;
-            echo json_encode(['icon' => $icon, 'title' => $title, 'text' => $text]) ;
-            die() ;
-        }
-        
-        $query = $DBConnect->updateRow('UPDATE hospitals SET hospitalName = ?, hospitalCityID = ? WHERE hospitalID = ?',[$hospitalname, $cityID, $editID]) ;
+        // poliklinikname  END
       
-                
-        if($query){          
-            $icon = "success" ;
-            $title = 'Oops! Dikkat' ;
-            $text = "Hastane ekleme işlemi başarılı bir şekilde gerçekleştirildi." ;
-            echo json_encode(['icon' => $icon, 'title' => $title, 'text' => $text, 'redirect' => Router::url('hospitals')]) ;
+        $query = $DBConnect->addRow('INSERT INTO poliklinik (poliklinikName) VALUES (?)',[$poliklinikname]) ;
+       
+        if($query){
+            echo Validation::warningMessage("Poliklinik adı başarılı bir şekilde eklendi.","success",'','polikliniks') ;
             die() ;
         }else{
-            $icon = "error" ;
-            $title = 'Oops! Dikkat' ;
-            $text = "Kayıt sırasında beklenmeyen bir hata meydana geldi." ;
-            echo json_encode(['icon' => $icon, 'title' => $title, 'text' => $text]) ;
+            echo Validation::warningMessage("Poliklinik ekleme sırasında beklenmeyen bir hata meydana geldi.", "error") ;
             die() ;
-        } 
-    break ; 
-// editHospital END
+        }  
+        
+
+       
+    break ;    
+// add polikilinik END
+
+
+  // editpoliklinik START
+  case 'editPoliklinik' : 
+    $poliklinikname = Security::post('poliklinikname') ;
+    $editID = Security::post('editID') ;
+
+    if(!$poliklinikname){
+        echo Validation::warningMessage("Lütfen poliklinik adı giriniz.") ;
+        die() ;
+    }
+    
+    $query = $DBConnect->updateRow('UPDATE poliklinik SET poliklinikname = ? WHERE poliklinikID = ?',[$poliklinikname, $editID]) ;
+  
+            
+    if($query){ 
+        echo Validation::warningMessage("Poliklinik adı başarılı bir şekilde düzenlendi.","success",'','polikliniks') ;
+        die() ;
+    }else{
+        echo Validation::warningMessage("Poliklinik düzenleme sırasında beklenmeyen bir hata meydana geldi.", "error") ;
+        die() ;
+    } 
+  break ; 
+// editpoliklinik END
+
+  // addDoctor START
+  case 'addDoctor' :
+    $poliklinikName = Security::post('poliklinikName') ;
+    $doctorName = Security::post('doctorName') ;
+    $doctorSurname = Security::post('doctorSurname') ;
+    $doctorTCNumber = Security::post('doctorTCNumber') ;
+    $doctorPhoneNumber = Security::post('doctorPhoneNumber') ;
+
+  
+    if(!$poliklinikName){
+        echo Validation::warningMessage("Lütfen poliklinik adı giriniz.") ;
+        die() ;
+    }
+
+    if(!$doctorName){
+        echo Validation::warningMessage("Lütfen doktor adı giriniz") ;
+        die() ;
+    }
+
+    if(!$doctorSurname){
+        echo Validation::warningMessage("Lütfen doktor soyadı giriniz") ;
+        die() ;
+    }
+    if(!$doctorTCNumber){
+        echo Validation::warningMessage("Lütfen doktor TC numarası giriniz") ;
+        die() ;
+    }
+    if(!Helper::isNumber($doctorTCNumber) || strlen($doctorTCNumber) != 11){
+        echo Validation::warningMessage("Lütfen geçerli bir doktor TC numarası giriniz") ;
+        die() ;
+    }
+    if(!$doctorPhoneNumber){
+        echo Validation::warningMessage("Lütfen telefon numarası giriniz") ;
+        die() ;
+    }
+    if(!Helper::isPhone($doctorPhoneNumber)['isMobilePhone']){
+        echo Validation::warningMessage("Lütfen geçerli bir telefon numarası giriniz") ;
+        die() ;
+    }
+    
+    $query = $DBConnect->addRow('INSERT INTO doctors (doctorName, doctorSurname, doctorTCNumber, doctorPhoneNumber, doctorCityID, doctorHospitalID, doctorPoliklinikID) VALUES (?, ?, ?, ?, ?, ?, ?) ',[$doctorName, $doctorSurname, $doctorTCNumber, $doctorPhoneNumber, 73, 1, $poliklinikName]) ;
+    $query2 = $DBConnect->getRow('SELECT * FROM doctors WHERE doctorTCNumber = ?',[$doctorTCNumber]) ;
+    $doctorID = $query2['doctorID'] ;
+    $seansDate = date('Y-m-d') ;        
+    if($query){          
+        $DBConnect->addRow('INSERT INTO seans (seansPoliklinikID, seansDoctorID, seansDate) VALUES (?, ?, ?)', [$poliklinikName, $doctorID, $seansDate]) ;
+        echo Validation::warningMessage("Doktor ekleme işlemi başarılı bir şekilde gerçekleştirildi.","success",'','doctors') ;
+        die() ;
+    }else{
+        echo Validation::warningMessage("Doktor ekleme sırasında beklenmeyen bir hata meydana geldi.","error") ;
+        die() ;
+    } 
+break ; 
+// addDoctor END
+  // editDoctor START
+  case 'editDoctor' : 
+    $poliklinikname = Security::post('poliklinikname') ;
+    $doctorName = Security::post('doctorName') ;
+    $doctorSurname = Security::post('doctorSurname') ;
+    $editID = Security::post('editID') ;
+
+    if(!$poliklinikname){
+        echo Validation::warningMessage("Lütfen poliklinik ismini giriniz.") ;
+        die() ;
+    }
+    if(!$doctorName){
+        echo Validation::warningMessage("Lütfen doktor adını giriniz") ;
+        die() ;
+    }
+    if(!$doctorSurname){
+        echo Validation::warningMessage("Lütfen doktor soyadını giriniz") ;
+        die() ;
+    }
+    
+    $query = $DBConnect->updateRow('UPDATE doctors SET doctorName = ?, doctorSurname = ?, doctorPoliklinikID = ? WHERE doctorID = ?',[$doctorName, $doctorSurname, $poliklinikname, $editID]) ;
+  
+            
+    if($query){
+        echo Validation::warningMessage("Doktor adı başarılı bir şekilde düzenlendi.","success",'','doctors') ;
+        die() ;
+    }else{
+        echo Validation::warningMessage("LDoktor düzenleme sırasında beklenmeyen bir hata meydana geldi.") ;
+        die() ;
+    } 
+  break ; 
+// editDoctor END
+
+
+
 
 }//swtich END
 
@@ -654,12 +609,4 @@ switch($process){
 
 
 ?>
-            
-
-
-
-            
-
-
-
-
+    

@@ -29,12 +29,7 @@
 
 
     <!-- Nav Item - Charts -->
-    <li class="nav-item">
-        <a class="nav-link" href="<?= Router::url('hospitals') ; ?>">
-            <i class="fas fa-fw fa-chart-area"></i>
-            <span>Hastaneler</span></a>
-    </li>
-    <li class="nav-item">
+     <li class="nav-item">
         <a class="nav-link" href="<?= Router::url('polikliniks') ; ?>">
             <i class="fas fa-fw fa-chart-area"></i>
             <span>Poliklinikler</span></a>

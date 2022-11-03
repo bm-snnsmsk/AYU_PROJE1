@@ -31,30 +31,17 @@
                             
                              
                                 <div class="form-group row">
-                                    <label class="col-md-4" for="cityHospital">Şehir Seç</label>
-                                    <select class="form-select form-control col-md-8" name="cityHospital" id="cityHospital" aria-label="Default select example">
-                                            <option value="0" selected>İl</option>
-                                        <?php                                         
-                                            foreach($data['cities'] as $key => $value){
-                                        ?>
-                                           <option value="<?= $value['cityID'] ; ?>"><?= $value['cityName'] ; ?></option>
-                                        <?php 
-                                            } 
-                                        ?>
-                                    </select>
-                                </div> 
-                             
-                                <div class="form-group row">
-                                    <label class="col-md-4" for="hospitals">Hastane Seç</label>
-                                    <select class="form-select form-control col-md-8" name="hospitals" id="hospitals" aria-label="Default select example">
-                                        <option value="0" selected>Hastane</option>                                       
-                                    </select>                                   
+                                    <label class="col-md-4" for="hospitalname">Hastane Seç</label>
+                                   <input type="text" class="form-select form-control col-md-8" name="hospitalname" id="hospitalname" disabled value="Silopi Devlet Hastanesi">                               
                                 </div> 
 
                                 <div class="form-group row">
                                     <label class="col-md-4" for="poliklinik">Poliklinik Seç</label>
                                     <select class="form-select form-control col-md-8" name="poliklinik" id="poliklinik" aria-label="Default select example">
                                         <option value="0" selected>Poliklinikler</option>
+                                        <?php foreach($data as $key => $value){ ?>
+                                            <option value="<?= $value['poliklinikID'] ?>"><?= $value['poliklinikName'] ?></option>
+                                        <?php } ?> 
                                     </select>                                   
                                 </div> 
 
@@ -96,37 +83,6 @@
     <script>
 const SITE_URL = '<?= URL ; ?>' ;
 $(function(){ //jQuery START
-
-    // hospital START
-    $('#cityHospital').change(function(){         
-     let cityID = $(this).val() ;
-     $.ajax({
-         type:'post',
-         url: SITE_URL + '/Controller/api.php?process=getHospitals',
-         data:{'cityID':cityID},
-         dataType :'text',
-         success:function(resultData){    
-           // alert(resultData);   
-                $("#hospitals").html(resultData) ;
-            }
-         });       
-    }) ;
-    // hospital END
-
-    // poliklinik START
-    $('#hospitals').change(function(){         
-     let hospitalID = $(this).val() ;
-     $.ajax({
-         type:'post',
-         url: SITE_URL + '/Controller/api.php?process=getPoliklinik',
-         data:{'hospitalID':hospitalID},
-         dataType :'text',
-         success:function(resultData){      
-                $("#poliklinik").html(resultData) ;
-            }
-         });       
-    }) ;
-    // poliklinik END
 
     // doctors START
     $('#poliklinik').change(function(){         

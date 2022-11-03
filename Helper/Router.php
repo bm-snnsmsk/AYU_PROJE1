@@ -46,6 +46,7 @@ class Router{
         }
     }
     public static function redirect($url, $time = 0){
+        $url = URL.$url ;
         if($time != 0){
             header("Refresh:".$time.";url=".$url) ;
         }else{

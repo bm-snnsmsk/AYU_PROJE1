@@ -6,7 +6,7 @@ if($process == 'getCities'){
     if($cities){
      return ['success' => true, 'type' => 'success', 'data' => $cities] ;
     }else{
-      return ['success' => true, 'type' => 'error', 'data' =>[] ] ;
+      return ['success' => false, 'type' => 'danger', 'data' =>[] ] ;
     }    
 }
 ?>

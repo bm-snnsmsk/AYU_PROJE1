@@ -117,8 +117,7 @@
     </div>
 </body>
 </html>
-<script src="<?= Router::assets('vendor/sweetalert2/sweetalert2.all.min.js') ; ?>"></script>  
-<script src="<?= Router::assets('vendor/jquery/jquery.min.js') ; ?>"></script>
+
 <script>
 const SITE_URL = '<?= URL ; ?>' ;
 $(function(){ //jQuery START

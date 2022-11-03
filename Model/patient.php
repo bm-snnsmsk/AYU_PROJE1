@@ -7,7 +7,7 @@ if($process == 'patientList'){
     if($query0){
      return ['success' => true, 'type' => 'success', 'data' => array_merge(['patient' => $query0], ['randevu' => $query1])] ;
     }else{
-      return ['success' => true, 'type' => 'success', 'data' =>[] ] ;
+      return ['success' => false, 'type' => 'danger', 'data' =>[] ] ;
     }    
 }
 ?>
