@@ -36,127 +36,94 @@ switch($process){
 
             // tc kimlik no validation START
             if(!$tcnumber){
-                $icon = "warning" ;
-                $title = 'Oops! Dikkat' ;
                 $text = "Lütfen TC Kimlik Numaranızı giriniz" ;
-                echo json_encode(['icon' => $icon, 'title' => $title, 'text' => $text]) ;
-                die() ;
+                echo Validation::warningMessage($text) ;
+                die() ;  
             }
             if(!Helper::isNumber($tcnumber) || strlen($tcnumber)!=11){
-                $icon = "warning" ;
-                $title ='Oops! Dikkat' ;
                 $text = "Lütfen Geçerli bir TC Kimlik Numarası giriniz" ;
-                echo json_encode(['icon' => $icon, 'title' => $title, 'text' => $text]) ;
-                die() ;
+                echo Validation::warningMessage($text) ;
+                die() ;  
             }
             // tc kimlik no validation END
 
             // isim validation START           
             if(!$name){
-                $icon = "warning" ;
-                $title = 'Oops! Dikkat' ;
                 $text = "Lütfen Adınızı giriniz" ;
-                echo json_encode(['icon' => $icon, 'title' => $title, 'text' => $text]) ;
-                die() ;
+                echo Validation::warningMessage($text) ;
+                die() ;  
             } 
             if(!Helper::isLetter($name) || strlen($name) < 3){
-                $icon = "warning" ;
-                $title = 'Oops! Dikkat' ;
                 $text = "Lütfen Geçerli bir isim giriniz" ;
-                echo json_encode(['icon' => $icon, 'title' => $title, 'text' => $text]) ;
-                die() ;
+                echo Validation::warningMessage($text) ;
+                die() ;  
             }
             // isim validation END
 
             // soyisim validation START           
             if(!$surname){
-                $icon = "warning" ;
-                $title = 'Oops! Dikkat' ;
                 $text = "Lütfen Soyadınızı giriniz" ;
-                echo json_encode(['icon' => $icon, 'title' => $title, 'text' => $text]) ;
-                die() ;
+                echo Validation::warningMessage($text) ;
+                die() ;  
             }
             if(!Helper::isLetter($surname) || strlen($surname) < 3){
-                $icon = "warning" ;
-                $title = 'Oops! Dikkat' ;
                 $text = "Lütfen Geçerli bir soyisim giriniz" ;
-                echo json_encode(['icon' => $icon, 'title' => $title, 'text' => $text]) ;
-                die() ;
+                echo Validation::warningMessage($text) ;
+                die() ;  
             }
             // soyisim validation END
             
             // password validation START 
             if(!$password){
-                $icon = "warning" ;
-                $title = 'Oops! Dikkat' ;
                 $text = "Lütfen şifrenizi giriniz" ;
-                echo json_encode(['icon' => $icon, 'title' => $title, 'text' => $text]) ;
-                die() ;
+                echo Validation::warningMessage($text) ;
+                die() ;  
             }
             if(!$passwordagain){
-                $icon = "warning" ;
-                $title = 'Oops! Dikkat' ;
                 $text = "Lütfen şifrenizi tekrar giriniz" ;
-                echo json_encode(['icon' => $icon, 'title' => $title, 'text' => $text]) ;
-                die() ;
+                echo Validation::warningMessage($text) ;
+                die() ;  
             }
             if(!($passwordagain == $password)){
-                $icon = "warning" ;
-                $title = 'Oops! Dikkat' ;
                 $text = "Şifreleriniz uyuşmuyor. Lütfen tekrar deneyiniz." ;
-                echo json_encode(['icon' => $icon, 'title' => $title, 'text' => $text]) ;
-                die() ;
+                echo Validation::warningMessage($text) ;
+                die() ;  
             }
             // password validation END
 
             if(!$patientGender){
-                $icon = "warning" ;
-                $title = 'Oops! Dikkat' ;
                 $text = "Lütfen cinsiyet giriniz" ;
-                echo json_encode(['icon' => $icon, 'title' => $title, 'text' => $text]) ;
-                die() ;
+                echo Validation::warningMessage($text) ;
+                die() ;  
             }
             if(!$cityName){
-                $icon = "warning" ;
-                $title = 'Oops! Dikkat' ;
                 $text = "Lütfen doğum yerinizi il olarak  giriniz" ;
-                echo json_encode(['icon' => $icon, 'title' => $title, 'text' => $text]) ;
-                die() ;
+                echo Validation::warningMessage($text) ;
+                die() ;  
             }
             if(!$townName){
-                $icon = "warning" ;
-                $title = 'Oops! Dikkat' ;
                 $text = "Lütfen doğum yerinizi ilçe olarak giriniz" ;
-                echo json_encode(['icon' => $icon, 'title' => $title, 'text' => $text]) ;
-                die() ;
+                echo Validation::warningMessage($text) ;
+                die() ;  
             }
             if(!$birthday){
-                $icon = "warning" ;
-                $title = 'Oops! Dikkat' ;
                 $text = "Lütfen doğum tarihinizi giriniz" ;
-                echo json_encode(['icon' => $icon, 'title' => $title, 'text' => $text]) ;
-                die() ;
+                echo Validation::warningMessage($text) ;
+                die() ;  
             }
             if(!$cityAddress){
-                $icon = "warning" ;
-                $title = 'Oops! Dikkat' ;
                 $text = "Lütfen adresinizi il olarak giriniz" ;
-                echo json_encode(['icon' => $icon, 'title' => $title, 'text' => $text]) ;
-                die() ;
+                echo Validation::warningMessage($text) ;
+                die() ;  
             }
             if(!$townAddress){
-                $icon = "warning" ;
-                $title = 'Oops! Dikkat' ;
                 $text = "Lütfen adresinizi ilçe olarak giriniz" ;
-                echo json_encode(['icon' => $icon, 'title' => $title, 'text' => $text]) ;
-                die() ;
+                echo Validation::warningMessage($text) ;
+                die() ;   
             }
             if(!$address){
-                $icon = "warning" ;
-                $title = 'Oops! Dikkat' ;
-                $text = "Lütfen adresinizi tam olarak giriniz" ;
-                echo json_encode(['icon' => $icon, 'title' => $title, 'text' => $text]) ;
-                die() ;
+                echo Validation::warningMessage("Lütfen adresinizi tam olarak giriniz") ;
+                die() ;   
             }
     
             $patientPhoto = ($patientGender == 'K') ? 'kadin_avatar.png' : 'erkek_avatar.png' ;
@@ -219,17 +186,11 @@ switch($process){
                 $_SESSION['patientStatus'] = 1 ;
                 $_SESSION['patientlogin'] = true ;  
                  // setsession END
-                $icon = "success" ;
-                $title = 'Oops! Dikkat' ;
-                $text = "Kaydınız başarılı bir şekilde gerçekleştirildi." ;
-                echo json_encode(['icon' => $icon, 'title' => $title, 'text' => $text, 'redirect' => Router::url('patients')]) ;
-                die() ;
+                 echo Validation::warningMessage("Kaydınız başarılı bir şekilde gerçekleştirildi.", 'success', '', 'patients') ;
+                 die() ;                 
             }else{
-                $icon = "error" ;
-                $title = 'Oops! Dikkat' ;
-                $text = "Kayıt sırasında beklenmeyen bir hata meydana geldi." ;
-                echo json_encode(['icon' => $icon, 'title' => $title, 'text' => $text]) ;
-                die() ;
+                echo Validation::warningMessage("Kayıt sırasında beklenmeyen bir hata meydana geldi.", 'error') ;
+                 die() ;   
             } 
             
 
@@ -376,83 +337,50 @@ switch($process){
 // add patient START
     case 'randevual' :         
         
-        $cityHospital = Security::post('cityHospital') ;
-        $hospitals = Security::post('hospitals') ;
+       
+       
         $poliklinik = Security::post('poliklinik') ;
         $doctors = Security::post('doctors') ;
         $seans = Security::post('seans') ;
 
-        // cityHospital validation START
-        if(!$cityHospital){
-            $icon = "warning" ;
-            $title = 'Oops! Dikkat' ;
-            $text = "Lütfen bir şehir seçin" ;
-            echo json_encode(['icon' => $icon, 'title' => $title, 'text' => $text]) ;
-            die() ;
-        }       
-        // tc kimlik no validation END
-
-        // hospital validation START           
-        if(!$hospitals){
-            $icon = "warning" ;
-            $title = 'Oops! Dikkat' ;
-            $text = "Hastane seçiniz" ;
-            echo json_encode(['icon' => $icon, 'title' => $title, 'text' => $text]) ;
-            die() ;
-        }        
-        // hospital validation END
-
          // poliklinik validation START           
          if(!$poliklinik){
-            $icon = "warning" ;
-            $title = 'Oops! Dikkat' ;
-            $text = "Poliklinik seçiniz" ;
-            echo json_encode(['icon' => $icon, 'title' => $title, 'text' => $text]) ;
+            echo Validation::warningMessage("Poliklinik seçiniz") ;
             die() ;
         }        
         // poliklinik validation END
 
          // doctor validation START           
          if(!$doctors){
-            $icon = "warning" ;
-            $title = 'Oops! Dikkat' ;
             $text = "Doktor seçiniz" ;
-            echo json_encode(['icon' => $icon, 'title' => $title, 'text' => $text]) ;
+            echo Validation::warningMessage($text) ;
             die() ;
         }        
         // doktor validation END
 
          // seans validation START           
          if(!$seans){
-            $icon = "warning" ;
-            $title = 'Oops! Dikkat' ;
             $text = "Seans seçiniz" ;
-            echo json_encode(['icon' => $icon, 'title' => $title, 'text' => $text]) ;
+            echo Validation::warningMessage($text) ;
             die() ;
         }        
         // seans validation END
         $seansArr = ['seans0900', 'seans0920','seans0940','seans1000', 'seans1020','seans1040','seans1100', 'seans1120','seans1140','seans1330', 'seans1350','seans1410','seans1430', 'seans1450','seans1510','seans1530', 'seans1550','seans1610','seans1630', 'seans1650'] ;
 
-        $s = "" ;
-        if(array_search($seans, $seansArr)){
-            $s = $seansArr[array_search($seans, $seansArr)] ;
-        }
-
+        $s = $seansArr[array_search($seans, $seansArr)] ;
+        
+        $time = substr($s, -4) ;
+      
         $seansDate = date('Y-m-d') ;
+        $randevuDay = Helper::weekday(date('w')) ;
 
-      $query0 = $DBConnect->addRow('INSERT INTO randevu (randevuPatientID, randevuHospital, randevuBolum, randevuDoctor,randevuDate,randevuHour,randevuAddTime) VALUES (?,?,?,?,?,?,?)',[$_SESSION['patientID'], $hospitals, $poliklinik, $doctors, $seansDate, $s, $seansDate]) ; 
+      $query0 = $DBConnect->addRow('INSERT INTO randevu (randevuPatientID, randevuBolum, randevuDay, randevuDoctorID,randevuDate, randevuHour,randevuAddTime) VALUES (?,?,?,?,?,?,?)',[$_SESSION['patientID'],$poliklinik,$randevuDay, $doctors, $seansDate, $time, $seansDate]) ; 
        $query1 = $DBConnect->updateRow('UPDATE seans SET '.$s.' = ? WHERE seansDoctorID = ? AND seansPoliklinikID = ?',['D', $doctors, $poliklinik]) ; 
         if($query0 && $query1){
-            $icon = "success" ;
-            $title = 'Oops! Dikkat' ;
-            $text = "Randevunuz başarılı bir şekilde oluşturuldu." ;
-            echo json_encode(['icon' => $icon, 'title' => $title, 'text' => $text, 'redirect' => Router::url('patients')]) ;
+            echo Validation::warningMessage("Randevunuz başarılı bir şekilde oluşturuldu." ,"success",'','patients') ;
             die() ;
         }else{
-            $icon = "error" ;
-            $title = 'Oops! Dikkat' ;
-            $text = "Randevu alma sırasında beklenmeyen bir hata meydana geldi." ;
-            echo json_encode(['icon' => $icon, 'title' => $title, 'text' => $text]) ;
+            echo Validation::warningMessage("Randevu alma sırasında beklenmeyen bir hata meydana geldi.", "error") ;
             die() ;
         }  
         

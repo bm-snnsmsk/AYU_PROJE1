@@ -3,7 +3,7 @@
   if($process == 'getdoctors'){    
       $query0 = $DBConnect->getRows('SELECT * FROM doctors AS d LEFT JOIN poliklinik AS p ON d.doctorPoliklinikID = p.poliklinikID ORDER BY p.poliklinikName, d.doctorName, d.doctorSurname ASC') ; 
       $query1 = $DBConnect->getRows('SELECT * FROM poliklinik ORDER BY poliklinikName ASC') ; 
-      if($query0 && $query1){
+      if($query1){
        return ['success' => true, 'type' => 'success', 'data' => array_merge(['doctors' => $query0], ['polikliniks' => $query1])] ;
       }else{
         return ['success' => false, 'type' => 'danger', 'data' =>[] ] ;

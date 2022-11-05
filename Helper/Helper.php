@@ -102,6 +102,25 @@ class Helper{
         $toPhone = preg_filter($regExp3, $replace, Security::security($text)) ;
         return ['isMobilePhone' => $isMobilePhone, 'isHomePhone' => $isHomePhone,'toPhone' => $toPhone, 'phoneLength' => strlen($toPhone)] ;
     }
+    public static function dateConvert($date){
+        $date = explode('-', $date) ;
+        $result = $date[2].'.'.$date[1].'.'.$date[0] ;
+        return $result ;
+    }
+    public static function weekday($date){
+        $days = ['pazartesi', "salı","çarşamba","perşembe","cuma","cumartesi","pazar"] ;
+        return $days[$date] ;
+    }
+    public static function setTime($time){
+        $seans_time = "" ;
+        for($i=0; $i<strlen($time); $i++){
+            if($i==2){
+                $seans_time .= ":" ; 
+            }
+            $seans_time.=$time[$i] ;
+        } 
+        return $seans_time ;
+    } 
 }
 
 ?>

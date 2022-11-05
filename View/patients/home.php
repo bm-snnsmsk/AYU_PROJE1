@@ -1,6 +1,7 @@
 <?php Router::view('static/header') ; ?> 
 <?php  //Helper::test($data) ; ?>
 <?php  //Helper::test($_SESSION) ; ?>
+
     <!-- Page Wrapper -->
     <div id="wrapper">
     <?php Router::view('static/sidebar') ; ?> 
@@ -30,15 +31,15 @@
                             <div class="card border-left-primary shadow h-100 py-2">
 
 <?php 
-if(count($data['randevu']) == 0){
-    echo "<h1>Randevunuz bulunmamaktadır.</h1>" ;
+if(count($data) == 0){
+    echo "<h1>Randevunuz bulunmamaktadır.</h1>" ; 
 }
-foreach($data['randevu'] as $key => $value){
+foreach($data as $key => $value){
 ?>
 
 
                                 <div class="card-header">
-                                    <h5 class="card-title"> <?= $value['randevuHospital'] ; ?></h5>
+                                    <h5 class="card-title"> <?= $value['randevuHospital'] ; ?></h5> 
                                 </div>                                
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
@@ -46,19 +47,19 @@ foreach($data['randevu'] as $key => $value){
                                     <!-- randevular START -->
                                         <div class="col-sm-3">
                                             <div class="card bg-info text-white shadow p-3">
-                                            <?= $value['randevuDate'] ; ?> <?= $value['randevuHour'] ; ?>
+                                            <?= Helper::dateConvert($value['randevuDate'])." - ".Helper::convertLetter($value['randevuDay'], 'upper') ;  ?> <?= Helper::setTime($value['randevuHour']) ; ?>
                                             </div>
                                         </div>
 
                                         <div class="col-sm-3"> 
                                             <div class="card bg-info text-white shadow p-3">
-                                               <?= $value['randevuBolum'] ; ?>
+                                               <?= $value['poliklinikName'] ; ?>
                                             </div>
                                         </div>
 
                                         <div class="col-sm-3"> 
                                             <div class="card bg-info text-white shadow p-3">
-                                            <?= $value['randevuDoctor'] ; ?>
+                                            <?= Helper::convertLetter($value['doctorName'], 'firstUpper')." ".Helper::convertLetter($value['doctorSurname'], 'upper') ; ?>
                                             </div>
                                         </div> 
 

@@ -51,7 +51,8 @@
                                     <tbody>                                       
                                      
 
-                                        <?php                                         
+                                        <?php   
+                                            if(isset($data['doctors'])){                             
                                             foreach($data['doctors'] as $key => $value){
                                         ?>
                                              <tr>
@@ -67,7 +68,8 @@
                                                 </td>
                                             </tr>
                 <?php 
-                                            } 
+                                            }
+                                         }
                                         ?>
 
                                     </tbody>
