@@ -20,7 +20,7 @@
        
     <!-- Custom styles for this template-->
     <link href="<?= Router::assets('css/sb-admin-2.min.css') ; ?>" rel="stylesheet">
-    <link href="<?= Router::assets('css/mystyle.css') ; ?>" rel="stylesheet">   
+    <link href="<?= Router::assets('css/stilim.css') ; ?>" rel="stylesheet">   
 
 </head>
 

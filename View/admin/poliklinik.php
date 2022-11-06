@@ -73,7 +73,7 @@
                     <hr class="my-5">
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
                     <h4 class="m-0 font-weight-bold text-primary">Yeni Poliklinik Ekle</h4>                   
-                    </div>
+                </div>
                    
 
                     <form action="" method="POST" id="addPoliklinikForm">

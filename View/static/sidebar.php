@@ -35,12 +35,21 @@
             <span>Randevu Al</span></a>
     </li>
 
-    <!-- Nav Item - Tables -->
     <li class="nav-item">
-        <a class="nav-link" href="<?= Router::url('enyakinhastane') ; ?>">
-            <i class="fas fa-fw fa-table"></i>
-            <span>En Yakın Hastane</span></a>
+        <a class="nav-link" href="<?= Router::url('profilepatient') ; ?>">
+            <i class="fas fa-fw fa-chart-area"></i>
+            <span>Profil</span></a>
     </li>
+
+  
+    <li class="nav-item">
+    <a class="nav-link" href="#" data-toggle="modal" data-target="#logoutModal">
+                <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                Güvenli Çıkış
+            </a>
+    </li>
+
+ 
 
     <!-- Divider -->
     <hr class="sidebar-divider d-none d-md-block">

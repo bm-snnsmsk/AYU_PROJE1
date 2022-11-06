@@ -17,9 +17,9 @@ switch($process){
         break ; 
     // list towns END
 
-    // add patient START
-    case 'addPatient' :         
-        
+// add patient START
+case 'addPatient' :         
+    
             $tcnumber = Security::post('tcnumber') ;
             $name = Security::post('name') ;
             $surname = Security::post('surname') ;
@@ -195,7 +195,7 @@ switch($process){
             
 
            
-        break ;    
+break ;    
     // add patient END
 
     // list getDoctors START
@@ -334,11 +334,9 @@ switch($process){
 // list getAvailableAppointments END
 
      
-// add patient START
-    case 'randevual' :         
+// randevualt START
+case 'randevual' :        
         
-       
-       
         $poliklinik = Security::post('poliklinik') ;
         $doctors = Security::post('doctors') ;
         $seans = Security::post('seans') ;
@@ -383,14 +381,11 @@ switch($process){
             echo Validation::warningMessage("Randevu alma sırasında beklenmeyen bir hata meydana geldi.", "error") ;
             die() ;
         }  
-        
-
-       
-    break ;    
-// add patient END
+break ;    
+// randevual END
 
 // add polikilinik START
-    case 'addPoliklinik' :         
+case 'addPoliklinik' :         
         
         $poliklinikname = Security::post('poliklinikname') ;
 
@@ -413,12 +408,12 @@ switch($process){
         
 
        
-    break ;    
+break ;    
 // add polikilinik END
 
 
-  // editpoliklinik START
-  case 'editPoliklinik' : 
+// editpoliklinik START
+case 'editPoliklinik' : 
     $poliklinikname = Security::post('poliklinikname') ;
     $editID = Security::post('editID') ;
 
@@ -437,11 +432,11 @@ switch($process){
         echo Validation::warningMessage("Poliklinik düzenleme sırasında beklenmeyen bir hata meydana geldi.", "error") ;
         die() ;
     } 
-  break ; 
+break ; 
 // editpoliklinik END
 
-  // addDoctor START
-  case 'addDoctor' :
+// addDoctor START
+case 'addDoctor' :
     $poliklinikName = Security::post('poliklinikName') ;
     $doctorName = Security::post('doctorName') ;
     $doctorSurname = Security::post('doctorSurname') ;
@@ -494,7 +489,7 @@ switch($process){
     } 
 break ; 
 // addDoctor END
-  // editDoctor START
+// editDoctor START
   case 'editDoctor' : 
     $poliklinikname = Security::post('poliklinikname') ;
     $doctorName = Security::post('doctorName') ;
@@ -527,6 +522,388 @@ break ;
   break ; 
 // editDoctor END
 
+// parolaSifirla START
+case 'parolaSifirla' :         
+        
+    $tcnumber = Security::post('tcnumber') ;
+    $name = Security::post('name') ;
+    $surname = Security::post('surname') ;
+    $patientGender = Security::post('patientGender') ;
+    $cityName = Security::post('cityName') ;
+    $townName = Security::post('townName') ;
+    $birthday = Security::post('birthday') ;
+
+    // tc kimlik no validation START
+    if(!$tcnumber){
+        $text = "Lütfen TC Kimlik Numaranızı giriniz" ;
+        echo Validation::warningMessage($text) ;
+        die() ;  
+    }
+    if(!Helper::isNumber($tcnumber) || strlen($tcnumber)!=11){
+        $text = "Lütfen Geçerli bir TC Kimlik Numarası giriniz" ;
+        echo Validation::warningMessage($text) ;
+        die() ;  
+    }
+    // tc kimlik no validation END
+
+    // isim validation START           
+    if(!$name){
+        $text = "Lütfen Adınızı giriniz" ;
+        echo Validation::warningMessage($text) ;
+        die() ;  
+    } 
+    if(!Helper::isLetter($name) || strlen($name) < 3){
+        $text = "Lütfen Geçerli bir isim giriniz" ;
+        echo Validation::warningMessage($text) ;
+        die() ;  
+    }
+    // isim validation END
+
+    // soyisim validation START           
+    if(!$surname){
+        $text = "Lütfen Soyadınızı giriniz" ;
+        echo Validation::warningMessage($text) ;
+        die() ;  
+    }
+    if(!Helper::isLetter($surname) || strlen($surname) < 3){
+        $text = "Lütfen Geçerli bir soyisim giriniz" ;
+        echo Validation::warningMessage($text) ;
+        die() ;  
+    }
+    // soyisim validation END    
+
+    if(!$patientGender){
+        $text = "Lütfen cinsiyet giriniz" ;
+        echo Validation::warningMessage($text) ;
+        die() ;  
+    }
+    if(!$cityName){
+        $text = "Lütfen doğum yerinizi il olarak  giriniz" ;
+        echo Validation::warningMessage($text) ;
+        die() ;  
+    }
+    if(!$townName){
+        $text = "Lütfen doğum yerinizi ilçe olarak giriniz" ;
+        echo Validation::warningMessage($text) ;
+        die() ;  
+    }
+    if(!$birthday){
+        $text = "Lütfen doğum tarihinizi giriniz" ;
+        echo Validation::warningMessage($text) ;
+        die() ;  
+    }
+    
+    $isset = $DBConnect->getRow('SELECT * FROM patients WHERE patientTCNumber = ? AND patientName = ? AND patientSurname = ? AND patientGender = ? AND patientBirthCity = ? AND patientBirthTown = ? AND patientBirthDay = ?', [$tcnumber, $name, $surname, $patientGender, $cityName, $townName, $birthday]) ;
+
+    if($isset){
+        @$parolaSifirla = $DBConnect->updateRow('UPDATE patients SET patientPassword = ? WHERE patientID = ?', [NULL, $isset['patientID']]) ;
+        if($parolaSifirla){
+            $_SESSION['patientID'] = $isset['patientID'] ;
+            $_SESSION['patientTCNumber'] = $isset['patientTCNumber'] ;
+            $_SESSION['patientName'] = $isset['patientName'] ;
+            $_SESSION['patientSurname'] = $isset['patientSurname'] ;
+            $_SESSION['patientGender'] = $isset['patientGender'] ;
+            $_SESSION['patientBirthCity'] = $isset['patientBirthCity'] ;
+            $_SESSION['patientBirthTown'] = $isset['patientBirthTown'] ;
+            $_SESSION['patientBirthDay'] = $isset['patientBirthDay'] ;
+            $_SESSION['patientAge'] = $isset['patientAge'] ;
+            $_SESSION['patientSignUpDate'] = $isset['patientSignUpDate'] ;
+            $_SESSION['patientAddressTown'] = $isset['patientAddressTown'] ;
+            $_SESSION['patientAddressCity'] = $isset['patientAddressCity'] ;
+            $_SESSION['patientAddress'] = $isset['patientAddress'] ;
+            $_SESSION['patientIPNumber'] = $isset['patientIPNumber'] ;
+            $_SESSION['patientPhoto'] = $isset['patientPhoto'] ;
+            $_SESSION['patientStatus'] = $isset['patientStatus'] ;
+            $_SESSION['patientlogin'] = true ;
+            echo Validation::warningMessage("Parola başarılı bir şekilde sıfırlanmıştır.", 'success',"","parolaGuncelle") ;
+        }else{
+            echo Validation::warningMessage("Parola sıfırlanma sırasında beklenmeyen bir hata meydana geldi. Daha sonra tekrar deneyiniz.", 'error') ;
+            die() ; 
+        }
+    }else{
+        echo Validation::warningMessage("Parola sıfırlanamadı. Lütfen bilgilerinizi kontrol edip tekrar giriniz.", 'error') ;
+        die() ;                 
+    }
+    
+
+   
+break ;    
+// parolaSifirla END
+
+// parolaGuncelle START
+case 'parolaGuncelle' :        
+     
+    $newpassword = Security::post('newpassword') ;
+    $newpasswordagain = Security::post('newpasswordagain') ;
+   
+    if(!$newpassword){
+        $text = "Lütfen yeni bir şifre giriniz" ;
+        echo Validation::warningMessage($text) ;
+        die() ;  
+    }
+    if(!$newpasswordagain){
+        $text = "Lütfen şifrenizi tekrar giriniz" ;
+        echo Validation::warningMessage($text) ;
+        die() ;  
+    }
+    if(!($newpassword == $newpasswordagain)){
+        $text = "Şifreleriniz eşleşmiyor" ;
+        echo Validation::warningMessage($text) ;
+        die() ;  
+    }
+    
+    $newpassword = md5($newpassword) ;
+
+    @$parolaGuncelle = $DBConnect->updateRow('UPDATE patients SET patientPassword = ? WHERE patientID = ? AND patientTCNumber = ?', [$newpassword, $_SESSION['patientID'], $_SESSION['patientTCNumber']]) ;
+    if($parolaGuncelle){   
+        $_SESSION['patientlogin'] = true ;    
+        echo Validation::warningMessage("Parolanız başarılı bir şekilde güncellenmiştir.", 'success',"","patients") ;
+    }else{
+        echo Validation::warningMessage("Parola sıfırlanma sırasında beklenmeyen bir hata meydana geldi. Daha sonra tekrar deneyiniz.", 'error') ;
+        die() ; 
+    }
+        
+
+   
+break ;    
+// parolaGuncelle END
+
+    // editProfile START
+    case 'editProfile' :         
+        
+       
+        $name = Security::post('name') ;
+        $surname = Security::post('surname') ;
+        $cityAddress = Security::post('cityAddress') ;
+        $townAddress = Security::post('townAddress') ;
+        $address = Security::post('address') ;      
+
+        // isim validation START           
+        if(!$name){
+            $text = "Lütfen Adınızı giriniz" ;
+            echo Validation::warningMessage($text) ;
+            die() ;  
+        } 
+        if(!Helper::isLetter($name) || strlen($name) < 3){
+            $text = "Lütfen Geçerli bir isim giriniz" ;
+            echo Validation::warningMessage($text) ;
+            die() ;  
+        }
+        // isim validation END
+
+        // soyisim validation START           
+        if(!$surname){
+            $text = "Lütfen Soyadınızı giriniz" ;
+            echo Validation::warningMessage($text) ;
+            die() ;  
+        }
+        if(!Helper::isLetter($surname) || strlen($surname) < 3){
+            $text = "Lütfen Geçerli bir soyisim giriniz" ;
+            echo Validation::warningMessage($text) ;
+            die() ;  
+        }
+        // soyisim validation END       
+      
+      
+        if(!$cityAddress){
+            $text = "Lütfen adresinizi il olarak giriniz" ;
+            echo Validation::warningMessage($text) ;
+            die() ;  
+        }
+        if(!$townAddress){
+            $text = "Lütfen adresinizi ilçe olarak giriniz" ;
+            echo Validation::warningMessage($text) ;
+            die() ;   
+        }
+        if(!$address){
+            $text = "Lütfen adresinizi ilçe olarak giriniz" ;
+            echo Validation::warningMessage($text) ;
+            die() ;   
+        }
+        
+        $editProfile = $DBConnect->updateRow('UPDATE patients SET
+            patientName = ?,
+            patientSurname = ?,
+            patientAddressTown = ?,
+            patientAddressCity = ?,
+            patientAddress = ? WHERE patientID  = ? AND patientTCNumber = ?
+        ',[
+            Helper::convertLetter($name,'lower'),
+            Helper::convertLetter($surname,'lower'),
+            $townAddress,
+            $cityAddress,
+            Helper::convertLetter($address,'lower'),
+            $_SESSION['patientID'],
+            $_SESSION['patientTCNumber']
+        ]) ;
+        if($editProfile){           
+             echo Validation::warningMessage("Bilgileriniz başarılı bir şekilde güncellenmiştir.", 'success', '', 'patients') ;
+             die() ;                 
+        }else{
+            echo Validation::warningMessage("Kayıt sırasında beklenmeyen bir hata meydana geldi.", 'error') ;
+             die() ;   
+        } 
+        
+
+       
+    break ;    
+// editProfile END
+
+    // editPassword START
+    case 'editPassword' : 
+       
+        $expassword = Security::post('expassword') ;
+        $newpassword = Security::post('newpassword') ;
+        $newpasswordagain = Security::post('newpasswordagain') ;
+                
+        if(!$expassword){
+            $text = "Lütfen eski parolanızı giriniz" ;
+            echo Validation::warningMessage($text) ;
+            die() ;  
+        } 
+        if(!$newpassword){
+            $text = "Lütfen yeni bir parola giriniz" ;
+            echo Validation::warningMessage($text) ;
+            die() ;  
+        }              
+        if(!$newpasswordagain){
+            $text = "Lütfen yeni parolayı tekrar giriniz" ;
+            echo Validation::warningMessage($text) ;
+            die() ;  
+        }
+        if(!($newpasswordagain == $newpassword)){
+            $text = "Şifreleriniz eşleşmiyor" ;
+            echo Validation::warningMessage($text) ;
+            die() ;  
+        }
+           
+        $expassword = md5($expassword) ;
+        $newpassword = md5($newpassword) ;
+
+        $issetPatient = $DBConnect->getRow('SELECT * FROM patients WHERE patientPassword  = ? AND patientID = ? AND patientTCNumber = ?',[$expassword, $_SESSION['patientID'], $_SESSION['patientTCNumber']]) ;
+        if($issetPatient){           
+            $editPassword = $DBConnect->updateRow('UPDATE patients SET patientPassword = ? WHERE patientID  = ? AND patientTCNumber = ?',[$newpassword, $_SESSION['patientID'], $_SESSION['patientTCNumber']]) ;
+            if($editPassword){           
+                 echo Validation::warningMessage("Bilgileriniz başarılı bir şekilde güncellenmiştir.", 'success', '', 'patients') ;
+                 die() ;                 
+            }else{
+                echo Validation::warningMessage("Kayıt sırasında beklenmeyen bir hata meydana geldi.", 'error') ;
+                 die() ;   
+            }                
+       }else{
+           echo Validation::warningMessage("Böyle bir kullanıcı bulunamadı", 'error') ;
+           die() ;   
+       } 
+
+       
+    break ;    
+// editPassword END
+
+    // editProfile START
+    case 'adminEditProfile' :         
+        
+       
+        $name = Security::post('name') ;
+        $surname = Security::post('surname') ; 
+
+        // isim validation START           
+        if(!$name){
+            $text = "Lütfen Adınızı giriniz" ;
+            echo Validation::warningMessage($text) ;
+            die() ;  
+        } 
+        if(!Helper::isLetter($name) || strlen($name) < 3){
+            $text = "Lütfen Geçerli bir isim giriniz" ;
+            echo Validation::warningMessage($text) ;
+            die() ;  
+        }
+        // isim validation END
+
+        // soyisim validation START           
+        if(!$surname){
+            $text = "Lütfen Soyadınızı giriniz" ;
+            echo Validation::warningMessage($text) ;
+            die() ;  
+        }
+        if(!Helper::isLetter($surname) || strlen($surname) < 3){
+            $text = "Lütfen Geçerli bir soyisim giriniz" ;
+            echo Validation::warningMessage($text) ;
+            die() ;  
+        }
+        // soyisim validation END       
+      
+
+        $editProfile = $DBConnect->updateRow('UPDATE admins SET
+            adminName = ?,
+            adminSurname = ? WHERE adminID  = ? AND adminTCNumber = ?
+        ',[
+            Helper::convertLetter($name,'lower'),
+            Helper::convertLetter($surname,'lower'),
+            $_SESSION['adminID'],
+            $_SESSION['adminTCNumber']
+        ]) ;
+        if($editProfile){           
+             echo Validation::warningMessage("Bilgileriniz başarılı bir şekilde güncellenmiştir.", 'success', '', 'admin') ;
+             die() ;                 
+        }else{
+            echo Validation::warningMessage("Kayıt sırasında beklenmeyen bir hata meydana geldi.", 'error') ;
+             die() ;   
+        } 
+        
+
+       
+    break ;    
+// editProfile END
+
+    // editPassword START
+    case 'adminEditPassword' : 
+       
+        $expassword = Security::post('expassword') ;
+        $newpassword = Security::post('newpassword') ;
+        $newpasswordagain = Security::post('newpasswordagain') ;
+                
+        if(!$expassword){
+            $text = "Lütfen eski parolanızı giriniz" ;
+            echo Validation::warningMessage($text) ;
+            die() ;  
+        } 
+        if(!$newpassword){
+            $text = "Lütfen yeni bir parola giriniz" ;
+            echo Validation::warningMessage($text) ;
+            die() ;  
+        }              
+        if(!$newpasswordagain){
+            $text = "Lütfen yeni parolayı tekrar giriniz" ;
+            echo Validation::warningMessage($text) ;
+            die() ;  
+        }
+        if(!($newpasswordagain == $newpassword)){
+            $text = "Şifreleriniz eşleşmiyor" ;
+            echo Validation::warningMessage($text) ;
+            die() ;  
+        }
+           
+        $expassword = md5($expassword) ;
+        $newpassword = md5($newpassword) ;
+
+        $issetAdmin = $DBConnect->getRow('SELECT * FROM admins WHERE adminPassword  = ? AND adminID = ? AND adminTCNumber = ?',[$expassword, $_SESSION['adminID'], $_SESSION['adminTCNumber']]) ;
+        if($issetAdmin){           
+            $editPassword = $DBConnect->updateRow('UPDATE admins SET adminPassword = ? WHERE adminID  = ? AND adminTCNumber = ?',[$newpassword, $_SESSION['adminID'], $_SESSION['adminTCNumber']]) ;
+            if($editPassword){           
+                 echo Validation::warningMessage("Bilgileriniz başarılı bir şekilde güncellenmiştir.", 'success', '', 'admin') ;
+                 die() ;                 
+            }else{
+                echo Validation::warningMessage("Kayıt sırasında beklenmeyen bir hata meydana geldi.", 'error') ;
+                 die() ;   
+            }                
+       }else{
+           echo Validation::warningMessage("Böyle bir kullanıcı bulunamadı", 'error') ;
+           die() ;   
+       } 
+
+       
+    break ;    
+// editPassword END
 
 
 

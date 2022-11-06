@@ -35,6 +35,11 @@
 ?>
 <!-- Topbar Navbar -->
 <ul class="navbar-nav ml-auto">
+    <li class="nav-item"> 
+        <a class="nav-link" href="<?= Router::url('patients') ; ?>">
+            <i class="fas fa-home fa-sm fa-fw mr-2 text-gray-400"></i>Anasayfa
+        </a>
+    </li>
     <div class="topbar-divider d-none d-sm-block"></div>
 
     <!-- Nav Item - User Information -->
@@ -45,19 +50,12 @@
             <img class="img-profile rounded-circle"
                 src="<?= Router::assets('img/profile/'.$profil)  ?>">
         </a>
-        <!-- Dropdown - User Information -->
+        <!-- Dropdown - User Information -->     
+
         <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
-            aria-labelledby="userDropdown">
-            <a class="dropdown-item" href="<?= Router::url('profile') ; ?>">
-                <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                Profil
-            </a>
-            <a class="dropdown-item" href="<?= Router::url('settings') ; ?>">
-                <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
-                Ayarlar
-            </a>
+            aria-labelledby="userDropdown">      
+           
           
-            <div class="dropdown-divider"></div>
             <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
                 <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                 Güvenli Çıkış

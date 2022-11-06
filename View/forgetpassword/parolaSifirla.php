@@ -12,10 +12,10 @@
                     <div class="col col-lg-12">
                         <div class="p-5">
                             <div class="text-center">
-                                <h1 class="h4 text-900 mb-4">Hastane Randevu Sistemine Kayıt Olmak İçin Lütfen Bilgilerinizi Doğru Giriniz</h1>
+                                <h1 class="h4 text-900 mb-4">Parolanızı Sıfırlamak İçin Lütfen Bilgilerinizi Doğru Giriniz</h1>
                             </div>
 
-                            <form action="" method="POST" id="signupForm">
+                            <form action="" method="POST" id="forgetpasswordForm">
                                 <div class="form-group row">
                                     <label class="col-md-3" for="tcnumber">TC Kimlik Numarası</label>
                                     <input type="text" name="tcnumber" class="form-control form-control-user col-md-9"
@@ -34,16 +34,7 @@
                                         id="surname" aria-describedby="surname"
                                         placeholder="Soyadı">
                                 </div>
-                                <div class="form-group row">
-                                    <label class="col-md-3" for="password">Şifre</label>
-                                    <input type="password" name="password" class="form-control form-control-user col-md-9"
-                                        id="password" placeholder="Şifre">
-                                </div>     
-                                <div class="form-group row">
-                                    <label class="col-md-3" for="passwordagain">Şifre Tekrarı</label>
-                                    <input type="password" name="passwordagain" class="form-control form-control-user col-md-9"
-                                        id="passwordagain" placeholder="Şifre Tekrarı">
-                                </div>  
+                              
                                 <div class="form-group row">
                                     <span class="col-md-3">Cinsiyet </span>
                                     <div class="form-group col-md-9">
@@ -78,33 +69,12 @@
                                     <input type="date" name="birthday" class="form-control form-control-user col-md-3"
                                         id="birthday" placeholder="Doğum Tarihi">
                                 </div> 
-                                <div class="form-group row">
-                                    <label class="col-md-3" for="cityAddress">Adres</label>
-                                    <select class="form-select form-control col-md-4" name="cityAddress" id="cityAddress" aria-label="Default select example">
-                                        <option value="0" selected>İl</option>
-                                        <?php 
-                                            foreach($data as $key => $value){
-                                        ?>
-                                           <option value="<?= $value['cityID'] ; ?>"><?= $value['cityName'] ; ?></option>
-                                        <?php 
-                                            } 
-                                        ?>
-                                    </select>
-                                    <select class="form-select form-control col-md-4" name="townAddress" id="townAddress" aria-label="Default select example">
-                                        <option value="0" selected>İlçe</option>
-                                    </select>
-                                </div> 
-                                <div class="form-group row">
-                                    <label class="col-md-3" for="address">Açık Adres</label>
-                                    <textarea class="form-control col-md-9" id="address" name="address"></textarea>
-                                </div>
-                                <div class="form-group row">
-                                    <label for="profilephoto" class="form-label col-md-3">Profile Resmi</label>
-                                    <input class="form-control col-md-9" type="file" id="profilephoto" name="profilephoto">
-                                </div> 
+                             
+                               
+                             
 
                                 <div class="form-group row">
-                                <button name="signupBtn" id="signupBtn" class="btn btn-primary btn-user btn-block">Kayıt Ol<span class="myload"></span></button>
+                                <button name="forgetpasswordBtn" id="forgetpasswordBtn" class="btn btn-primary btn-user btn-block">Parolayı Sıfırla<span class="myload"></span></button>
                                 </div> 
                                 
                                 <hr>
@@ -123,6 +93,7 @@
 <script>
 const SITE_URL = '<?= URL ; ?>' ;
 $(function(){ //jQuery START
+
      // birthday il ilçe START
      $('#cityName').change(function(){         
         let cityID = $(this).val() ;
@@ -139,37 +110,23 @@ $(function(){ //jQuery START
     }) ;
     // birthday il ilçe START
 
-    // address il ilçe START
-    $('#cityAddress').change(function(){         
-     let cityID = $(this).val() ;
-     $.ajax({
-            type:'post',
-            url: SITE_URL + '/Controller/api.php?process=getTowns',
-            data:{'cityID':cityID},
-            dataType :'text',
-            success:function(resultData){   
-                //alert(resultData) ;       
-                $("#townAddress").html(resultData) ;
-            }
-        });       
-    }) ;
-    // address il ilçe START
+  
 
-    // sign up formu gönderme START
-    let signupFrom = document.querySelector('#signupForm') ;
+    // forgetpassword formu gönderme START
+    let forgetpasswordForm = document.querySelector('#forgetpasswordForm') ;
     document.addEventListener('submit', (e) => {
         e.preventDefault() ;
         $(".myload").html('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>') ;
-        $('#signupBtn').prop('disabled', true) ;
-        let myData = $('form#signupForm').serialize() ; 
+        $('#forgetpasswordBtn').prop('disabled', true) ;
+        let myData = $('form#forgetpasswordForm').serialize() ; 
         $.ajax({
             type:'post',
-            url: SITE_URL + '/Controller/api.php?process=addPatient',
+            url: SITE_URL + '/Controller/api.php?process=parolaSifirla',
             data:myData,
             dataType :'json',
             success:function(resultData){          
                 $(".myload").html('') ;
-                $('#signupBtn').prop('disabled', false) ; 
+                $('#forgetpasswordBtn').prop('disabled', false) ; 
                 
                 if(resultData.redirect){
                     window.location.href = resultData.redirect ;
@@ -179,16 +136,11 @@ $(function(){ //jQuery START
                         title : resultData.title,
                         text : resultData.text
                     }) ;
-                }  
-
-         
-
-
-
+                } 
             }
         }) ;
     }) ;
-    // sign up formu gönderme END
+    //forgetpassword formu gönderme END
 
 
 

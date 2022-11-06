@@ -40,6 +40,24 @@
             <span>Doktorlar</span></a>
     </li>
 
+    <li class="nav-item">
+        <a class="nav-link" href="<?= Router::url('seans') ; ?>">
+            <i class="fas fa-fw fa-chart-area"></i>
+            <span>Seanslar</span></a>
+    </li>
+
+    <li class="nav-item">
+        <a class="nav-link" href="<?= Router::url('profileadmin') ; ?>">
+            <i class="fas fa-fw fa-chart-area"></i>
+            <span>Profil</span></a>
+    </li>
+
+    <li class="nav-item">
+        <a class="nav-link" href="<?= Router::url('pagesettings') ; ?>">
+            <i class="fas fa-fw fa-chart-area"></i>
+            <span>Site Ayarları</span></a>
+    </li>
+
     <!-- Nav Item - Tables -->
     <li class="nav-item">
         <a class="nav-link" href="<?= Router::url('admins') ; ?>">
