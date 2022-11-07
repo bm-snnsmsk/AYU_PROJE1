@@ -905,6 +905,60 @@ break ;
     break ;    
 // editPassword END
 
+    // editSetting START
+    case 'editSetting' : 
+       
+        $pageTitle = Security::post('pageTitle') ;
+        $pageDescription = Security::post('pageDescription') ;
+        $pageKeyword = Security::post('pageKeyword') ;
+        $pageUrl = Security::post('pageUrl') ;
+        $pageHosting = Security::post('pageHosting') ;
+                
+        if(!$pageTitle){
+            $text = "Lütfen başlık bilgisini giriniz" ;
+            echo Validation::warningMessage($text) ;
+            die() ;  
+        } 
+        if(!$pageDescription){
+            $text = "Lütfen site açıklama bilgisini giriniz" ;
+            echo Validation::warningMessage($text) ;
+            die() ;  
+        }              
+        if(!$pageKeyword){
+            $text = "Lütfen site anahtar kelime bilgisini giriniz" ;
+            echo Validation::warningMessage($text) ;
+            die() ;  
+        }
+        if(!$pageUrl){
+            $text = "Lütfen sayfa URL bilgisini giriniz" ;
+            echo Validation::warningMessage($text) ;
+            die() ;  
+        }
+        if(!$pageHosting){
+            $text = "Lütfen sayfa Hosting bilgisini giriniz" ;
+            echo Validation::warningMessage($text) ;
+            die() ;  
+        }
+           
+       
+        $settings = $DBConnect->updateRow('UPDATE settings SET 
+        settingTitle = ?, 
+        settingDescription = ?,
+        settingKeyword = ?,
+        settingUrl = ?,
+        settingHost = ?
+        WHERE settingID = ?', [$pageTitle, $pageDescription, $pageKeyword, $pageUrl, $pageHosting, 1]) ; 
+        if($settings){           
+                echo Validation::warningMessage("Site Ayarlarınız başarılı bir şekilde güncellenmiştir.", 'success', '', 'pagesettings') ;
+                die() ;                 
+            }else{
+                echo Validation::warningMessage("Site ayarlama sırasında beklenmeyen bir hata meydana geldi.", 'error') ;
+                die() ;   
+        } 
+
+       
+    break ;    
+// editSetting END
 
 
 }//swtich END

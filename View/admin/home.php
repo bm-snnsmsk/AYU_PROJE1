@@ -1,7 +1,7 @@
 <?php
+ //Helper::test($data) ; 
 
  Router::view('static/header') ; 
-  //Helper::test($data) ; 
   //Helper::test($_SESSION) ;
 ?>
     <!-- Page Wrapper -->
