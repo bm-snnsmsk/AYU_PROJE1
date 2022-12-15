@@ -41,6 +41,11 @@
     </li>
 
     <li class="nav-item">
+        <a class="nav-link" href="<?= Router::url('seans/seansTanimla') ; ?>">
+            <i class="fas fa-fw fa-chart-area"></i>
+            <span>Seans Tanımla</span></a>
+    </li>
+    <li class="nav-item">
         <a class="nav-link" href="<?= Router::url('seans') ; ?>">
             <i class="fas fa-fw fa-chart-area"></i>
             <span>Seanslar</span></a>
@@ -58,12 +63,8 @@
             <span>Site Ayarları</span></a>
     </li>
 
-    <!-- Nav Item - Tables -->
-    <li class="nav-item">
-        <a class="nav-link" href="<?= Router::url('admins') ; ?>">
-            <i class="fas fa-fw fa-table"></i>
-            <span>Yetkili Kişiler</span></a>
-    </li>
+   
+    
 
     <!-- Divider -->
     <hr class="sidebar-divider d-none d-md-block">

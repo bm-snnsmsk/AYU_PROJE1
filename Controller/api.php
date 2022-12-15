@@ -204,7 +204,7 @@ break ;
         $myOption = '<option value="0">Doktor Seç</option>'  ;  
         $doctors = $DBConnect->getRows('SELECT * FROM doctors WHERE doctorPoliklinikID = ? ORDER BY doctorName, doctorSurname ASC',[$ID]) ;
         foreach($doctors as $key => $value){
-            $doctorFullName = $value['doctorName'].' '.$value['doctorSurname'] ;
+            $doctorFullName = Helper::convertLetter($value['doctorName'], 'upperWords').' '.Helper::convertLetter($value['doctorSurname'], 'upper') ;
             $myOption .= '<option value="'.$value['doctorID'].'">'.$doctorFullName.'</option>'  ; 
         }
         echo $myOption ;
@@ -217,118 +217,98 @@ break ;
         
         $result = ''  ;  
         $seans = $DBConnect->getRow('SELECT * FROM seans WHERE seansDoctorID = ?',[$ID]) ;
+
+               
+
+        $sayac = 0 ;
        
-        if($seans && $seans['seans0900'] == 'D'){
-            $result.='<div class="form-check m-2 d-none"><input class="form-check-input" type="radio"  name="seans" value="seans0900" id="seans1" disabled><label class="form-check-label" for="seans1">09.00</label></div>' ;
-        }else{
-            $result.='<div class="form-check m-2"><input class="form-check-input" type="radio"  name="seans" value="seans0900" id="seans1"><label class="form-check-label" for="seans1">09.00</label></div>' ;
-        }       
-                 
-        if($seans && $seans['seans0920'] == 'D'){
-            $result.='<div class="form-check m-2 d-none"><input class="form-check-input" type="radio" name="seans" value="seans0920" id="seans2" disabled><label class="form-check-label" for="seans2">09.20</label></div>' ;
-        }else{
-            $result.='<div class="form-check m-2"><input class="form-check-input" type="radio" name="seans" value="seans0920" id="seans2"><label class="form-check-label" for="seans2">09.20</label></div>' ;
-        }    
+        for($i = 0 ; $i < 15 ; $i++){
 
-        if($seans && $seans['seans0940'] == 'D'){
-            $result.='<div class="form-check m-2 d-none"><input class="form-check-input" type="radio" name="seans" value="seans0940" id="seans3" disabled><label class="form-check-label" for="seans3">09.40</label></div>' ;
-        }else{
-            $result.='<div class="form-check m-2"><input class="form-check-input" type="radio" name="seans" value="seans0940" id="seans3"><label class="form-check-label" for="seans3">09.40</label></div>' ;
-        }      
+            $today = date_create(date('d-m-Y'));
+            date_modify($today, '+'.(++$sayac).' day');
+            $day = date_format($today, 'd-m-Y')." - ".mb_strtoupper(Helper::weekday(date_format($today, 'w'))) ;
 
-        if($seans && $seans['seans1000'] == 'D'){
-            $result.='<div class="form-check m-2 d-none"><input class="form-check-input" type="radio" name="seans" value="seans1000" id="seans4" disabled><label class="form-check-label" for="seans4">10.00</label></div>' ;
-        }else{
-            $result.='<div class="form-check m-2"><input class="form-check-input" type="radio" name="seans" value="seans1000" id="seans4"><label class="form-check-label" for="seans4">10.00</label></div>' ;
-        }          
-        if($seans && $seans['seans1020'] == 'D'){
-            $result.='<div class="form-check m-2 d-none"><input class="form-check-input" type="radio" name="seans" value="seans1020" id="seans5" disabled><label class="form-check-label" for="seans5">10.20</label></div>' ;
-        }else{
-            $result.='<div class="form-check m-2"><input class="form-check-input" type="radio" name="seans" value="seans1020" id="seans5"><label class="form-check-label" for="seans5">10.20</label></div>' ;
-        }          
-        if($seans && $seans['seans1040'] == 'D'){
-            $result.='<div class="form-check m-2 d-none"><input class="form-check-input" type="radio" name="seans" value="seans1040" id="seans6" disabled><label class="form-check-label" for="seans6">10.40</label></div>' ;
-        }else{
-            $result.='<div class="form-check m-2"><input class="form-check-input" type="radio" name="seans" value="seans1040" id="seans6"><label class="form-check-label" for="seans6">10.40</label></div>' ;
-        }          
-        if($seans && $seans['seans1100'] == 'D'){
-            $result.='<div class="form-check m-2 d-none"><input class="form-check-input" type="radio" name="seans" value="seans1100" id="seans7" disabled><label class="form-check-label" for="seans7">11.00</label></div>' ;
-        }else{
-            $result.='<div class="form-check m-2"><input class="form-check-input" type="radio" name="seans" value="seans1100" id="seans7"><label class="form-check-label" for="seans7">11.00</label></div>' ;
-        }          
-        if($seans && $seans['seans1120'] == 'D'){
-            $result.='<div class="form-check m-2 d-none"><input class="form-check-input" type="radio" name="seans" value="seans1120" id="seans8" disabled><label class="form-check-label" for="seans8">11.20</label></div>' ;
-        }else{
-            $result.='<div class="form-check m-2"><input class="form-check-input" type="radio" name="seans" value="seans1120" id="seans8"><label class="form-check-label" for="seans8">11.20</label></div>' ;
-        }          
-        if($seans && $seans['seans1140'] == 'D'){
-            $result.='<div class="form-check m-2 d-none"><input class="form-check-input" type="radio" name="seans" value="seans1140" id="seans9" disabled><label class="form-check-label" for="seans9">11.40</label></div>' ;
-        }else{
-            $result.='<div class="form-check m-2"><input class="form-check-input" type="radio" name="seans" value="seans1140" id="seans9"><label class="form-check-label" for="seans9">11.40</label></div>' ;
-        }          
-        if($seans && $seans['seans1330'] == 'D'){
-            $result.='<div class="form-check m-2 d-none"><input class="form-check-input" type="radio" name="seans" value="seans1330" id="seans10" disabled><label class="form-check-label" for="seans10">13.30</label></div>' ;
-        }else{
-            $result.='<div class="form-check m-2"><input class="form-check-input" type="radio" name="seans" value="seans1330" id="seans10"><label class="form-check-label" for="seans10">13.30</label></div>' ;
-        }          
-        if($seans && $seans['seans1350'] == 'D'){
-            $result.='<div class="form-check m-2 d-none"><input class="form-check-input" type="radio" name="seans" value="seans1350" id="seans11" disabled><label class="form-check-label" for="seans11">13.50</label></div>' ;
-        }else{
-            $result.='<div class="form-check m-2"><input class="form-check-input" type="radio" name="seans" value="seans1350" id="seans11"><label class="form-check-label" for="seans11">13.50</label></div>' ;
-        }          
-        if($seans && $seans['seans1410'] == 'D'){
-            $result.='<div class="form-check m-2 d-none"><input class="form-check-input" type="radio" name="seans" value="seans1410" id="seans12" disabled><label class="form-check-label" for="seans12">14.10</label></div>' ;
-        }else{
-            $result.='<div class="form-check m-2"><input class="form-check-input" type="radio" name="seans" value="seans1410" id="seans12"><label class="form-check-label" for="seans12">14.10</label></div>' ;
-        }          
-        if($seans && $seans['seans1430'] == 'D'){
-            $result.='<div class="form-check m-2 d-none"><input class="form-check-input" type="radio" name="seans" value="seans1430" id="seans13" disabled><label class="form-check-label" for="seans13">14.30</label></div>' ;
-        }else{
-            $result.='<div class="form-check m-2"><input class="form-check-input" type="radio" name="seans" value="seans1430" id="seans13"><label class="form-check-label" for="seans13">14.30</label></div>' ;
-        }   
+            if((date_format($today, 'w') == 6) || (date_format($today, 'w') == 0)){
+                continue ;
+            }else{
+                $result.='<div class="alert alert-primary mt-2" role="alert">'.$day.'</div> <div>' ;
 
-        if($seans && $seans['seans1450'] == 'D'){
-            $result.='<div class="form-check m-2 d-none"><input class="form-check-input" type="radio" name="seans" value="seans1450" id="seans14" disabled><label class="form-check-label" for="seans14">14.50</label></div>' ;
-        }else{
-            $result.='<div class="form-check m-2"><input class="form-check-input" type="radio" name="seans" value="seans1450" id="seans14"><label class="form-check-label" for="seans14">14.50</label></div>' ;
-        }          
-        if($seans && $seans['seans1510'] == 'D'){
-            $result.='<div class="form-check m-2 d-none"><input class="form-check-input" type="radio" name="seans" value="seans1510" id="seans15" disabled><label class="form-check-label" for="seans15">15.10</label></div>' ;
-        }else{
-            $result.='<div class="form-check m-2"><input class="form-check-input" type="radio" name="seans" value="seans1510" id="seans15"><label class="form-check-label" for="seans15">15.10</label></div>' ;
-        }          
-        if($seans && $seans['seans1530'] == 'D'){
-            $result.='<div class="form-check m-2 d-none"><input class="form-check-input" type="radio" name="seans" value="seans1530" id="seans16" disabled><label class="form-check-label" for="seans16">15.30</label></div>' ;
-        }else{
-            $result.='<div class="form-check m-2"><input class="form-check-input" type="radio" name="seans" value="seans1530" id="seans16"><label class="form-check-label" for="seans16">15.30</label></div>' ;
-        }  
-
-        if($seans && $seans['seans1550'] == 'D'){
-            $result.='<div class="form-check m-2 d-none"><input class="form-check-input" type="radio" name="seans" value="seans1550" id="seans17" disabled><label class="form-check-label" for="seans17">15.50</label></div>' ;
-        }else{
-            $result.='<div class="form-check m-2"><input class="form-check-input" type="radio" name="seans" value="seans1550" id="seans17"><label class="form-check-label" for="seans17">15.50</label></div>' ;
-        }          
-        if($seans && $seans['seans1610'] == 'D'){
-            $result.='<div class="form-check m-2 d-none"><input class="form-check-input" type="radio" name="seans" value="seans1610" id="seans18" disabled><label class="form-check-label" for="seans18">16.10</label></div>' ;
-        }else{
-            $result.='<div class="form-check m-2"><input class="form-check-input" type="radio" name="seans" value="seans1610" id="seans18"><label class="form-check-label" for="seans18">16.10</label></div>' ;
-        }          
-        if($seans && $seans['seans1630'] == 'D'){
-            $result.='<div class="form-check m-2 d-none"><input class="form-check-input" type="radio" name="seans" value="seans1630" id="seans19" disabled><label class="form-check-label" for="seans19">16.30</label></div>' ;
-        }else{
-            $result.='<div class="form-check m-2"><input class="form-check-input" type="radio" name="seans" value="seans1630" id="seans19"><label class="form-check-label" for="seans19">16.30</label></div>' ;
-        }          
-        if($seans && $seans['seans1650'] == 'D'){
-            $result.='<div class="form-check m-2 d-none"><input class="form-check-input" type="radio" name="seans" value="seans1650" id="seans20" disabled><label class="form-check-label" for="seans20">16.50</label></div>' ;
-        }else{
-            $result.='<div class="form-check m-2"><input class="form-check-input" type="radio" name="seans" value="seans1650" id="seans20"><label class="form-check-label" for="seans20">16.50</label></div>' ;
-        }     
-         /*   
-          $rr = "<pre>" ;
-          $rr.= print_r(var_dump($seans)) ;
-          $rr.="</pre>" ; */
-          
-    // }      
+                if($seans && $seans['seans0900'] == 'B'){
+                    $result.= Helper::setSeans(1,"09.00", $day) ;
+                }    
+                         
+                if($seans && $seans['seans0920'] == 'B'){
+                    $result.= Helper::setSeans(2,"09.20", $day) ;
+                } 
+        
+                if($seans && $seans['seans0940'] == 'B'){
+                    $result.= Helper::setSeans(3,"09.40", $day) ;
+                } 
+        
+                if($seans && $seans['seans1000'] == 'B'){
+                    $result.= Helper::setSeans(4,"10.00", $day) ;
+                }    
+        
+                if($seans && $seans['seans1020'] == 'B'){
+                    $result.= Helper::setSeans(5,"10.20", $day) ;
+                }
+                        
+                if($seans && $seans['seans1040'] == 'B'){
+                    $result.= Helper::setSeans(6,"10.40", $day) ;
+                }
+                         
+                if($seans && $seans['seans1100'] == 'B'){
+                    $result.= Helper::setSeans(7,"11.00", $day) ;
+                }   
+        
+                if($seans && $seans['seans1120'] == 'B'){
+                    $result.= Helper::setSeans(8,"11.20", $day) ;
+                }          
+                if($seans && $seans['seans1140'] == 'B'){
+                    $result.= Helper::setSeans(9,"11.40", $day) ;
+                }          
+                if($seans && $seans['seans1330'] == 'B'){
+                    $result.= Helper::setSeans(10,"13.30", $day) ;
+                }          
+                if($seans && $seans['seans1350'] == 'B'){
+                    $result.= Helper::setSeans(11,"13.50", $day) ;
+                }          
+                if($seans && $seans['seans1410'] == 'B'){
+                    $result.= Helper::setSeans(12,"14.10", $day) ;
+                }          
+                if($seans && $seans['seans1430'] == 'B'){
+                    $result.= Helper::setSeans(13,"14.30", $day) ;
+                }   
+        
+                if($seans && $seans['seans1450'] == 'B'){
+                    $result.= Helper::setSeans(14,"14.50", $day) ;
+                }          
+                if($seans && $seans['seans1510'] == 'B'){
+                    $result.= Helper::setSeans(15,"15.10", $day) ;
+                }          
+                if($seans && $seans['seans1530'] == 'B'){
+                    $result.= Helper::setSeans(16,"15.30", $day) ;
+                }  
+        
+                if($seans && $seans['seans1550'] == 'B'){
+                    $result.= Helper::setSeans(17,"15.50", $day) ;
+                }          
+                if($seans && $seans['seans1610'] == 'B'){
+                    $result.= Helper::setSeans(18,"16.10", $day) ;
+                }          
+                if($seans && $seans['seans1630'] == 'B'){
+                    $result.= Helper::setSeans(19,"16.30", $day) ;
+                }    
+                if($seans && $seans['seans1650'] == 'B'){
+                    $result.= Helper::setSeans(20,"16.50", $day) ;
+                }   
+                $result.="</div>" ;  
+            }
+            
+            
+        }
+         
+              
         echo $result ;
     break ; 
 // list getAvailableAppointments END
@@ -339,7 +319,7 @@ case 'randevual' :
         
         $poliklinik = Security::post('poliklinik') ;
         $doctors = Security::post('doctors') ;
-        $seans = Security::post('seans') ;
+        $seans = Security::post('selected_seans') ;
 
          // poliklinik validation START           
          if(!$poliklinik){
@@ -361,19 +341,32 @@ case 'randevual' :
             $text = "Seans seçiniz" ;
             echo Validation::warningMessage($text) ;
             die() ;
-        }        
+        }     
+
+        // $seans = "19-12-2022 - PAZARTESI - 09.40"
+        $seans_hour = explode('.',substr($seans,-5)) ; // $seans = ["09","00"]
+        $seans_hour = join($seans_hour) ; // $seans = "0900"
+
+        // $seans = "19-12-2022 - PAZARTESI - 09.40"
+        $seans_day = explode('-',$seans) ; // $seans_day = ["19","12","2022","PAZARTESİ","09.00"]
+        $seans_day = $seans_day[3] ; // $seans_day = "PAZARTESI"
+
+        // $seans = "19-12-2022 - PAZARTESI - 09.40"
+        $seans_date = substr($seans,0, 10) ;
+        $seans_date = date_create($seans_date);
+        $seans_date = date_format($seans_date, 'Y-m-d') ;;
+
+
+
+
         // seans validation END
-        $seansArr = ['seans0900', 'seans0920','seans0940','seans1000', 'seans1020','seans1040','seans1100', 'seans1120','seans1140','seans1330', 'seans1350','seans1410','seans1430', 'seans1450','seans1510','seans1530', 'seans1550','seans1610','seans1630', 'seans1650'] ;
+        $seansArr = ['0900', '0920','0940','1000', '1020','1040','1100', '1120','1140','1330', '1350','1410','1430', '1450','1510','1530', '1550','1610','1630', '1650'] ;
 
-        $s = $seansArr[array_search($seans, $seansArr)] ;
-        
-        $time = substr($s, -4) ;
-      
-        $seansDate = date('Y-m-d') ;
-        $randevuDay = Helper::weekday(date('w')) ;
+        $seans_hour = $seansArr[array_search($seans_hour, $seansArr)] ;
+       
 
-      $query0 = $DBConnect->addRow('INSERT INTO randevu (randevuPatientID, randevuBolum, randevuDay, randevuDoctorID,randevuDate, randevuHour,randevuAddTime) VALUES (?,?,?,?,?,?,?)',[$_SESSION['patientID'],$poliklinik,$randevuDay, $doctors, $seansDate, $time, $seansDate]) ; 
-       $query1 = $DBConnect->updateRow('UPDATE seans SET '.$s.' = ? WHERE seansDoctorID = ? AND seansPoliklinikID = ?',['D', $doctors, $poliklinik]) ; 
+      $query0 = $DBConnect->addRow('INSERT INTO randevu (randevuPatientID, randevuBolum, randevuDay, randevuDoctorID,randevuDate, randevuHour,randevuAddTime) VALUES (?,?,?,?,?,?,?)',[$_SESSION['patientID'],$poliklinik,$seans_day, $doctors, $seans_date, $seans_hour, $seans_date]) ; 
+       $query1 = $DBConnect->updateRow('UPDATE seans SET seans'.$seans_hour.' = ? WHERE seansDoctorID = ? AND seansPoliklinikID = ?',['D', $doctors, $poliklinik]) ; 
         if($query0 && $query1){
             echo Validation::warningMessage("Randevunuz başarılı bir şekilde oluşturuldu." ,"success",'','patients') ;
             die() ;
@@ -438,6 +431,7 @@ break ;
 // addDoctor START
 case 'addDoctor' :
     $poliklinikName = Security::post('poliklinikName') ;
+    $doctorUnvan = Security::post('doctorUnvan') ;
     $doctorName = Security::post('doctorName') ;
     $doctorSurname = Security::post('doctorSurname') ;
     $doctorTCNumber = Security::post('doctorTCNumber') ;
@@ -447,6 +441,9 @@ case 'addDoctor' :
     if(!$poliklinikName){
         echo Validation::warningMessage("Lütfen poliklinik adı giriniz.") ;
         die() ;
+    }
+    if(!$doctorUnvan){
+        $doctorUnvan = "uzm. dr. " ;
     }
 
     if(!$doctorName){
@@ -475,7 +472,7 @@ case 'addDoctor' :
         die() ;
     }
     
-    $query = $DBConnect->addRow('INSERT INTO doctors (doctorName, doctorSurname, doctorTCNumber, doctorPhoneNumber, doctorCityID, doctorHospitalID, doctorPoliklinikID) VALUES (?, ?, ?, ?, ?, ?, ?) ',[$doctorName, $doctorSurname, $doctorTCNumber, $doctorPhoneNumber, 73, 1, $poliklinikName]) ;
+    $query = $DBConnect->addRow('INSERT INTO doctors (doctorUnvan, doctorName, doctorSurname, doctorTCNumber, doctorPhoneNumber, doctorCityID, doctorHospitalID, doctorPoliklinikID) VALUES (?, ?, ?, ?, ?, ?, ?, ?) ',[$doctorUnvan, $doctorName, $doctorSurname, $doctorTCNumber, $doctorPhoneNumber, 73, 1, $poliklinikName]) ;
     $query2 = $DBConnect->getRow('SELECT * FROM doctors WHERE doctorTCNumber = ?',[$doctorTCNumber]) ;
     $doctorID = $query2['doctorID'] ;
     $seansDate = date('Y-m-d') ;        
@@ -909,6 +906,7 @@ break ;
     case 'editSetting' : 
        
         $pageTitle = Security::post('pageTitle') ;
+        $pageHospitalName = Security::post('pageHospitalName') ;
         $pageDescription = Security::post('pageDescription') ;
         $pageKeyword = Security::post('pageKeyword') ;
         $pageUrl = Security::post('pageUrl') ;
@@ -919,6 +917,13 @@ break ;
             echo Validation::warningMessage($text) ;
             die() ;  
         } 
+
+        if(!$pageHospitalName){
+            $text = "Lütfen hastane adı bilgisini giriniz" ;
+            echo Validation::warningMessage($text) ;
+            die() ;  
+        } 
+
         if(!$pageDescription){
             $text = "Lütfen site açıklama bilgisini giriniz" ;
             echo Validation::warningMessage($text) ;
@@ -943,11 +948,12 @@ break ;
        
         $settings = $DBConnect->updateRow('UPDATE settings SET 
         settingTitle = ?, 
+        settingHospitalName = ?, 
         settingDescription = ?,
         settingKeyword = ?,
         settingUrl = ?,
         settingHost = ?
-        WHERE settingID = ?', [$pageTitle, $pageDescription, $pageKeyword, $pageUrl, $pageHosting, 1]) ; 
+        WHERE settingID = ?', [$pageTitle, $pageHospitalName, $pageDescription, $pageKeyword, $pageUrl, $pageHosting, 1]) ; 
         if($settings){           
                 echo Validation::warningMessage("Site Ayarlarınız başarılı bir şekilde güncellenmiştir.", 'success', '', 'pagesettings') ;
                 die() ;                 
@@ -959,6 +965,63 @@ break ;
        
     break ;    
 // editSetting END
+
+
+    // changeSeans START
+    case 'changeSeans' :             
+        $doctorID = Security::post('doctorID') ;  
+        $seansTime = Security::post('seansTime') ;  
+        $seansDate = Security::post('seansDate') ;  
+        $seansVal = Security::post('seansVal') ;  
+
+        $changeVal = ($seansVal == 'D') ? 'B' : 'D' ;
+
+        $seansArr = ['seans0900', 'seans0920','seans0940','seans1000', 'seans1020','seans1040','seans1100', 'seans1120','seans1140','seans1330', 'seans1350','seans1410','seans1430', 'seans1450','seans1510','seans1530', 'seans1550','seans1610','seans1630', 'seans1650'] ;
+
+        $seanstime = substr($seansArr[$seansTime], -4) ;
+
+        $changeSeans = $DBConnect->updateRow('UPDATE seans SET seans'.$seanstime.' = ? WHERE seansDoctorID = ? AND seansDate = ?',[$changeVal, $doctorID, $seansDate]) ;
+        $deleteRandevu = $DBConnect->updateRow('UPDATE randevu SET randevuStatus = ? WHERE randevuHour = ? AND randevuDoctorID = ? AND randevuDate = ?',[0, $seanstime, $doctorID, $seansDate]) ;
+
+       
+       echo 'sonuc: '.$changeSeans.' - randevusonuc : '.$deleteRandevu.'- gelen değer : '.$seansVal.', chenge değer :  '.$changeVal.',  seanstime'.$seanstime.',doktorID '.$doctorID.' - seansDate : '.$seansDate;
+        break ; 
+    // changeSeans END
+
+
+
+// addSeans START
+    case 'addSeans' :
+        $poliklinikName = Security::post('poliklinikName') ;
+        $doctor = Security::post('doctor') ;
+        $seansdate = Security::post('seansdate') ;
+
+
+        if(!$poliklinikName){
+            echo Validation::warningMessage("Lütfen bir poliklinik seçiniz.") ;
+            die() ;
+        }
+        if(!$doctor){
+            echo Validation::warningMessage("Lütfen bir doktor seçiniz.") ;
+            die() ;
+        }
+        if(!$seansdate){
+            echo Validation::warningMessage("Lütfen bir tarih seçiniz.") ;
+            die() ;
+        }
+  
+        $addSeans = $DBConnect->addRow('INSERT INTO seans (seansPoliklinikID, seansDoctorID, seansDate) VALUES (?, ?, ?) ',[$poliklinikName, $doctor, $seansdate]) ;
+
+        if($addSeans){  
+            echo Validation::warningMessage("Seans tanımlama işlemi başarılı bir şekilde gerçekleştirildi.","success",'','seans') ;
+            die() ;
+        }else{
+            echo Validation::warningMessage("Seans tanımlama sırasında beklenmeyen bir hata meydana geldi.","error") ;
+            die() ;
+        }  
+    break ; 
+// addSeans END
+
 
 
 }//swtich END

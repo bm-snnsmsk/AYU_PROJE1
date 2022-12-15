@@ -40,6 +40,11 @@
                         </div> 
                        
                         <div class="form-group row">
+                            <label for="pageHospitalName" class="form-label col-md-4">Hastane Adı</label>
+                            <input type="text" class="form-control col-md-8" id="pageHospitalName" name="pageHospitalName" value="<?= $data['settingHospitalName'] ; ?>">
+                        </div>  
+
+                        <div class="form-group row">
                             <label for="pageTitle" class="form-label col-md-4">Başlık Bilgisi</label>
                             <input type="text" class="form-control col-md-8" id="pageTitle" name="pageTitle" value="<?= $data['settingTitle'] ; ?>">
                         </div>  

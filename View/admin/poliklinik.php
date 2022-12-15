@@ -48,8 +48,8 @@
                                      
                                     <?php foreach($data as $key => $value){  ?>
                                         <tr>
-                                            <th>Silopi Devlet Hastanesi</th>
-                                            <th>  <?= $value['poliklinikName']  ?></th>
+                                            <th> <?= Helper::convertLetter($value['poliklinikName'], 'upper') ?> </th>
+                                            <th>  <?= Helper::convertLetter($value['poliklinikName'], 'upper') ?></th>
                                             <th>  
                                                 <div class="btn-group btn-group-sm">
                                                     <a href="<?= Router::url('polikliniks/delete/'.$value['poliklinikID'])?>" class="btn btn-danger btn-sm ml-1" >Sil</a>

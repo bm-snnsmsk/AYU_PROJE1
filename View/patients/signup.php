@@ -98,10 +98,9 @@
                                     <label class="col-md-3" for="address">Açık Adres</label>
                                     <textarea class="form-control col-md-9" id="address" name="address"></textarea>
                                 </div>
-                                <div class="form-group row">
-                                    <label for="profilephoto" class="form-label col-md-3">Profile Resmi</label>
-                                    <input class="form-control col-md-9" type="file" id="profilephoto" name="profilephoto">
-                                </div> 
+
+                             
+                                
 
                                 <div class="form-group row">
                                 <button name="signupBtn" id="signupBtn" class="btn btn-primary btn-user btn-block">Kayıt Ol<span class="myload"></span></button>

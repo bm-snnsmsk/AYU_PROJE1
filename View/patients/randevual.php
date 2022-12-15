@@ -27,8 +27,6 @@
                             </div>
 
                             <form action="" method="POST" id="randevualForm">
-                              
-                            
                              
                                 <div class="form-group row">
                                     <label class="col-md-4" for="hospitalname">Hastane Seç</label>
@@ -40,7 +38,7 @@
                                     <select class="form-select form-control col-md-8" name="poliklinik" id="poliklinik" aria-label="Default select example">
                                         <option value="0" selected>Poliklinikler</option>
                                         <?php foreach($data as $key => $value){ ?>
-                                            <option value="<?= $value['poliklinikID'] ?>"><?= $value['poliklinikName'] ?></option>
+                                            <option value="<?= $value['poliklinikID'] ?>"><?= Helper::convertLetter($value['poliklinikName'], 'upperWords') ?></option>
                                         <?php } ?> 
                                     </select>                                   
                                 </div> 
@@ -52,11 +50,12 @@
                                     </select>                                   
                                 </div> 
 
-                              
-                                    <div class="col-md-8 offset-4 d-flex justify-content-between flex-wrap"  id="randevular"></div>                              
-                              
-                             
-                            
+                                <div class="form-group row">
+                                    <label class="col-md-4" for="selected_seans">Seçtiğiniz Seans</label>
+                                    <input type="text" class="form-select form-control col-md-8" name="selected_seans" id="selected_seans" readonly >                                
+                                </div>
+
+                                <div class="col-md-8 offset-4 d-flex justify-content-between flex-wrap"  id="randevular"></div> 
 
                                 <div class="form-group row">
                                 <button name="randevual" id="randevualBtn" class="btn btn-primary btn-user btn-block">Randevu Al<span class="myload"></span></button>
@@ -110,6 +109,17 @@ $(function(){ //jQuery START
             success:function(resultData){    
                //alert(resultData);
                 $("#randevular").html(resultData) ;
+
+                //alert(resultData)
+
+                // addEventlistener START
+                let secili_seans = document.querySelectorAll(".seansBtn") ;
+                for(let i = 0 ; i < secili_seans.length ; i++){ 
+                    secili_seans[i].addEventListener('click',() => { 
+                        document.querySelector("#selected_seans").value = secili_seans[i].attributes.getNamedItem("randevu_gunu").value + " - " + secili_seans[i].innerHTML ;
+                    })
+                } 
+                // addEventlistener END
             }
         });       
     }) ;
@@ -149,7 +159,10 @@ frm.addEventListener('submit', function(e){
 
 
 
-     
+        
+
+          
+  
 
 
 

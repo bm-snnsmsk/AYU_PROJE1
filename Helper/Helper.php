@@ -108,7 +108,7 @@ class Helper{
         return $result ;
     }
     public static function weekday($date){
-        $days = ['pazartesi', "salı","çarşamba","perşembe","cuma","cumartesi","pazar"] ;
+        $days = ["pazar", 'pazartesi', "salı","çarşamba","perşembe","cuma","cumartesi"] ;
         return $days[$date] ;
     }
     public static function setTime($time){
@@ -121,6 +121,13 @@ class Helper{
         } 
         return $seans_time ;
     } 
+    public static function setSeans($seansID, $seans_hour, $randevu_day){
+        $result  = '<button type="button" id="seans'.$seansID.'" name="seans'.$seansID.'" class="seansBtn btn btn-info m-1" randevu_gunu="'.$randevu_day.'">'.$seans_hour.'</button>' ;
+        return $result ;
+    } 
+
+
+
 }
 
 ?>

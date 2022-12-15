@@ -58,8 +58,8 @@
                                              <tr>
                                                 <td><?= "Silopi / Şırnak" ; ?></td>
                                                 <td><?= "Silopi Devlet Hastanesi" ; ?></td>
-                                                <td><?= $value['poliklinikName'] ; ?></td>
-                                                <td><?= $value['doctorName']." ".$value['doctorSurname'] ; ?></td>
+                                                <td><?= Helper::convertLetter($value['poliklinikName'], 'upperWords') ; ?></td>
+                                                <td><?= Helper::convertLetter($value['doctorUnvan'], 'upperWords')." ".Helper::convertLetter($value['doctorName'], 'firstUpper')." ".Helper::convertLetter($value['doctorSurname'], 'upper') ; ?></td>
                                                 <td>  
                                                     <div class="btn-group btn-group-sm">
                                                         <a href="<?= Router::url('doctors/delete/'.$value['doctorID'])?>" class="btn btn-danger btn-sm ml-1" >Sil</a>
@@ -112,6 +112,10 @@
                             </select>
                         </div> 
 
+                        <div class="form-group row">
+                            <label for="doctorUnvan" class="form-label col-md-4">Doktor Unvanı</label>
+                            <input type="text" class="form-control col-md-8" id="doctorUnvan" name="doctorUnvan">
+                        </div> 
                         <div class="form-group row">
                             <label for="doctorName" class="form-label col-md-4">Doktor Adı</label>
                             <input type="text" class="form-control col-md-8" id="doctorName" name="doctorName">

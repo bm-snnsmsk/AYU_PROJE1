@@ -59,12 +59,12 @@ foreach($data as $key => $value){
 
                                         <div class="col-sm-3"> 
                                             <div class="card bg-info text-white shadow p-3">
-                                            <?= Helper::convertLetter($value['doctorName'], 'firstUpper')." ".Helper::convertLetter($value['doctorSurname'], 'upper') ; ?>
+                                            <?= Helper::convertLetter($value['doctorUnvan'], 'upperWords')." ".Helper::convertLetter($value['doctorName'], 'firstUpper')." ".Helper::convertLetter($value['doctorSurname'], 'upper') ; ?>
                                             </div>
                                         </div> 
 
                                         <div class="col-sm-3 d-flex justify-content-center justify-content-sm-end"> 
-                                           <a class="btn btn-danger btn-lg" href="<?= Router::url('randevuiptal/'.$value['randevuID']) ; ?>"> Randevu İptal</a>  
+                                           <a class="btn btn-danger btn-lg" href="<?= Router::url('randevuiptal/'.$value['randevuID']) ; ?>" id="randvuiptal"> Randevu İptal</a>  
                                         </div>                                          
                                  <!-- randevular END -->
                                     </div>

@@ -28,7 +28,7 @@
 
                     <hr>            
                     <div class="row"> <!-- Content Row -->
-                        <div class="col-sm-6">
+                        <div class="col-lg-6">
                         <div class="text-center">
                                 <h1 class="h4 text-gray-900 mb-4">Bilgilerini Güncelle</h1>
                         </div>
@@ -63,7 +63,30 @@
                                         <label class="col-md-3" for="birthday">Doğum Tarihi</label>
                                         <input type="date" name="birthday" class="form-control form-control-user col-md-3" disabled id="birthday" value="<?= $data['admin']['adminBirthday'] ?? NULL ;?>">
                                     </div> 
-                                  
+
+                                    <!-- <div class="form-group row">
+                                        <label class="col-md-3" for="cityName">Doğum Yeri</label>
+                                        <select class="form-select form-control col-md-4" name="cityName" id="cityName" aria-label="Default select example" disabled>
+                                            <option value="0>">İl</option>
+                                            <?php 
+                                                foreach($data['cities'] as $key => $value){
+                                            ?>
+                                            <option value="<?= $value['cityID'] ; ?>" <?= ($data['patient']['patientBirthCity'] == $value['cityID']) ? 'selected' : NULL ; ?> ><?= $value['cityName'] ; ?></option>
+                                            <?php 
+                                                } 
+                                            ?>
+                                        </select>                                    
+                                        <select class="form-select form-control col-md-4" name="townName" id="townName" aria-label="Default select example" disabled>
+                                            <option value="<?= $data['patient']['patientBirthTown'] ?? NULL ;?>" selected ><?= $data['patient']['patientBirthTown'] ?? NULL ;?></option>   
+                                            <?php 
+                                                foreach($data['towns'] as $key => $value){
+                                            ?>
+                                            <option value="<?= $value['townID'] ; ?>" <?= ($data['patient']['patientBirthTown'] == $value['townID']) ? 'selected' : NULL ; ?>><?= $value['townName'] ; ?></option>
+                                            <?php 
+                                                } 
+                                            ?>                                    
+                                        </select>
+                                    </div>  -->
                                     
 
                                     <div class="form-group row">
@@ -74,7 +97,7 @@
                         </form>                        
                         </div>
 
-                        <div class="col-sm-6">
+                        <div class="col-lg-6">
                         <div class="text-center">
                                 <h1 class="h4 text-gray-900 mb-4">Parolanı Güncelle</h1>
                         </div>

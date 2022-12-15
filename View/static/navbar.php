@@ -18,8 +18,10 @@
 
     if(isset($_SESSION['patientName'])){
         $name = $_SESSION['patientName'] ;
+        $homepage_url = 'patients' ;
     }else if(isset($_SESSION['adminName'])){
         $name = $_SESSION['adminName'] ;
+        $homepage_url = 'admin' ;
     }else{
         $name = '' ;
     }
@@ -36,7 +38,7 @@
 <!-- Topbar Navbar -->
 <ul class="navbar-nav ml-auto">
     <li class="nav-item"> 
-        <a class="nav-link" href="<?= Router::url('patients') ; ?>">
+        <a class="nav-link" href="<?= Router::url($homepage_url) ; ?>">
             <i class="fas fa-home fa-sm fa-fw mr-2 text-gray-400"></i>Anasayfa
         </a>
     </li>

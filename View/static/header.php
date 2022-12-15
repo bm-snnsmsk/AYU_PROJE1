@@ -1,6 +1,6 @@
 <?php
-// $settings = $DBConnect->getRow('SELECT * FROM settings') ;  
-// <?= $settings['settingDescription'] ; 
+
+
 ?>
 <!DOCTYPE html>
 <html lang="tr-TR">
@@ -25,7 +25,7 @@
        
     <!-- Custom styles for this template-->
     <link href="<?= Router::assets('css/sb-admin-2.min.css') ; ?>" rel="stylesheet">
-    <link href="<?= Router::assets('css/stilim.css') ; ?>" rel="stylesheet">   
+    <link href="<?= Router::assets('css/main_style.css') ; ?>" rel="stylesheet">   
 
 </head>
 
