@@ -216,7 +216,7 @@ break ;
         $ID = Security::post('doctorID') ;  
         
         $result = ''  ;  
-        $seans = $DBConnect->getRow('SELECT * FROM seans WHERE seansDoctorID = ?',[$ID]) ;
+        
 
                
 
@@ -227,82 +227,85 @@ break ;
             $today = date_create(date('d-m-Y'));
             date_modify($today, '+'.(++$sayac).' day');
             $day = date_format($today, 'd-m-Y')." - ".mb_strtoupper(Helper::weekday(date_format($today, 'w'))) ;
+            $seans = $DBConnect->getRow('SELECT * FROM seans WHERE seansDoctorID = ? AND seansDate = ? AND seansStatus = ?',[$ID, date_format($today, 'Y-m-d'),1]) ;
 
-            if((date_format($today, 'w') == 6) || (date_format($today, 'w') == 0)){
-                continue ;
-            }else{
-                $result.='<div class="alert alert-primary mt-2" role="alert">'.$day.'</div> <div>' ;
-
-                if($seans && $seans['seans0900'] == 'B'){
-                    $result.= Helper::setSeans(1,"09.00", $day) ;
-                }    
-                         
-                if($seans && $seans['seans0920'] == 'B'){
-                    $result.= Helper::setSeans(2,"09.20", $day) ;
-                } 
-        
-                if($seans && $seans['seans0940'] == 'B'){
-                    $result.= Helper::setSeans(3,"09.40", $day) ;
-                } 
-        
-                if($seans && $seans['seans1000'] == 'B'){
-                    $result.= Helper::setSeans(4,"10.00", $day) ;
-                }    
-        
-                if($seans && $seans['seans1020'] == 'B'){
-                    $result.= Helper::setSeans(5,"10.20", $day) ;
+            if($seans > 0){ ## seans tablosunda kayıt varsa kayıt varsa
+                if((date_format($today, 'w') == 6) || (date_format($today, 'w') == 0)){
+                    continue ;
+                }else{
+                    $result.='<div class="alert alert-primary mt-2" role="alert">'.$day.'</div> <div>' ;
+    
+                    if($seans && $seans['seans0900'] == 'B'){
+                        $result.= Helper::setSeans(1,"09.00", $day) ;
+                    }    
+                             
+                    if($seans && $seans['seans0920'] == 'B'){
+                        $result.= Helper::setSeans(2,"09.20", $day) ;
+                    } 
+            
+                    if($seans && $seans['seans0940'] == 'B'){
+                        $result.= Helper::setSeans(3,"09.40", $day) ;
+                    } 
+            
+                    if($seans && $seans['seans1000'] == 'B'){
+                        $result.= Helper::setSeans(4,"10.00", $day) ;
+                    }    
+            
+                    if($seans && $seans['seans1020'] == 'B'){
+                        $result.= Helper::setSeans(5,"10.20", $day) ;
+                    }
+                            
+                    if($seans && $seans['seans1040'] == 'B'){
+                        $result.= Helper::setSeans(6,"10.40", $day) ;
+                    }
+                             
+                    if($seans && $seans['seans1100'] == 'B'){
+                        $result.= Helper::setSeans(7,"11.00", $day) ;
+                    }   
+            
+                    if($seans && $seans['seans1120'] == 'B'){
+                        $result.= Helper::setSeans(8,"11.20", $day) ;
+                    }          
+                    if($seans && $seans['seans1140'] == 'B'){
+                        $result.= Helper::setSeans(9,"11.40", $day) ;
+                    }          
+                    if($seans && $seans['seans1330'] == 'B'){
+                        $result.= Helper::setSeans(10,"13.30", $day) ;
+                    }          
+                    if($seans && $seans['seans1350'] == 'B'){
+                        $result.= Helper::setSeans(11,"13.50", $day) ;
+                    }          
+                    if($seans && $seans['seans1410'] == 'B'){
+                        $result.= Helper::setSeans(12,"14.10", $day) ;
+                    }          
+                    if($seans && $seans['seans1430'] == 'B'){
+                        $result.= Helper::setSeans(13,"14.30", $day) ;
+                    }   
+            
+                    if($seans && $seans['seans1450'] == 'B'){
+                        $result.= Helper::setSeans(14,"14.50", $day) ;
+                    }          
+                    if($seans && $seans['seans1510'] == 'B'){
+                        $result.= Helper::setSeans(15,"15.10", $day) ;
+                    }          
+                    if($seans && $seans['seans1530'] == 'B'){
+                        $result.= Helper::setSeans(16,"15.30", $day) ;
+                    }  
+            
+                    if($seans && $seans['seans1550'] == 'B'){
+                        $result.= Helper::setSeans(17,"15.50", $day) ;
+                    }          
+                    if($seans && $seans['seans1610'] == 'B'){
+                        $result.= Helper::setSeans(18,"16.10", $day) ;
+                    }          
+                    if($seans && $seans['seans1630'] == 'B'){
+                        $result.= Helper::setSeans(19,"16.30", $day) ;
+                    }    
+                    if($seans && $seans['seans1650'] == 'B'){
+                        $result.= Helper::setSeans(20,"16.50", $day) ;
+                    }   
+                    $result.="</div>" ;  
                 }
-                        
-                if($seans && $seans['seans1040'] == 'B'){
-                    $result.= Helper::setSeans(6,"10.40", $day) ;
-                }
-                         
-                if($seans && $seans['seans1100'] == 'B'){
-                    $result.= Helper::setSeans(7,"11.00", $day) ;
-                }   
-        
-                if($seans && $seans['seans1120'] == 'B'){
-                    $result.= Helper::setSeans(8,"11.20", $day) ;
-                }          
-                if($seans && $seans['seans1140'] == 'B'){
-                    $result.= Helper::setSeans(9,"11.40", $day) ;
-                }          
-                if($seans && $seans['seans1330'] == 'B'){
-                    $result.= Helper::setSeans(10,"13.30", $day) ;
-                }          
-                if($seans && $seans['seans1350'] == 'B'){
-                    $result.= Helper::setSeans(11,"13.50", $day) ;
-                }          
-                if($seans && $seans['seans1410'] == 'B'){
-                    $result.= Helper::setSeans(12,"14.10", $day) ;
-                }          
-                if($seans && $seans['seans1430'] == 'B'){
-                    $result.= Helper::setSeans(13,"14.30", $day) ;
-                }   
-        
-                if($seans && $seans['seans1450'] == 'B'){
-                    $result.= Helper::setSeans(14,"14.50", $day) ;
-                }          
-                if($seans && $seans['seans1510'] == 'B'){
-                    $result.= Helper::setSeans(15,"15.10", $day) ;
-                }          
-                if($seans && $seans['seans1530'] == 'B'){
-                    $result.= Helper::setSeans(16,"15.30", $day) ;
-                }  
-        
-                if($seans && $seans['seans1550'] == 'B'){
-                    $result.= Helper::setSeans(17,"15.50", $day) ;
-                }          
-                if($seans && $seans['seans1610'] == 'B'){
-                    $result.= Helper::setSeans(18,"16.10", $day) ;
-                }          
-                if($seans && $seans['seans1630'] == 'B'){
-                    $result.= Helper::setSeans(19,"16.30", $day) ;
-                }    
-                if($seans && $seans['seans1650'] == 'B'){
-                    $result.= Helper::setSeans(20,"16.50", $day) ;
-                }   
-                $result.="</div>" ;  
             }
             
             
@@ -358,22 +361,45 @@ case 'randevual' :
 
 
 
+       
+      
+        ## randevu sayısı controlü // bir kişi en fazla 3 farklı randevu alabilir
+        $randevu_count = $DBConnect->getColumn('SELECT patientRandevuCount FROM patients WHERE patientID = ? ',[$_SESSION['patientID']]) ; 
+        if($randevu_count < 3){
+            
+            ## randevu doktor controlü // bir kişi bir doktordan veya bir bölümden farklı zamanlarda bile olsa en fazla 1 randevu alabilir
+            $randevu_doctor = $DBConnect->getRows('SELECT randevuDoctorID, randevuBolum FROM randevu WHERE randevuPatientID = ? ',[$_SESSION['patientID']]) ; 
+            if($randevu_doctor > 0){
+                foreach($randevu_doctor as $val){
+                    if(($val["randevuDoctorID"] == $doctors) || ($val["randevuBolum"] == $poliklinik)){
+                        echo Validation::warningMessage("Aynı doktordan veya aynı bölümden randevunuz bulunmaktadır. Bu randevuyu almak istiyorsanız lütfen mevcut randevunuzu iptal edip tekrar deneyiniz.", "error") ;
+                        die() ;
+                    }
+                }
+            }
 
-        // seans validation END
-        $seansArr = ['0900', '0920','0940','1000', '1020','1040','1100', '1120','1140','1330', '1350','1410','1430', '1450','1510','1530', '1550','1610','1630', '1650'] ;
+            ## randevu oluşturma
+            $query0 = $DBConnect->addRow('INSERT INTO randevu (randevuPatientID, randevuBolum, randevuDay, randevuDoctorID,randevuDate, randevuHour) VALUES (?,?,?,?,?,?)',[$_SESSION['patientID'],$poliklinik,$seans_day, $doctors, $seans_date, $seans_hour]) ; 
+            ## belirlene doktora ait alınan randevu günü ve saatini seans tablosundan pasifleştirme
+            $query1 = $DBConnect->updateRow('UPDATE seans SET seans'.$seans_hour.' = ? WHERE seansDoctorID = ? AND seansPoliklinikID = ? AND seansDate = ?',['D', $doctors, $poliklinik, $seans_date]) ; 
+            if($query0 && $query1){
+                echo Validation::warningMessage("Randevunuz başarılı bir şekilde oluşturuldu." ,"success",'','patients') ;
+                $randevu_count++ ;
+                $DBConnect->updateRow('UPDATE patients SET patientRandevuCount = ? WHERE patientID = ? ',[$randevu_count, $_SESSION['patientID']]) ; 
+                die() ;
+            }else{
+                echo Validation::warningMessage("Randevu alma sırasında beklenmeyen bir hata meydana geldi.", "error") ;
+                die() ;
+            }
 
-        $seans_hour = $seansArr[array_search($seans_hour, $seansArr)] ;
+        }else{
+            echo Validation::warningMessage("Randevu sayısını aştınız. Öncelikle bir tane randevunuzu iptal ediniz. Sonra tekrar deneyiniz.", "error") ;
+            die() ;
+        }
+            
        
 
-      $query0 = $DBConnect->addRow('INSERT INTO randevu (randevuPatientID, randevuBolum, randevuDay, randevuDoctorID,randevuDate, randevuHour,randevuAddTime) VALUES (?,?,?,?,?,?,?)',[$_SESSION['patientID'],$poliklinik,$seans_day, $doctors, $seans_date, $seans_hour, $seans_date]) ; 
-       $query1 = $DBConnect->updateRow('UPDATE seans SET seans'.$seans_hour.' = ? WHERE seansDoctorID = ? AND seansPoliklinikID = ?',['D', $doctors, $poliklinik]) ; 
-        if($query0 && $query1){
-            echo Validation::warningMessage("Randevunuz başarılı bir şekilde oluşturuldu." ,"success",'','patients') ;
-            die() ;
-        }else{
-            echo Validation::warningMessage("Randevu alma sırasında beklenmeyen bir hata meydana geldi.", "error") ;
-            die() ;
-        }  
+          
 break ;    
 // randevual END
 

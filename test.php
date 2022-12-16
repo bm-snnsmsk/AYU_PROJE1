@@ -1,27 +1,19 @@
 <?php
-
-  $seans = "19-12-2022 - PAZARTESI - 09.40" ;
-  $seans_date = substr($seans,0, 10) ;
-
-print_r($seans_date) ;
-echo "<br/>";
+require_once('Helper/Database.php') ;
+require_once('Helper/Helper.php') ;
+$DBConnect = new Database() ;
 
 
-$today = date_create($seans_date);
+$randevu_doctor = $DBConnect->getRows('SELECT randevuDoctorID, randevuBolum FROM randevu WHERE randevuPatientID = ? ',[11]) ;
 
-   $rr = date_format($today, 'Y-m-d') ;
+Helper::test($randevu_doctor) ; 
 
 
- echo($rr) ;
+
   
 
 
 
-// for($i = 0 ; $i < 7 ; $i++){
-//     $today = date_create(date('d-m-Y'));
-// date_modify($today, '+'.$i.' day');
-// echo date_format($today, 'd-m-Y w')."<br/>";
 
-// }
 
 ?>

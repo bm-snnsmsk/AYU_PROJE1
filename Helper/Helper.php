@@ -2,6 +2,8 @@
 
 class Helper{
 
+    
+
     public function __construct(){
        //error_reporting(0) ;
     }   
@@ -124,7 +126,10 @@ class Helper{
     public static function setSeans($seansID, $seans_hour, $randevu_day){
         $result  = '<button type="button" id="seans'.$seansID.'" name="seans'.$seansID.'" class="seansBtn btn btn-info m-1" randevu_gunu="'.$randevu_day.'">'.$seans_hour.'</button>' ;
         return $result ;
-    } 
+    }
+     
+
+
 
 
 

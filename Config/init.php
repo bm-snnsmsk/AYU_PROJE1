@@ -17,6 +17,8 @@ foreach(glob(BASEDIR.'/Helper/'.'*.php') as $files){
 // Veritabanı bağlantsı
 $DBConnect = new Database() ;
 
+
+
 ?>
 
 
