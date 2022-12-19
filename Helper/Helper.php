@@ -1,9 +1,5 @@
 <?php
-
 class Helper{
-
-    
-
     public function __construct(){
        //error_reporting(0) ;
     }   
@@ -162,6 +158,5 @@ class Helper{
             }          
         }
     }
-
 }## class Helper END
 ?>
