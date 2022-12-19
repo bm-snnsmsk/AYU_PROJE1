@@ -46,9 +46,9 @@
                                     </tfoot>
                                     <tbody>                                      
                                      
-                                    <?php foreach($data as $key => $value){  ?>
+                                    <?php foreach($data['poliklinik'] as $key => $value){  ?>
                                         <tr>
-                                            <th> <?= Helper::convertLetter($value['poliklinikName'], 'upper') ?> </th>
+                                            <th> <?= Helper::convertLetter($data['settings']['settingHospitalName'], 'upper') ?> </th>
                                             <th>  <?= Helper::convertLetter($value['poliklinikName'], 'upper') ?></th>
                                             <th>  
                                                 <div class="btn-group btn-group-sm">

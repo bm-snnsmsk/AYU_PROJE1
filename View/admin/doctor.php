@@ -32,7 +32,7 @@
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                     <thead>
                                         <tr>
-                                            <th>Şehir</th>
+                                           
                                             <th>Hastane Adı</th>
                                             <th>Poliklinik Adı</th>
                                             <th>Doktor Adı</th>
@@ -41,7 +41,7 @@
                                     </thead>
                                     <tfoot>
                                         <tr>
-                                            <th>Şehir</th>
+                                          
                                             <th>Hastane Adı</th>
                                             <th>Poliklinik Adı</th>
                                             <th>Doktor Adı</th>
@@ -56,8 +56,8 @@
                                             foreach($data['doctors'] as $key => $value){
                                         ?>
                                              <tr>
-                                                <td><?= "Silopi / Şırnak" ; ?></td>
-                                                <td><?= "Silopi Devlet Hastanesi" ; ?></td>
+                                               
+                                                <td><?= Helper::convertLetter($data['settings']['settingHospitalName'], 'upper') ?></td>
                                                 <td><?= Helper::convertLetter($value['poliklinikName'], 'upperWords') ; ?></td>
                                                 <td><?= Helper::convertLetter($value['doctorUnvan'], 'upperWords')." ".Helper::convertLetter($value['doctorName'], 'firstUpper')." ".Helper::convertLetter($value['doctorSurname'], 'upper') ; ?></td>
                                                 <td>  
@@ -88,14 +88,11 @@
 
                     <form action="" method="POST" id="addDoctorForm">                     
                            
-                        <div class="form-group row">
-                            <label for="cityDoctor" class="form-label col-md-4">Şehir Adı</label>
-                            <input type="text" class="form-control col-md-8" id="cityDoctor" name="cityDoctor" value="Şırnak / Silopi" disabled>
-                        </div>  
+                       
 
                         <div class="form-group row">
                             <label for="hospitalname" class="form-label col-md-4">Hastane Adı</label>
-                            <input type="text" class="form-control col-md-8" id="hospitalname" name="hospitalname" value="Silopi Devlet Hastanesi" disabled>
+                            <input type="text" class="form-control col-md-8" id="hospitalname" name="hospitalname" value = "<?= Helper::convertLetter($data['settings']['settingHospitalName'], 'upper') ?>" disabled>
                         </div>  
                         
                         <div class="form-group row">

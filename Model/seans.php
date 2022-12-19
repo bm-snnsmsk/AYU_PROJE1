@@ -35,25 +35,16 @@ if($process == 'getSeans'){
   seans1650 = ?
   WHERE seansID = ?', ['B','B','B','B','B','B','B','B','B','B','B','B','B','B','B','B','B','B','B','B',$delID]) ;
 
-  $delRandevu = $DBConnect->updateRow('UPDATE randevu SET randevuStatus = ? WHERE randevuDoctorID = ? AND randevuDate = ?', [0, $doctorID, $seansDate]) ;
+  $delRandevu = $DBConnect->deleteRow('DELETE FROM randevu WHERE randevuDoctorID = ? AND randevuDate = ?', [$doctorID, $seansDate]) ;
 
- // Helper::test($delID.' '.$doctorID.' '.$seansDate.' '.$delAllSeans.' '.$delRandevu);
- 
-  if($delAllSeans && $delRandevu){
+
+  if($delAllSeans){
     Router::redirect('seans') ;
   }else{
     return ['success' => false, 'type' => 'warning', 'data' => []] ;
   }    
-}else if($process == 'getpoliklinik'){  
-
-  $getpoliklinik = $DBConnect->getRows('SELECT * FROM poliklinik ORDER BY poliklinikName') ;
-
-  if($getpoliklinik){
-    return ['success' => true, 'type' => 'success', 'data' => $getpoliklinik] ;
-  }else{
-    return ['success' => false, 'type' => 'warning', 'data' => []] ;
-  }    
 }
+
 
 
 ?>

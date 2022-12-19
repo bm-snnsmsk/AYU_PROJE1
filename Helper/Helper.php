@@ -153,11 +153,12 @@ class Helper{
         if(date("Y-m-d") >= $appointment_day && date("H:i") >= $edited_appointment_hour){ ## şuandan önceye ait randevular ve seanslar varsa
             ## şuandan önceye ait seanslar varsa seans tablosundan silinir
             $DBConnect->deleteRow("DELETE FROM seans WHERE seansPoliklinikID = ? AND seansDoctorID = ? AND seansDate = ?", [$poliklinikID, $doctorID, $appointment_day]) ;   
+
             ## şuandan önceye ait alınmış randevular varsa randevu tablosundan silinir
             $isDeletedRandevu = $DBConnect->deleteRow("DELETE FROM randevu WHERE randevuPatientID = ? AND randevuBolum = ? AND randevuDoctorID = ? AND randevuDate = ? AND randevuHour = ?", [$patientID, $poliklinikID, $doctorID, $appointment_day, $appointment_hour]) ;   
             if($isDeletedRandevu){
                 ## şuandan önceye ait alınmış randevular varsa ve randevu tablosundan silinmiş ise ilgili hastanın randevu alabilmesine engel olmaması için max randevu sayısı düzenlenmeli
-                $DBConnect->updateRow('UPDATE patients SET patientRandevuCount = patientRandevuCount - 1 WHERE patientID = ?',[$patientID]) ; 
+               $DBConnect->updateRow('UPDATE patients SET patientRandevuCount = patientRandevuCount - 1 WHERE patientID = ?',[$patientID]) ; 
             }          
         }
     }

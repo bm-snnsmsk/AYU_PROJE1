@@ -1,7 +1,7 @@
 <?php
 
  Router::view('static/header') ; 
- // Helper::test($data) ; 
+ //Helper::test($data) ; 
   //Helper::test($_SESSION) ;
 ?>
     <!-- Page Wrapper -->
@@ -94,10 +94,14 @@
                                     </tfoot>
                                     <tbody>                                      
                                      
-<?php foreach($data as $key => $value){  $sayac = 0 ; ?>
+<?php 
+foreach($data as $key => $value){  $sayac = 0 ; 
+
+    ?>
+
     
     <tr>
-        <td><?= Helper::dateConvert($value['seansDate']) ?></td>
+        <td><?= $value['seansDate'] ; ?></td>
         <td><?= Helper::convertLetter($value['poliklinikName'],'upper') ?></td>
         <td><?= Helper::convertLetter($value['doctorName'],'firstUpper').' '.Helper::convertLetter($value['doctorSurname'],'upper') ?></td>
         <td sinan="<?= $value['doctorID'].'/'.$sayac++.'/'.$value['seansDate'] ?>" data-bs-toggle="tooltip" data-bs-placement="top" title="Seansını değiştirmek için çift tıklayın" class="<?= $value['seans0900'] == 'D' ? 'bg-warning text-light' : '' ; ?> text-center change"><?= $value['seans0900'] ?></td>
@@ -185,7 +189,7 @@
                 dataType :'text',
                 success:function(resultData){ 
                     setTimeout(() => {
-                        alert(resultData);
+                        //alert(resultData);
                         window.location.href = 'seans' ;  
                     }, 500);                                   
                 }

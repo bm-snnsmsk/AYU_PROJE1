@@ -6,8 +6,9 @@ date_default_timezone_set('Europe/Istanbul') ;
 
 
 
+$toplam_seans = $DBConnect->getRow('SELECT COUNT(*) AS toplam FROM seans WHERE seansDoctorID = ?', [46]) ;
 
 
-echo md5(111) ;
+print_r($toplam_seans['toplam']) ;
 
 ?>

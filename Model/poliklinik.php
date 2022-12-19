@@ -2,8 +2,9 @@
 
   if($process == 'getPolikliniks'){    
       $query = $DBConnect->getRows('SELECT * FROM poliklinik ORDER BY poliklinikName ASC') ;
+      $settings = $DBConnect->getRow('SELECT * FROM settings') ;
       if($query){
-       return ['success' => true, 'type' => 'success', 'data' => $query] ;
+       return ['success' => true, 'type' => 'success', 'data' => array_merge(['settings' => $settings], ['poliklinik' => $query])] ;
       }else{
         return ['success' => false, 'type' => 'danger', 'data' =>[] ] ;
       }    
