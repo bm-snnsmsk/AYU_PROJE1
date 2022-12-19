@@ -88,24 +88,7 @@ class Database{
     }
     public function deleteRow($query, $params = NULL){
         return $this->updateRow($query, $params) ; 
-    }
-    public function setRandevu($doctorID, $poliklinikID){
-        $sayac = 0 ;       
-        for($i = 0 ; $i < 15 ; $i++){
-            $today = date_create(date('d-m-Y'));
-            date_modify($today, '+'.(++$sayac).' day');
-            $day = $day = date_format($today, 'Y-m-d') ;
-            
-            if((date_format($today, 'w') == 6) || (date_format($today, 'w') == 0)){
-                continue ;
-            }else{
-            $randevuExist = $this->getRow('SELECT * FROM seans WHERE seansPoliklinikID = ? AND seansDoctorID = ? AND seansDate = ?',[$poliklinikID, $doctorID, $day]) ;
-            if(!$randevuExist){
-                $this->addRow('INSERT INTO seans (seansPoliklinikID, seansDoctorID, seansDate) VALUES (?, ?, ?) ',[$poliklinikID, $doctorID, $day]) ;
-            }
-            }
-        }
-    }
+    }  
     public function maintenance($DB = NULL){
         $showTables = $this->DBConnect->query("SHOW TABLES FROM ".$DB) ; 
         $showTables->setFetchMode(PDO::FETCH_NUM) ;

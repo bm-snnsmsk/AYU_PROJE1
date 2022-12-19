@@ -127,12 +127,40 @@ class Helper{
         $result  = '<button type="button" id="seans'.$seansID.'" name="seans'.$seansID.'" class="seansBtn btn btn-info m-1" randevu_gunu="'.$randevu_day.'">'.$seans_hour.'</button>' ;
         return $result ;
     }
-     
+    ## otomatik olarak mevcut doktorlara randevu oluşturma fonksiyonu
+    public static function setRandevu($doctorID, $poliklinikID){
+        global $DBConnect ;
+        $sayac = 0 ;       
+        for($i = 0 ; $i < 15 ; $i++){
+            $today = date_create(date('d-m-Y'));
+            date_modify($today, '+'.(++$sayac).' day');
+            $day = date_format($today, 'Y-m-d') ;
+            
+            if((date_format($today, 'w') == 6) || (date_format($today, 'w') == 0)){
+                continue ;
+            }else{
+                $randevuExist = $DBConnect->getRow('SELECT * FROM seans WHERE seansPoliklinikID = ? AND seansDoctorID = ? AND seansDate = ?',[$poliklinikID, $doctorID, $day]) ;
+                if(!$randevuExist){
+                    $DBConnect->addRow('INSERT INTO seans (seansPoliklinikID, seansDoctorID, seansDate) VALUES (?, ?, ?) ',[$poliklinikID, $doctorID, $day]) ;
+                }
+            }
+        }
+    }
+    public static function deleteOldAppointment($patientID, $appointment_day, $appointment_hour, $doctorID, $poliklinikID){
+        global $DBConnect ;   
+        $h = str_split($appointment_hour) ; ##  $appointment_hour = 1140  
+        $edited_appointment_hour =  $h[0].$h[1].":".$h[2].$h[3] ; ##  $edited_appointment_hour = 11:40 
+        if(date("Y-m-d") >= $appointment_day && date("H:i") >= $edited_appointment_hour){ ## şuandan önceye ait randevular ve seanslar varsa
+            ## şuandan önceye ait seanslar varsa seans tablosundan silinir
+            $DBConnect->deleteRow("DELETE FROM seans WHERE seansPoliklinikID = ? AND seansDoctorID = ? AND seansDate = ?", [$poliklinikID, $doctorID, $appointment_day]) ;   
+            ## şuandan önceye ait alınmış randevular varsa randevu tablosundan silinir
+            $isDeletedRandevu = $DBConnect->deleteRow("DELETE FROM randevu WHERE randevuPatientID = ? AND randevuBolum = ? AND randevuDoctorID = ? AND randevuDate = ? AND randevuHour = ?", [$patientID, $poliklinikID, $doctorID, $appointment_day, $appointment_hour]) ;   
+            if($isDeletedRandevu){
+                ## şuandan önceye ait alınmış randevular varsa ve randevu tablosundan silinmiş ise ilgili hastanın randevu alabilmesine engel olmaması için max randevu sayısı düzenlenmeli
+                $DBConnect->updateRow('UPDATE patients SET patientRandevuCount = patientRandevuCount - 1 WHERE patientID = ?',[$patientID]) ; 
+            }          
+        }
+    }
 
-
-
-
-
-}
-
+}## class Helper END
 ?>

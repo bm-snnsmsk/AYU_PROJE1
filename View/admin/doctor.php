@@ -126,10 +126,48 @@
                             <input type="text" class="form-control col-md-8" id="doctorSurname" name="doctorSurname">
                         </div>  
 
+                        
                         <div class="form-group row">
                             <label for="doctorTCNumber" class="form-label col-md-4">Doktor TC Numarası</label>
                             <input type="text" class="form-control col-md-8" id="doctorTCNumber" name="doctorTCNumber">
                         </div>
+
+                        <div class="form-group row">
+                            <span class="col-md-4">Cinsiyet </span>
+                            <div class="form-group col-md-8">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="doctorGender" id="female" value="K" checked>
+                                    <label class="form-check-label" for="female">Kadın</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="doctorGender" id="male" value="E">
+                                    <label class="form-check-label" for="male">Erkek</label>
+                                </div>                                   
+                            </div>
+                        </div>
+
+
+                        <div class="form-group row">
+                            <label class="col-md-4" for="cityName">Doğum Yeri</label>
+                            <select class="form-select form-control col-md-4" name="cityName" id="cityName" aria-label="Default select example">
+                                <option value="0" selected>İl</option>
+                                    <?php                                         
+                                        foreach($data['cities'] as $key => $value){
+                                    ?>
+                                <option value="<?= $value['cityID'] ; ?>"><?= $value['cityName'] ; ?></option>
+                                    <?php 
+                                            } 
+                                    ?>
+                                    </select>                                    
+                                    <select class="form-select form-control col-md-4" name="townName" id="townName" aria-label="Default select example">
+                                        <option value="0" selected>İlçe</option>                                       
+                                    </select>
+                                </div> 
+                                <div class="form-group row">
+                                    <label class="col-md-4" for="birthday">Doğum Tarihi</label>
+                                    <input type="date" name="birthday" class="form-control form-control-user col-md-4"
+                                        id="birthday" placeholder="Doğum Tarihi">
+                        </div> 
 
                         <div class="form-group row">
                             <label for="doctorPhoneNumber" class="form-label col-md-4">Doktor Telefon Numarası</label>
@@ -157,6 +195,22 @@
 <script>
 const SITE_URL = '<?= URL ; ?>' ;
 $(function(){ //jQuery START    
+
+      // birthday il ilçe START
+      $('#cityName').change(function(){         
+        let cityID = $(this).val() ;
+        $.ajax({
+            type:'post',
+            url: SITE_URL + '/Controller/api.php?process=getTowns',
+            data:{'cityID':cityID},
+            dataType :'text',
+            success:function(resultData){   
+                //alert(resultData) ;       
+                $("#townName").html(resultData) ;
+            }
+        });       
+    }) ;
+    // birthday il ilçe START
 
     // addDoctor START
     let addDoctor = document.querySelector('#addDoctorForm') ;

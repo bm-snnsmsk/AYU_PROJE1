@@ -26,6 +26,17 @@ if($process == 'login'){
       $_SESSION['adminlogin'] = true ;
       return ['success' => true, 'message' => 'Giriş Başarılı', 'type' => 'success', 'data' => $admin, 'redirect' => 'admin'] ;
     }
+    $doctor = $DBConnect->getRow('SELECT * FROM doctors WHERE doctorTCNumber = ? AND doctorPassword = ?', [$data['tckimlikno'], md5($data['password'])]) ; 
+    if($doctor){
+      $_SESSION['doctorID'] = $doctor['doctorID'] ;
+      $_SESSION['doctorTCNumber'] = $doctor['doctorTCNumber'] ;
+      $_SESSION['doctorName'] = $doctor['doctorName'] ;
+      $_SESSION['doctorSurname'] = $doctor['doctorSurname'] ;
+      $_SESSION['doctorBirthday'] = $doctor['doctorBirthday'] ;
+      $_SESSION['doctorPhoto'] = $doctor['doctorPhoto'] ;
+      $_SESSION['doctorlogin'] = true ;
+      return ['success' => true, 'message' => 'Giriş Başarılı', 'type' => 'success', 'data' => $doctor, 'redirect' => 'doctorpanel'] ;
+    }
     $patient = $DBConnect->getRow('SELECT * FROM patients WHERE patientTCNumber = ? AND patientPassword = ?', [$data['tckimlikno'], md5($data['password'])]) ;
     if($patient){                                                                                                                     
      // test($patient);

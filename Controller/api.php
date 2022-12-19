@@ -217,9 +217,6 @@ break ;
         
         $result = ''  ;  
         
-
-               
-
         $sayac = 0 ;
        
         for($i = 0 ; $i < 15 ; $i++){
@@ -463,6 +460,13 @@ case 'addDoctor' :
     $doctorTCNumber = Security::post('doctorTCNumber') ;
     $doctorPhoneNumber = Security::post('doctorPhoneNumber') ;
 
+    $cityName = Security::post('cityName') ;
+    $townName = Security::post('townName') ;
+    $birthday = Security::post('birthday') ;
+    $doctorGender = Security::post('doctorGender') ;
+
+    $doctorPhoto = ($doctorGender == 'K') ? 'kadin_avatar.png' : 'erkek_avatar.png' ;
+
   
     if(!$poliklinikName){
         echo Validation::warningMessage("Lütfen poliklinik adı giriniz.") ;
@@ -489,6 +493,21 @@ case 'addDoctor' :
         echo Validation::warningMessage("Lütfen geçerli bir doktor TC numarası giriniz") ;
         die() ;
     }
+
+
+   
+    if(!$cityName){
+        echo Validation::warningMessage("Lütfen il alanını boş bırakmayınız !") ;
+        die() ;
+    }
+    if(!$townName){
+        echo Validation::warningMessage("Lütfen ilçe alanını boş bırakmayınız !") ;
+        die() ;
+    }
+    if(!$birthday){
+        echo Validation::warningMessage("Lütfen doğum tarihi alanını boş bırakmayınız !") ;
+        die() ;
+    }
     if(!$doctorPhoneNumber){
         echo Validation::warningMessage("Lütfen telefon numarası giriniz") ;
         die() ;
@@ -497,13 +516,12 @@ case 'addDoctor' :
         echo Validation::warningMessage("Lütfen geçerli bir telefon numarası giriniz") ;
         die() ;
     }
+
+    $firstpassword = md5($doctorTCNumber) ;
     
-    $query = $DBConnect->addRow('INSERT INTO doctors (doctorUnvan, doctorName, doctorSurname, doctorTCNumber, doctorPhoneNumber, doctorCityID, doctorHospitalID, doctorPoliklinikID) VALUES (?, ?, ?, ?, ?, ?, ?, ?) ',[$doctorUnvan, $doctorName, $doctorSurname, $doctorTCNumber, $doctorPhoneNumber, 73, 1, $poliklinikName]) ;
-    $query2 = $DBConnect->getRow('SELECT * FROM doctors WHERE doctorTCNumber = ?',[$doctorTCNumber]) ;
-    $doctorID = $query2['doctorID'] ;
-    $seansDate = date('Y-m-d') ;        
+    $query = $DBConnect->addRow('INSERT INTO doctors (doctorGender,doctorBirthDay, doctorBirthCity, doctorBirthTown,  doctorUnvan, doctorName, doctorSurname, doctorTCNumber, doctorPassword, doctorPhoneNumber,doctorPoliklinikID, doctorPhoto) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) ',[$doctorGender, $birthday, $cityName, $townName, $doctorUnvan, $doctorName, $doctorSurname, $doctorTCNumber, $firstpassword, $doctorPhoneNumber, $poliklinikName, $doctorPhoto]) ;
+     
     if($query){          
-        $DBConnect->addRow('INSERT INTO seans (seansPoliklinikID, seansDoctorID, seansDate) VALUES (?, ?, ?)', [$poliklinikName, $doctorID, $seansDate]) ;
         echo Validation::warningMessage("Doktor ekleme işlemi başarılı bir şekilde gerçekleştirildi.","success",'','doctors') ;
         die() ;
     }else{
@@ -1047,6 +1065,141 @@ break ;
         }  
     break ; 
 // addSeans END
+
+
+
+    // doctorEditProfile START
+    case 'doctorEditProfile' :         
+        
+       
+        $name = Security::post('name') ;
+        $surname = Security::post('surname') ;
+        $cityAddress = Security::post('cityAddress') ;
+        $townAddress = Security::post('townAddress') ;
+        $address = Security::post('address') ;      
+
+        // isim validation START           
+        if(!$name){
+            $text = "Lütfen Adınızı giriniz" ;
+            echo Validation::warningMessage($text) ;
+            die() ;  
+        } 
+        if(!Helper::isLetter($name) || strlen($name) < 3){
+            $text = "Lütfen Geçerli bir isim giriniz" ;
+            echo Validation::warningMessage($text) ;
+            die() ;  
+        }
+        // isim validation END
+
+        // soyisim validation START           
+        if(!$surname){
+            $text = "Lütfen Soyadınızı giriniz" ;
+            echo Validation::warningMessage($text) ;
+            die() ;  
+        }
+        if(!Helper::isLetter($surname) || strlen($surname) < 3){
+            $text = "Lütfen Geçerli bir soyisim giriniz" ;
+            echo Validation::warningMessage($text) ;
+            die() ;  
+        }
+        // soyisim validation END       
+      
+      
+        if(!$cityAddress){
+            $text = "Lütfen adresinizi il olarak giriniz" ;
+            echo Validation::warningMessage($text) ;
+            die() ;  
+        }
+        if(!$townAddress){
+            $text = "Lütfen adresinizi ilçe olarak giriniz" ;
+            echo Validation::warningMessage($text) ;
+            die() ;   
+        }
+        if(!$address){
+            $text = "Lütfen adresinizi ilçe olarak giriniz" ;
+            echo Validation::warningMessage($text) ;
+            die() ;   
+        }
+        
+        $editProfile = $DBConnect->updateRow('UPDATE doctors SET
+            doctorName = ?,
+            doctorSurname = ?,
+            doctorAddressTown = ?,
+            doctorAddressCity = ?,
+            doctorAddress = ? WHERE doctorID  = ? AND doctorTCNumber = ?
+        ',[
+            Helper::convertLetter($name,'lower'),
+            Helper::convertLetter($surname,'lower'),
+            $townAddress,
+            $cityAddress,
+            Helper::convertLetter($address,'lower'),
+            $_SESSION['doctorID'],
+            $_SESSION['doctorTCNumber']
+        ]) ;
+        if($editProfile){           
+             echo Validation::warningMessage("Bilgileriniz başarılı bir şekilde güncellenmiştir.", 'success', '', 'profiledoctor') ;
+             die() ;                 
+        }else{
+            echo Validation::warningMessage("Kayıt sırasında beklenmeyen bir hata meydana geldi.", 'error') ;
+             die() ;   
+        } 
+        
+
+       
+    break ;    
+// doctorEditProfile END
+
+    // doctorEditPassword START
+    case 'doctorEditPassword' : 
+       
+        $expassword = Security::post('expassword') ;
+        $newpassword = Security::post('newpassword') ;
+        $newpasswordagain = Security::post('newpasswordagain') ;
+                
+        if(!$expassword){
+            $text = "Lütfen eski parolanızı giriniz" ;
+            echo Validation::warningMessage($text) ;
+            die() ;  
+        } 
+        if(!$newpassword){
+            $text = "Lütfen yeni bir parola giriniz" ;
+            echo Validation::warningMessage($text) ;
+            die() ;  
+        }              
+        if(!$newpasswordagain){
+            $text = "Lütfen yeni parolayı tekrar giriniz" ;
+            echo Validation::warningMessage($text) ;
+            die() ;  
+        }
+        if(!($newpasswordagain == $newpassword)){
+            $text = "Şifreleriniz eşleşmiyor" ;
+            echo Validation::warningMessage($text) ;
+            die() ;  
+        }
+           
+        $expassword = md5($expassword) ;
+        $newpassword = md5($newpassword) ;
+
+        $issetDoctor = $DBConnect->getRow('SELECT * FROM doctors WHERE doctorPassword  = ? AND doctorID = ? AND doctorTCNumber = ?',[$expassword, $_SESSION['doctorID'], $_SESSION['doctorTCNumber']]) ;
+        if($issetDoctor){           
+            $editPassword = $DBConnect->updateRow('UPDATE doctors SET doctorPassword = ? WHERE doctorID  = ? AND doctorTCNumber = ?',[$newpassword, $_SESSION['doctorID'], $_SESSION['doctorTCNumber']]) ;
+            if($editPassword){           
+                 echo Validation::warningMessage("Bilgileriniz başarılı bir şekilde güncellenmiştir.", 'success', '', 'profiledoctor') ;
+                 die() ;                 
+            }else{
+                echo Validation::warningMessage("Kayıt sırasında beklenmeyen bir hata meydana geldi.", 'error') ;
+                 die() ;   
+            }                
+       }else{
+           echo Validation::warningMessage("Böyle bir kullanıcı bulunamadı", 'error') ;
+           die() ;   
+       } 
+
+       
+    break ;    
+// doctorEditPassword END
+
+
 
 
 

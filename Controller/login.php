@@ -8,11 +8,10 @@ if(Router::route(0) == 'login' && !Router::route(1)){
         $_SESSION['tckimlikno'] = $tckimlikno ;
 
         $return = Router::model('login',['tckimlikno' => $tckimlikno,'password' => $password], 'login') ;
-       //Helper::test($return) ;
-        if($return['success']){
-            if(isset($return['redirect'])){                
+        //Helper::test($return) ;
+        if($return['success']){            
+            if(isset($return['redirect'])){         
                 Router::redirect($return['redirect']) ; 
-                //Router::view($return['redirect'].'/home', $return['data']) ; 
             }
         }else{
             $_SESSION['error'] = [

@@ -10,6 +10,8 @@
 <?php 
     if(isset($_SESSION['patientPhoto'])){
         $profil = $_SESSION['patientPhoto'] ;
+    }else if(isset($_SESSION['doctorPhoto'])){
+        $profil = $_SESSION['doctorPhoto'] ;
     }else if(isset($_SESSION['adminPhoto'])){
         $profil = $_SESSION['adminPhoto'] ;
     }else{
@@ -19,6 +21,9 @@
     if(isset($_SESSION['patientName'])){
         $name = $_SESSION['patientName'] ;
         $homepage_url = 'patients' ;
+    }else if(isset($_SESSION['doctorName'])){
+        $name = $_SESSION['doctorName'] ;
+        $homepage_url = 'doctorpanel' ;
     }else if(isset($_SESSION['adminName'])){
         $name = $_SESSION['adminName'] ;
         $homepage_url = 'admin' ;
@@ -30,6 +35,8 @@
         $surname = $_SESSION['patientSurname'] ;
     }else if(isset($_SESSION['adminSurname'])){
         $surname = $_SESSION['adminSurname'] ; 
+    }else if(isset($_SESSION['doctorSurname'])){
+        $surname = $_SESSION['doctorSurname'] ; 
     }else{
         $surname = '' ;
     }

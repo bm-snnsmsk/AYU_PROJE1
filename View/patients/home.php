@@ -35,11 +35,12 @@ if(count($data) == 0){
     echo "<h1>Randevunuz bulunmamaktadır.</h1>" ; 
 }
 foreach($data as $key => $value){
+
 ?>
 
 
                                 <div class="card-header">
-                                    <h5 class="card-title"> <?= $value['randevuHospital'] ; ?></h5> 
+                                    <h5 class="card-title"> <?= "Silopi Devlet Hastanesi" ; ?></h5> 
                                 </div>                                
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
@@ -53,7 +54,7 @@ foreach($data as $key => $value){
 
                                         <div class="col-sm-3"> 
                                             <div class="card bg-info text-white shadow p-3">
-                                               <?= $value['poliklinikName'] ; ?>
+                                               <?= Helper::convertLetter($value['poliklinikName'], 'upper')  ; ?>
                                             </div>
                                         </div>
 

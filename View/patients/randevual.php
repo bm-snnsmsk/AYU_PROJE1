@@ -55,10 +55,14 @@
                                     <input type="text" class="form-select form-control col-md-8" name="selected_seans" id="selected_seans" readonly >                                
                                 </div>
 
-                                <div class="col-md-8 offset-4 d-flex justify-content-between flex-wrap"  id="randevular"></div> 
+                                <div class="form-group row">
+                                    <div class="col-md-8 offset-4 d-flex justify-content-between flex-wrap"  id="randevular">
+
+                                </div>                              
+                                </div>
 
                                 <div class="form-group row">
-                                <button name="randevual" id="randevualBtn" class="btn btn-primary btn-user btn-block">Randevu Al<span class="myload"></span></button>
+                                <button name="randevual" id="randevualBtn" class="btn btn-primary btn-user btn-block offset-4">Randevu Al<span class="myload"></span></button>
                                 </div> 
                                 
                                 <hr>
