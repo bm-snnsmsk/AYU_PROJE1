@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Anamakine: 127.0.0.1
--- Üretim Zamanı: 19 Ara 2022, 15:39:22
+-- Üretim Zamanı: 19 Ara 2022, 17:30:36
 -- Sunucu sürümü: 10.4.22-MariaDB
 -- PHP Sürümü: 8.1.2
 
@@ -183,11 +183,12 @@ INSERT INTO `doctors` (`doctorID`, `doctorTCNumber`, `doctorPassword`, `doctorUn
 (55, '77777777777', '0', 'uzm. dr. ', 'Mehmet', 'şimşek', 'E', '5777777777', NULL, 0, 73, 0, 0, '', 1, 29, 1, ''),
 (56, '99999999999', '0', 'uzman', 'sinan', 'şimşek', 'E', '5444494263', NULL, 0, 73, 0, 0, '', 1, 31, 1, ''),
 (57, '41252145214', '0', 'Uzm. Dr', 'Emine', 'şimşek', 'K', '5000000000', NULL, 0, 73, 0, 0, '', 1, 29, 1, ''),
-(58, '01201201201', '0', 'Uzm Dr', 'Berivan', 'şimşeksdsd', 'K', '5000000000', NULL, 0, 73, 0, 0, '', 1, 31, 1, ''),
+(58, '01201201201', '0', 'Uzm Dr', 'Berivan', 'şimşek', 'K', '5000000000', NULL, 0, 73, 0, 0, '', 1, 15, 1, ''),
 (60, '14514514566', '0', 'Uzm. Dr', 'Sinan', 'şimşek', 'E', '5666666666', NULL, 0, 73, 0, 0, '', 1, 28, 1, ''),
-(61, '12312332155', '0', 'uzman', 'baran', 'asasa', 'E', '5000000000', NULL, 0, 73, 0, 0, '', 1, 31, 1, ''),
+(61, '12312332155', '0', 'uzman', 'baran', 'şimşek', 'E', '5000000000', NULL, 0, 73, 0, 0, '', 1, 31, 1, ''),
 (62, '12312312355', '698d51a19d8a121ce581499d7b701668', 'Uzm Dr', 'falah', 'yerli', '', '5777777777', NULL, 0, 0, 0, 0, '', 0, 32, 1, ''),
-(63, '14214214233', 'a75e5298d376f307c1a8d6d5d3dbd276', 'Uzm. Dr', 'nezahat', 'onaç', 'K', '5111111111', '0000-00-00', 1990, 9, 0, 0, '', 0, 29, 1, '');
+(63, '14214214233', 'a75e5298d376f307c1a8d6d5d3dbd276', 'Uzm. Dr', 'nezahat', 'onaç', 'K', '5111111111', '0000-00-00', 1990, 9, 0, 0, '', 0, 29, 1, ''),
+(66, '14914914933', '86a2939e77430de364081b90aaf5f71c', 'uzman', 'yusuf', 'aşkın', 'E', '5111111111', '1997-11-11', 11, 190, 0, 0, '', 0, 32, 1, 'erkek_avatar.png');
 
 --
 -- Tetikleyiciler `doctors`
@@ -253,7 +254,8 @@ INSERT INTO `patients` (`patientID`, `patientTCNumber`, `patientName`, `patientS
 (18, '12341234432', 'Medine', 'Sulmaz', 'K', '698d51a19d8a121ce581499d7b701668', '73', '885', '1999-05-11', 23, '2022-11-02', '885', '73', 'Buğdaylı', '::1', 'kadin_avatar.png', 1, 0),
 (20, '32434543562', 'sdsds', 'aaaaaa', 'E', '698d51a19d8a121ce581499d7b701668', '69', '181', '2012-02-01', 10, '2022-11-06', '182', '69', '1111', '::1', 'erkek_avatar.png', 1, 0),
 (21, '12121212121', 'süleyman', 'şimşek', 'E', '698d51a19d8a121ce581499d7b701668', '72', '176', '2022-12-22', 0, '2022-12-01', '186', '11', 'yenişehir', '::1', 'erkek_avatar.png', 1, 0),
-(22, '12312312311', 'pelçim', 'şimşek', 'K', '698d51a19d8a121ce581499d7b701668', '73', '885', '1990-03-01', 32, '2022-12-14', '885', '73', 'cudi mahallesi', '::1', 'kadin_avatar.png', 1, 0);
+(22, '12312312311', 'pelçim', 'şimşek', 'K', '698d51a19d8a121ce581499d7b701668', '73', '885', '1990-03-01', 32, '2022-12-14', '885', '73', 'cudi mahallesi', '::1', 'kadin_avatar.png', 1, 0),
+(23, '14714714788', 'hatice', 'şimşek', 'K', '698d51a19d8a121ce581499d7b701668', '69', '182', '1997-11-11', 25, '2022-12-19', '185', '11', 'yenişehir mahallesi', '::1', 'kadin_avatar.png', 1, 0);
 
 -- --------------------------------------------------------
 
@@ -402,10 +404,10 @@ INSERT INTO `seans` (`seansID`, `seansPoliklinikID`, `seansDoctorID`, `seansDate
 (202, 31, 58, '2022-12-29', 1, 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B'),
 (203, 31, 58, '2022-12-30', 1, 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B'),
 (217, 24, 46, '2023-01-02', 1, 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B'),
-(221, 29, 55, '2023-01-02', 1, 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B'),
+(221, 29, 55, '2023-01-02', 1, 'B', 'D', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B'),
 (222, 31, 56, '2023-01-02', 1, 'B', 'B', 'B', 'D', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B'),
 (223, 29, 57, '2023-01-02', 1, 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B'),
-(224, 31, 58, '2023-01-02', 1, 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B'),
+(224, 31, 58, '2023-01-02', 1, 'D', 'D', 'D', 'D', 'D', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B'),
 (226, 28, 60, '2022-12-18', 1, 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B'),
 (228, 28, 60, '2022-12-20', 1, 'D', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B'),
 (229, 28, 60, '2022-12-21', 1, 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B'),
@@ -437,7 +439,7 @@ INSERT INTO `seans` (`seansID`, `seansPoliklinikID`, `seansDoctorID`, `seansDate
 (257, 15, 49, '2022-12-28', 1, 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B'),
 (258, 15, 49, '2022-12-29', 1, 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B'),
 (259, 15, 49, '2022-12-30', 1, 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B'),
-(260, 15, 49, '2023-01-02', 1, 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B'),
+(260, 15, 49, '2023-01-02', 1, 'B', 'D', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B'),
 (264, 24, 46, '2023-01-03', 1, 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B'),
 (266, 15, 49, '2023-01-03', 1, 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B'),
 (269, 29, 55, '2023-01-03', 1, 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B'),
@@ -478,7 +480,29 @@ INSERT INTO `seans` (`seansID`, `seansPoliklinikID`, `seansDoctorID`, `seansDate
 (316, 35, 65, '2022-12-29', 1, 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B'),
 (317, 35, 65, '2022-12-30', 1, 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B'),
 (318, 35, 65, '2023-01-02', 1, 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B'),
-(319, 35, 65, '2023-01-03', 1, 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B');
+(319, 35, 65, '2023-01-03', 1, 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B'),
+(320, 15, 58, '2022-12-20', 1, 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B'),
+(321, 15, 58, '2022-12-21', 1, 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B'),
+(322, 15, 58, '2022-12-22', 1, 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B'),
+(323, 15, 58, '2022-12-23', 1, 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B'),
+(324, 15, 58, '2022-12-26', 1, 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B'),
+(325, 15, 58, '2022-12-27', 1, 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B'),
+(326, 15, 58, '2022-12-28', 1, 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B'),
+(327, 15, 58, '2022-12-29', 1, 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B'),
+(328, 15, 58, '2022-12-30', 1, 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B'),
+(329, 15, 58, '2023-01-02', 1, 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B'),
+(330, 15, 58, '2023-01-03', 1, 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B'),
+(331, 32, 66, '2022-12-20', 1, 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B'),
+(332, 32, 66, '2022-12-21', 1, 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B'),
+(333, 32, 66, '2022-12-22', 1, 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B'),
+(334, 32, 66, '2022-12-23', 1, 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B'),
+(335, 32, 66, '2022-12-26', 1, 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B'),
+(336, 32, 66, '2022-12-27', 1, 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B'),
+(337, 32, 66, '2022-12-28', 1, 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B'),
+(338, 32, 66, '2022-12-29', 1, 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B'),
+(339, 32, 66, '2022-12-30', 1, 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B'),
+(340, 32, 66, '2023-01-02', 1, 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B'),
+(341, 32, 66, '2023-01-03', 1, 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B');
 
 -- --------------------------------------------------------
 
@@ -502,7 +526,7 @@ CREATE TABLE `settings` (
 --
 
 INSERT INTO `settings` (`settingID`, `settingTitle`, `settingHospitalName`, `settingDescription`, `settingKeyword`, `settingAuthor`, `settingUrl`, `settingHost`) VALUES
-(1, 'Hastane Randevu Sistemi', 'Silopi Kendali Hastanesi', 'Online Hastane Randevu Sistemi,online  randevu alınabilir ve iptal edilebilir', 'php, mysql, ajax, json, html, css, javascript, randevu, hastane, online, 182, özel hastane', 'Sinan Şimşek', 'http://localhost/AYU_PROJE1/', 'http://localhost/AYU_PROJE1/');
+(1, 'Hastane Randevu Sistemi', 'Kendali Hastanesi', 'Online Hastane Randevu Sistemi,online  randevu alınabilir ve iptal edilebilir', 'php, mysql, ajax, json, html, css, javascript, randevu, hastane, online, 182, özel hastane', 'Sinan Şimşek', 'http://localhost/AYU_PROJE1/', 'http://localhost/AYU_PROJE1/');
 
 -- --------------------------------------------------------
 
@@ -1585,13 +1609,13 @@ ALTER TABLE `cities`
 -- Tablo için AUTO_INCREMENT değeri `doctors`
 --
 ALTER TABLE `doctors`
-  MODIFY `doctorID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=66;
+  MODIFY `doctorID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=67;
 
 --
 -- Tablo için AUTO_INCREMENT değeri `patients`
 --
 ALTER TABLE `patients`
-  MODIFY `patientID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `patientID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- Tablo için AUTO_INCREMENT değeri `poliklinik`
@@ -1603,13 +1627,13 @@ ALTER TABLE `poliklinik`
 -- Tablo için AUTO_INCREMENT değeri `randevu`
 --
 ALTER TABLE `randevu`
-  MODIFY `randevuID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=296;
+  MODIFY `randevuID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=297;
 
 --
 -- Tablo için AUTO_INCREMENT değeri `seans`
 --
 ALTER TABLE `seans`
-  MODIFY `seansID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=320;
+  MODIFY `seansID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=342;
 
 --
 -- Tablo için AUTO_INCREMENT değeri `settings`
