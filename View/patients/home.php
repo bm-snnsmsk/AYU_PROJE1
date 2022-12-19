@@ -34,6 +34,7 @@
 if(count($data) == 0){
     echo "<h1>Randevunuz bulunmamaktadır.</h1>" ; 
 }
+if(!empty($data["patient"])){
 foreach($data["patient"] as $key => $value){
 
 ?>
@@ -70,7 +71,7 @@ foreach($data["patient"] as $key => $value){
                                  <!-- randevular END -->
                                     </div>
                                 </div>
-                                <?php  } ?>   
+                                <?php  } } ?>   
                             </div>
                         </div>
 

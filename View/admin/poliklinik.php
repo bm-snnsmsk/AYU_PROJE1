@@ -49,12 +49,12 @@
                                     <?php foreach($data['poliklinik'] as $key => $value){  ?>
                                         <tr>
                                             <th> <?= Helper::convertLetter($data['settings']['settingHospitalName'], 'upper') ?> </th>
-                                            <th>  <?= Helper::convertLetter($value['poliklinikName'], 'upper') ?></th>
-                                            <th>  
+                                            <td>  <?= Helper::convertLetter($value['poliklinikName'], 'upper') ?></td>
+                                            <td>  
                                                 <div class="btn-group btn-group-sm">
                                                     <a href="<?= Router::url('polikliniks/delete/'.$value['poliklinikID'])?>" class="btn btn-danger btn-sm ml-1" >Sil</a>
                                                     <a href="<?= Router::url('polikliniks/edit/'.$value['poliklinikID'])?>" class="btn btn-warning btn-sm ml-1" >Güncelle</a>
-                                                </div></th>
+                                                </div></td>
                                         </tr>
                                     <?php  } ?>
 

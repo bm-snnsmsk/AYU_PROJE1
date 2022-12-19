@@ -57,8 +57,8 @@
                                         ?>
                                              <tr>
                                                
-                                                <td><?= Helper::convertLetter($data['settings']['settingHospitalName'], 'upper') ?></td>
-                                                <td><?= Helper::convertLetter($value['poliklinikName'], 'upperWords') ; ?></td>
+                                                <th><?= Helper::convertLetter($data['settings']['settingHospitalName'], 'upper') ?></th>
+                                                <td><?= Helper::convertLetter($value['poliklinikName'], 'upper') ; ?></td>
                                                 <td><?= Helper::convertLetter($value['doctorUnvan'], 'upperWords')." ".Helper::convertLetter($value['doctorName'], 'firstUpper')." ".Helper::convertLetter($value['doctorSurname'], 'upper') ; ?></td>
                                                 <td>  
                                                     <div class="btn-group btn-group-sm">
@@ -102,7 +102,7 @@
                                 <?php                                        
                                 foreach($data['polikliniks'] as $key => $value){  
                                 ?>    
-                                 <option value="<?= $value['poliklinikID'] ; ?>"><?= $value['poliklinikName'] ; ?></option>  
+                                 <option value="<?= $value['poliklinikID'] ; ?>"><?= Helper::convertLetter($value['poliklinikName'], 'upper') ;   ?></option>  
                                 <?php 
                                     } 
                                 ?>                     
