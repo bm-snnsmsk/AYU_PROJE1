@@ -356,6 +356,15 @@ case 'randevual' :
         $seans_date = date_create($seans_date);
         $seans_date = date_format($seans_date, 'Y-m-d') ;;
 
+        ## aynı gün ve aynı saatte randevu oluşturmasını sorgulamak
+        $randevu_seans = $DBConnect->getRows('SELECT randevuHour, randevuDate FROM randevu WHERE randevuPatientID = ? ',[$_SESSION['patientID']]) ; 
+        foreach($randevu_seans as $value){
+            if(($value['randevuDate'] == $seans_date) && ($value['randevuHour'] == $seans_hour)){
+                $text = "Aynı Gün ve aynı saatte randevu alamazsınız. Lütfen farklı bir saate randevu alınız." ;
+                echo Validation::warningMessage($text) ;
+                die() ;
+            }
+        }
 
 
        

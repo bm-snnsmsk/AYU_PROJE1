@@ -57,7 +57,6 @@
 
                                 <div class="form-group row">
                                     <div class="col-md-8 offset-4 d-flex justify-content-between flex-wrap"  id="randevular">
-
                                 </div>                              
                                 </div>
 
