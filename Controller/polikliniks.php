@@ -14,7 +14,6 @@ if(Router::route(0) == 'polikliniks' && !Router::route(1)){
     $return = Router::model('poliklinik', ['deleteID' => Router::route(2)], 'deletepoliklinik') ;
     Router::view('admin/poliklinik', $return['data']) ;
 }
-
 else{
     require BASEDIR.'/View/static/404.php' ;
 }

@@ -69,14 +69,11 @@
                                     <input type="date" name="birthday" class="form-control form-control-user col-md-3"
                                         id="birthday" placeholder="Doğum Tarihi">
                                 </div> 
-                             
-                               
-                             
-
-                                <div class="form-group row">
-                                <button name="forgetpasswordBtn" id="forgetpasswordBtn" class="btn btn-primary btn-user btn-block">Parolayı Sıfırla<span class="myload"></span></button>
-                                </div> 
                                 
+                                <div class="form-group row">
+                                    <button name="forgetpasswordBtn" id="forgetpasswordBtn" class="btn btn-primary btn-user btn-block">Parolayı Sıfırla<span class="myload"></span>
+                                    </button>
+                                </div>
                                 <hr>
                             </form>                                   
                         </div>                          
@@ -102,15 +99,12 @@ $(function(){ //jQuery START
             url: SITE_URL + '/Controller/api.php?process=getTowns',
             data:{'cityID':cityID},
             dataType :'text',
-            success:function(resultData){   
-                //alert(resultData) ;       
+            success:function(resultData){ 
                 $("#townName").html(resultData) ;
             }
         });       
     }) ;
     // birthday il ilçe START
-
-  
 
     // forgetpassword formu gönderme START
     let forgetpasswordForm = document.querySelector('#forgetpasswordForm') ;
@@ -141,12 +135,6 @@ $(function(){ //jQuery START
         }) ;
     }) ;
     //forgetpassword formu gönderme END
-
-
-
 }) ;//jQuery END
-
-
-
 </script>
 

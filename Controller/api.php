@@ -2,7 +2,6 @@
 require_once "../Config/init.php" ;
 $process = Security::get('process') ;
 
-
 switch($process){
 
     // list towns START
@@ -166,9 +165,12 @@ case 'addPatient' :
                 $patientIPNumber,
                 $patientPhoto
             ]) ;
+            $p = $DBConnect->getRow('SELECT * FROM patients WHERE patientTCNumber = ? ',[$tcnumber]) ;
+ 
             if($signup){
                 // setsession START
                 // $_SESSION['patientID'] = ... ; ID yeni verildi
+                $_SESSION['patientID'] = $p["patientID"] ; 
                 $_SESSION['patientTCNumber'] = $tcnumber ;
                 $_SESSION['patientName'] = $name ;
                 $_SESSION['patientSurname'] = $surname ;
@@ -371,8 +373,7 @@ case 'randevual' :
       
         ## randevu sayısı controlü // bir kişi en fazla 3 farklı randevu alabilir
         $randevu_count = $DBConnect->getColumn('SELECT patientRandevuCount FROM patients WHERE patientID = ? ',[$_SESSION['patientID']]) ; 
-        if($randevu_count < 3){
-            
+        if($randevu_count < 3){            
             ## randevu doktor controlü // bir kişi bir doktordan veya bir bölümden farklı zamanlarda bile olsa en fazla 1 randevu alabilir
             $randevu_doctor = $DBConnect->getRows('SELECT randevuDoctorID, randevuBolum FROM randevu WHERE randevuPatientID = ? ',[$_SESSION['patientID']]) ; 
             if($randevu_doctor > 0){
@@ -546,10 +547,10 @@ break ;
     $doctorSurname = Security::post('doctorSurname') ;
     $editID = Security::post('editID') ;
 
-    if(!$poliklinikname){
-        echo Validation::warningMessage("Lütfen poliklinik ismini giriniz.") ;
-        die() ;
-    }
+    // if(!$poliklinikname){
+    //     echo Validation::warningMessage("Lütfen poliklinik ismini giriniz.") ;
+    //     die() ;
+    // }
     if(!$doctorName){
         echo Validation::warningMessage("Lütfen doktor adını giriniz") ;
         die() ;
@@ -595,7 +596,6 @@ case 'parolaSifirla' :
         die() ;  
     }
     // tc kimlik no validation END
-
     // isim validation START           
     if(!$name){
         $text = "Lütfen Adınızı giriniz" ;
@@ -608,7 +608,6 @@ case 'parolaSifirla' :
         die() ;  
     }
     // isim validation END
-
     // soyisim validation START           
     if(!$surname){
         $text = "Lütfen Soyadınızı giriniz" ;
@@ -644,7 +643,6 @@ case 'parolaSifirla' :
     }
     
     $isset = $DBConnect->getRow('SELECT * FROM patients WHERE patientTCNumber = ? AND patientName = ? AND patientSurname = ? AND patientGender = ? AND patientBirthCity = ? AND patientBirthTown = ? AND patientBirthDay = ?', [$tcnumber, $name, $surname, $patientGender, $cityName, $townName, $birthday]) ;
-
     if($isset){
         @$parolaSifirla = $DBConnect->updateRow('UPDATE patients SET patientPassword = ? WHERE patientID = ?', [NULL, $isset['patientID']]) ;
         if($parolaSifirla){
@@ -674,9 +672,6 @@ case 'parolaSifirla' :
         echo Validation::warningMessage("Parola sıfırlanamadı. Lütfen bilgilerinizi kontrol edip tekrar giriniz.", 'error') ;
         die() ;                 
     }
-    
-
-   
 break ;    
 // parolaSifirla END
 
@@ -1041,40 +1036,7 @@ break ;
         break ; 
     // changeSeans END
 
-
-
-// addSeans START
-    case 'addSeans' :
-        $poliklinikName = Security::post('poliklinikName') ;
-        $doctor = Security::post('doctor') ;
-        $seansdate = Security::post('seansdate') ;
-
-
-        if(!$poliklinikName){
-            echo Validation::warningMessage("Lütfen bir poliklinik seçiniz.") ;
-            die() ;
-        }
-        if(!$doctor){
-            echo Validation::warningMessage("Lütfen bir doktor seçiniz.") ;
-            die() ;
-        }
-        if(!$seansdate){
-            echo Validation::warningMessage("Lütfen bir tarih seçiniz.") ;
-            die() ;
-        }
-  
-        $addSeans = $DBConnect->addRow('INSERT INTO seans (seansPoliklinikID, seansDoctorID, seansDate) VALUES (?, ?, ?) ',[$poliklinikName, $doctor, $seansdate]) ;
-
-        if($addSeans){  
-            echo Validation::warningMessage("Seans tanımlama işlemi başarılı bir şekilde gerçekleştirildi.","success",'','seans') ;
-            die() ;
-        }else{
-            echo Validation::warningMessage("Seans tanımlama sırasında beklenmeyen bir hata meydana geldi.","error") ;
-            die() ;
-        }  
-    break ; 
-// addSeans END
-
+   
 
 
     // doctorEditProfile START

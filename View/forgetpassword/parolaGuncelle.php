@@ -45,9 +45,7 @@
 
 <script>
 const SITE_URL = '<?= URL ; ?>' ;
-$(function(){ //jQuery START
-    
-
+$(function(){ //jQuery START 
     //parolaGuncelle formu gönderme START
     let parolaGuncelleForm = document.querySelector('#parolaGuncelleForm') ;
     document.addEventListener('submit', (e) => {
@@ -62,8 +60,7 @@ $(function(){ //jQuery START
             dataType :'json',
             success:function(resultData){          
                 $(".myload").html('') ;
-                $('#parolaGuncelleFormBtn').prop('disabled', false) ; 
-                
+                $('#parolaGuncelleFormBtn').prop('disabled', false) ;                 
                 if(resultData.redirect){
                     window.location.href = resultData.redirect ;
                 }else{
@@ -77,12 +74,6 @@ $(function(){ //jQuery START
         }) ;
     }) ;
     // parolaGuncelle formu gönderme END
-
-
-
 }) ;//jQuery END
-
-
-
 </script>
 

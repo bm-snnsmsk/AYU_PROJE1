@@ -31,7 +31,7 @@
                     
                     <div class="form-group row">
                             <label class="col-md-4" for="poliklinikName">Poliklinik Seç</label>
-                            <select class="form-select form-control col-md-8" name="poliklinikName" id="poliklinikName" aria-label="Default select example">
+                            <select class="form-select form-control col-md-8" name="poliklinikName" id="poliklinikName" aria-label="Default select example" disabled>
                                 <option value="0">Poliklinik Seç</option>  
                                 <?php                                        
                                 foreach($data['polikliniks'] as $key => $value){  
