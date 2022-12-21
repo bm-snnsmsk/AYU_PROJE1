@@ -3,7 +3,7 @@
 - 1 -- Bu projeyi çalıştırmak için localhost hizmeti sunan xampp, wampserver gibi server yazılımının bilgisayarınızda yüklü olması lazım.
 - 2 -- Projede database olarak MySql kullandığım için database kullanıcı adı ve şifresini bu database serverına göre yazdım. Bu yüzden [phpmyadmin](http://localhost/phpmyadmin/) admin panelini kullanabilirsiniz. 
 - 3 -- phpmyadmin sayfasına gittiğinizde ayu_proje1 adında bir veritabanı oluşturduktan sonra, [İçe Aktar](http://localhost/phpmyadmin/index.php?route=/server/import) linkine giderek AYU_PROJE1 klasörü içinde bulunan ayu_proje1.sql isimli veritabanı dosyasını import etmeniz lazım.
-- 4 -- phpmysql admin paneline veritabanı dosyaını import ettikten sonra projenin anasayfasına [Hastane Randevu sistemi](http://localhost) gidip ziyaret edebilirsiniz.
+- 4 -- phpmysql admin paneline veritabanı dosyaını import ettikten sonra projenin anasayfasına [Hastane Randevu sistemi](http://localhost/AYU_PROJE1/) gidip ziyaret edebilirsiniz.
 
 
 ### Bu programın 3 tane kullanıcı türü vardır
