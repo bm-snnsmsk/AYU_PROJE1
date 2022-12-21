@@ -10,7 +10,7 @@
 ### Tüm kullanıcı türleri için aynı pencereden giriş yapılır 
 ### Giriş yapıldıktan sonra Model/login tarafında, hangi kullanıcı türü giriş yaptıysa ilgili kullanıcı türünün Anasayfasına yönlendirilir
 
-## admin - Kullanıcı 1 
+## admin 
 - tc kimlik no : 45145145199
 - şifre : 111
 
