@@ -18,11 +18,11 @@
 
 ## doctor 1
 - tc kimlik no : 14914914933
-- şifre : 111   // doktor ilk defa eklendiğinde şifre tc numarasıdır
+- şifre : 14914914933   // doktor ilk defa eklendiğinde şifre tc numarasıdır
 
 ## doctor 2
 - tc kimlik no : 14214214233
-- şifre : 111
+- şifre : 14214214233
 
 ## hasta 1 
 - tc kimlik no : 11111111111
